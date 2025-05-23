@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.core.presentation.ui
+package ru.practicum.android.microhh.core.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.R
+import ru.practicum.android.microhh.BuildConfig
+import ru.practicum.android.microhh.R
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

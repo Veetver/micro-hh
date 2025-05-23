@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "ru.practicum.android.diploma"
+    namespace = "ru.practicum.android.microhh"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "ru.practicum.android.diploma"
+        applicationId = "ru.practicum.android.microhh"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1

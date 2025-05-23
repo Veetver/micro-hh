@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.core
+package ru.practicum.android.microhh.core
 
 import android.app.Application
 
