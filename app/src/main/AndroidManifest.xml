@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PracticumAndroidDiploma"
+        android:theme="@style/Theme.MicroHH"
         tools:targetApi="31">
         <activity
             android:name="ru.practicum.android.microhh.core.presentation.ui.RootActivity"
