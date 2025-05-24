@@ -28,23 +28,27 @@ class RootActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val vacancyResponse = response.body()
-                    Log.d("API_RESPONSE", "Total Found: ${vacancyResponse?.found}")
-                    Log.d("API_RESPONSE", "Current Page: ${vacancyResponse?.page}")
-                    Log.d("API_RESPONSE", "Items Per Page: ${vacancyResponse?.perPage}")
+                    Log.d(Constants.API_RESPONSE_TAG, "Total Found: ${vacancyResponse?.found}")
+                    Log.d(Constants.API_RESPONSE_TAG, "Current Page: ${vacancyResponse?.page}")
+                    Log.d(Constants.API_RESPONSE_TAG, "Items Per Page: ${vacancyResponse?.perPage}")
 
                     vacancyResponse?.items?.forEach { vacancy ->
-                        Log.d("API_RESPONSE", "Vacancy Name: ${vacancy.name}")
-                        Log.d("API_RESPONSE", "Employer: ${vacancy.employer?.name}")
+                        Log.d(Constants.API_RESPONSE_TAG, "Vacancy Name: ${vacancy.name}")
+                        Log.d(Constants.API_RESPONSE_TAG, "Employer: ${vacancy.employer?.name}")
                     }
                 } else {
-                    Log.e("API_ERROR", "Error: ${response.code()}")
+                    Log.e(Constants.API_RESPONSE_TAG, "Error: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<VacancyResponse>, t: Throwable) {
-                Log.e("API_FAILURE", "Request failed: ${t.message}")
+                Log.e(Constants.API_RESPONSE_TAG, "Request failed: ${t.message}")
             }
         })
+    }
+
+    object Constants {
+        const val API_RESPONSE_TAG = "API_RESPONSE"
     }
 
 }
