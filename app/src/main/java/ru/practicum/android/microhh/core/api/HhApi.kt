@@ -8,6 +8,8 @@ import ru.practicum.android.microhh.core.models.VacancyResponse
 
 interface HhApi {
     @GET("/vacancies")
-    fun vacancies(@Query("text") text: String,
-                  @Header("Authorization") token: String): Call<VacancyResponse>
+    fun vacancies(
+        @Query("text") text: String,
+        @Header("Authorization") token: String
+    ): Call<VacancyResponse>
 }
