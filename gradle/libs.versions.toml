@@ -7,11 +7,15 @@ minSdk = "26"
 compileSdk = "34"
 targetSdk = "33"
 
+koinAndroid = "4.0.0"
+
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
 
 [libraries]
+
+koinAndroid= { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 
 # Detekt
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
