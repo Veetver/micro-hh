@@ -8,10 +8,11 @@ data class JobInfo(
     val salaryFrom: Int?,
     val salaryTo: Int?,
     val currency: String,
-    var experience: String,
-    var employmentFormName: String?,
-    var workFormatName: String?,
-    var description: String,
-    var keySkills: String
+    val experience: String,
+    val employmentFormName: String?,
+    val workFormatName: String?,
+    val description: String,
+    val keySkills: String,
+    var isFavorite: Boolean = false
 ) : java.io.Serializable
 

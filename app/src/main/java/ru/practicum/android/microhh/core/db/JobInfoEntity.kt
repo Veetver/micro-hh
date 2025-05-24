@@ -24,15 +24,15 @@ data class JobInfoEntity(
     val currency: String,
     // для экрана отображения деталей избранной вакансии без интернета
     @ColumnInfo(name = "experience")
-    var experience: String,
+    val experience: String,
     @ColumnInfo(name = "employment_form_name")
-    var employmentFormName: String?,
+    val employmentFormName: String?,
     @ColumnInfo(name = "work_format_name")
-    var workFormatName: String?,
+    val workFormatName: String?,
     @ColumnInfo(name = "description")
-    var description: String,
+    val description: String,
     @ColumnInfo(name = "key_skills")
-    var keySkills: String,
+    val keySkills: String,
     @ColumnInfo(name = "job_added_toDB_at")
     val addedAt: String,
 )

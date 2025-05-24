@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
     version = 1,
     entities = [JobInfoEntity::class]
 )
-
 abstract class AppDataBase : RoomDatabase() {
     abstract fun shoplistDao(): JobInfoDao
 }
