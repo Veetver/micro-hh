@@ -1,0 +1,30 @@
+package ru.practicum.android.microhh.core.models.items
+
+data class Vacancy(
+    val id: String,
+    val premium: Boolean,
+    val has_test: Boolean,
+    val response_url: String?,
+    val address: String?,
+    val alternate_url: String,
+    val apply_alternate_url: String,
+    val department: Department,
+    val salary: Salary?,
+    val name: String,
+    val insider_interview: InsiderInterview?,
+    val area: Area,
+    val url: String,
+    val published_at: String,
+    val relations: List<Any>,
+    val employer: Employer,
+    val response_letter_required: Boolean,
+    val type: Type,
+    val archived: String,
+    val working_days: List<WorkingDay>,
+    val working_time_intervals: List<WorkingTimeInterval>,
+    val working_time_modes: List<WorkingTimeMode>,
+    val accept_temporary: Boolean,
+    val experience: Experience,
+    val employment: Employment,
+    val show_logo_in_search: Boolean
+)
