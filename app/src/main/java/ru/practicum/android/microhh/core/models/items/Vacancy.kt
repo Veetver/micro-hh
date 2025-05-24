@@ -7,7 +7,6 @@ data class Vacancy(
     @SerializedName("premium") val premium: Boolean,
     @SerializedName("has_test") val hasTest: Boolean,
     @SerializedName("response_url") val responseUrl: String?,
-    @SerializedName("address") val address: String?,
     @SerializedName("alternate_url") val alternateUrl: String,
     @SerializedName("apply_alternate_url") val applyAlternateUrl: String,
     @SerializedName("department") val department: Department,
