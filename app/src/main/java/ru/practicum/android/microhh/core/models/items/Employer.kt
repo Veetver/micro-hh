@@ -1,9 +1,11 @@
 package ru.practicum.android.microhh.core.models.items
 
+import com.google.gson.annotations.SerializedName
+
 data class Employer(
-    val url: String,
-    val alternate_url: String,
-    val logo_urls: LogoUrls,
-    val name: String,
-    val id: String
+    @SerializedName("url") val url: String,
+    @SerializedName("alternate_url") val alternateUrl: String,
+    @SerializedName("logo_urls") val logoUrls: LogoUrls,
+    @SerializedName("name") val name: String,
+    @SerializedName("id") val id: String
 )

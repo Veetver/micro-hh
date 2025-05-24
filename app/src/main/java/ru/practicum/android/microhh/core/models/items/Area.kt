@@ -1,7 +1,9 @@
 package ru.practicum.android.microhh.core.models.items
 
+import com.google.gson.annotations.SerializedName
+
 data class Area(
-    val url: String,
-    val id: String,
-    val name: String
+    @SerializedName("url") val url: String,
+    @SerializedName("id") val id: String,
+    @SerializedName("name") val name: String
 )

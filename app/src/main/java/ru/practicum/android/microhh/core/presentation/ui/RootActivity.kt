@@ -30,7 +30,7 @@ class RootActivity : AppCompatActivity() {
                     val vacancyResponse = response.body()
                     Log.d("API_RESPONSE", "Total Found: ${vacancyResponse?.found}")
                     Log.d("API_RESPONSE", "Current Page: ${vacancyResponse?.page}")
-                    Log.d("API_RESPONSE", "Items Per Page: ${vacancyResponse?.per_page}")
+                    Log.d("API_RESPONSE", "Items Per Page: ${vacancyResponse?.perPage}")
 
                     vacancyResponse?.items?.forEach { vacancy ->
                         Log.d("API_RESPONSE", "Vacancy Name: ${vacancy.name}")

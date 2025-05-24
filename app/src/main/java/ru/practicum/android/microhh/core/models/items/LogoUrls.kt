@@ -1,5 +1,9 @@
 package ru.practicum.android.microhh.core.models.items
 
+import com.google.gson.annotations.SerializedName
+
 data class LogoUrls(
-    val original: String
+    @SerializedName("90") val size90: String,
+    @SerializedName("240") val size240: String,
+    @SerializedName("original") val original: String
 )

@@ -1,16 +1,17 @@
 package ru.practicum.android.microhh.core.models
 
 import ru.practicum.android.microhh.core.models.items.Vacancy
+import com.google.gson.annotations.SerializedName
 
 data class VacancyResponse(
-    val items: List<Vacancy>,
-    val found: Int,
-    val pages: Int,
-    val page: Int,
-    val per_page: Int,
-    val clusters: Any?,
-    val arguments: Any?,
-    val fixes: Any?,
-    val suggests: Any?,
-    val alternate_url: String
+    @SerializedName("items") val items: List<Vacancy>,
+    @SerializedName("found") val found: Int,
+    @SerializedName("pages") val pages: Int,
+    @SerializedName("page") val page: Int,
+    @SerializedName("per_page") val perPage: Int,
+    @SerializedName("clusters") val clusters: Any?,
+    @SerializedName("arguments") val arguments: Any?,
+    @SerializedName("fixes") val fixes: Any?,
+    @SerializedName("suggests") val suggests: Any?,
+    @SerializedName("alternate_url") val alternateUrl: String
 )
