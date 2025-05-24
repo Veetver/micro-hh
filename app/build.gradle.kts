@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // DI
-    implementation(libs.koin.core)
+    implementation (libs.koinAndroid)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
