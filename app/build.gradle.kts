@@ -1,15 +1,17 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.androidx.navigation.safeargs.kotlin)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
 android {
-    namespace = "ru.practicum.android.diploma"
+    namespace = "ru.practicum.android.microhh"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "ru.practicum.android.diploma"
+        applicationId = "ru.practicum.android.microhh"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
@@ -43,9 +45,30 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
+    // Database
+    implementation(libs.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.androidx.room.paging)
+
+    // HTTP Client
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation(libs.glide)
+
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // DI
+    implementation(libs.koin.core)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
