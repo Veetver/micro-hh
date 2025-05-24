@@ -1,7 +1,7 @@
 package ru.practicum.android.microhh.core.models
 
-import ru.practicum.android.microhh.core.models.items.Vacancy
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.microhh.core.models.items.Vacancy
 
 data class VacancyResponse(
     @SerializedName("items") val items: List<Vacancy>,
