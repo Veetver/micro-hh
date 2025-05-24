@@ -23,10 +23,10 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         HhApiInstance.HHService.vacancies("", "Bearer $accessToken").enqueue(object : Callback<VacancyResponse> {
-            override fun onResponse(call: Call<VacancyResponse>,
-                                    response: Response<VacancyResponse>
+            override fun onResponse(
+                call: Call<VacancyResponse>,
+                response: Response<VacancyResponse>
             ) {
-                Log.d("API_RESPONSE", "Response id success ? - " + response.isSuccessful)
                 if (response.isSuccessful) {
                     val vacancyResponse = response.body()
                     Log.d("API_RESPONSE", "Total Found: ${vacancyResponse?.found}")
@@ -41,6 +41,7 @@ class RootActivity : AppCompatActivity() {
                     Log.e("API_ERROR", "Error: ${response.code()}")
                 }
             }
+
             override fun onFailure(call: Call<VacancyResponse>, t: Throwable) {
                 Log.e("API_FAILURE", "Request failed: ${t.message}")
             }
