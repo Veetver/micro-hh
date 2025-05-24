@@ -29,7 +29,7 @@ data class JobInfoEntity(
     var employmentFormName: String,
     @ColumnInfo(name = "work_format_name")
     var workFormatName: String,
-    @ColumnInfo(name = "job_description")
+    @ColumnInfo(name = "description")
     var description: String,
     @ColumnInfo(name = "key_skills")
     var keySkills: String,
