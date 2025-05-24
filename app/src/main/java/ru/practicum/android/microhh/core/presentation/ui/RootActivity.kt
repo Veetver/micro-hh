@@ -3,7 +3,6 @@ package ru.practicum.android.microhh.core.presentation.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
