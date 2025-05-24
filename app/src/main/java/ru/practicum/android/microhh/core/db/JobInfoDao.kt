@@ -11,7 +11,7 @@ interface JobInfoDao {
     fun insertJob(jobInfoEntity: JobInfoEntity)
 
     @Query("DELETE FROM job_info_table WHERE id = :id")
-    fun deleteJob(id: Int)
+    fun deleteJob(id: Long)
 
     @Query(
         "SELECT id, name, area_name, employer_name, " +

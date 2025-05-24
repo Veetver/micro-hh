@@ -9,7 +9,7 @@ data class JobInfoEntity(
     // для экрана отображения списка избранных вакансий
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "area_name")

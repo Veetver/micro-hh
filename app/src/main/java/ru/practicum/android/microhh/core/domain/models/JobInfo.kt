@@ -1,7 +1,7 @@
 package ru.practicum.android.microhh.core.domain.models
 
 data class JobInfo(
-    val id: Int,
+    val id: Long,
     val name: String,
     val areaName: String,
     val employerName: String,
