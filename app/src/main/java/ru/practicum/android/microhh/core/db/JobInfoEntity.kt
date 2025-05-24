@@ -17,18 +17,18 @@ data class JobInfoEntity(
     @ColumnInfo(name = "employer_name")
     val employerName: String,
     @ColumnInfo(name = "salary_range_from")
-    val salaryFrom: Int,
+    val salaryFrom: Int?,
     @ColumnInfo(name = "salary_range_to")
-    val salaryTo: Int,
+    val salaryTo: Int?,
     @ColumnInfo(name = "currency")
     val currency: String,
     // для экрана отображения деталей избранной вакансии без интернета
     @ColumnInfo(name = "experience")
     var experience: String,
     @ColumnInfo(name = "employment_form_name")
-    var employmentFormName: String,
+    var employmentFormName: String?,
     @ColumnInfo(name = "work_format_name")
-    var workFormatName: String,
+    var workFormatName: String?,
     @ColumnInfo(name = "description")
     var description: String,
     @ColumnInfo(name = "key_skills")
