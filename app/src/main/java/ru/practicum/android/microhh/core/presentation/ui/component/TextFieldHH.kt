@@ -1,0 +1,164 @@
+package ru.practicum.android.microhh.core.presentation.ui.component
+
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
+import androidx.annotation.AttrRes
+import androidx.annotation.StyleRes
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.widget.doOnTextChanged
+import com.google.android.material.textfield.TextInputLayout.END_ICON_CUSTOM
+import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.databinding.TextFieldHhBinding
+
+class TextFieldHH @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    @AttrRes defStyleAttr: Int = R.attr.hhTextFieldStyle,
+    @StyleRes defStyleRes: Int = R.style.TextFieldHHStyle,
+) : LinearLayout(
+    context, attrs, defStyleAttr, defStyleRes
+) {
+    private var binding: TextFieldHhBinding = TextFieldHhBinding.inflate(LayoutInflater.from(context), this)
+
+    private var placeholderTextColor: Int = 0
+    private var hintTextColor: Int = 0
+    private var hintTextColorFocused: Int = 0
+    private var hintTextColorFilled: Int = 0
+    private var textColor: Int = 0
+    private var iconColor: Int = 0
+    private var backgroundColor: Int = 0
+    private var mode: Int = 0
+
+    private val closeIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_close)
+    private val searchIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_search)
+
+    private var onTextChanged: (String) -> Unit = {}
+    private var onTextCleared: () -> Unit = {}
+
+    init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.TextFieldHH,
+            defStyleAttr,
+            defStyleRes
+        ).apply {
+            try {
+                placeholderTextColor = getColor(R.styleable.TextFieldHH_placeholderTextColor, 0)
+                hintTextColor = getColor(R.styleable.TextFieldHH_hintTextColor, 0)
+                hintTextColorFocused = getColor(R.styleable.TextFieldHH_hintTextColorFocused, 0)
+                hintTextColorFilled = getColor(R.styleable.TextFieldHH_hintTextColorFilled, 0)
+                textColor = getColor(R.styleable.TextFieldHH_textColor, 0)
+                iconColor = getColor(R.styleable.TextFieldHH_iconColor, 0)
+                backgroundColor = getColor(R.styleable.TextFieldHH_backgroundColor, 0)
+                mode = getInt(R.styleable.TextFieldHH_mode, 0)
+
+
+                binding.filledTextInputLayout.endIconMode = END_ICON_CUSTOM
+                when (mode) {
+                    0 -> {
+                        binding.filledTextInputLayout.hintTextColor = ColorStateList.valueOf(hintTextColorFocused)
+
+                        binding.filledTextInputLayout.endIconDrawable = closeIcon
+
+                        binding.filledTextInputLayout.hint = getText(R.styleable.TextFieldHH_hintText)
+
+                        binding.filledTextInputLayout.defaultHintTextColor =
+                            if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty())
+                                ColorStateList.valueOf(hintTextColorFilled) else
+                                ColorStateList.valueOf(hintTextColor)
+
+                        binding.filledTextInputLayout.isEndIconVisible = !binding.filledTextInputLayout.editText?.text.isNullOrEmpty()
+                    }
+
+                    else -> {
+                        binding.filledTextInputLayout.endIconDrawable = searchIcon
+                        binding.filledTextInputLayout.editText?.let { editText ->
+                            editText.setPadding(editText.paddingLeft, editText.paddingBottom, editText.paddingRight, editText.paddingBottom)
+                        }
+                    }
+                }
+
+
+                with(binding) {
+
+                    filledTextInputLayout.placeholderTextColor = ColorStateList.valueOf(placeholderTextColor)
+                    filledTextInputLayout.editText?.setTextColor(textColor)
+                    filledTextInputLayout.setEndIconTintList(ColorStateList.valueOf(iconColor))
+                    filledTextInputLayout.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+
+                    filledTextInputLayout.placeholderText = getText(R.styleable.TextFieldHH_placeholderText)
+
+                    filledTextInputLayout.editText?.setText(getText(R.styleable.TextFieldHH_text))
+
+                }
+            } finally {
+                recycle()
+            }
+        }
+
+        binding.filledTextInputLayout.editText?.onFocusChangeListener = object : OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                if (hasFocus) {
+                    binding.filledTextInputLayout.hintTextColor = ColorStateList.valueOf(hintTextColorFocused)
+                } else {
+                    if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty()) {
+                        binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColorFilled)
+                    } else {
+                        binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColor)
+                    }
+                }
+            }
+        }
+
+        binding.filledTextInputLayout.editText?.doOnTextChanged { text, _, _, _ ->
+            onTextChanged(text.toString())
+            if (binding.filledTextInputLayout.editText?.isFocused == false) {
+                if (!text.isNullOrEmpty()) {
+                    binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColorFilled)
+
+                } else if (binding.filledTextInputLayout.editText?.isFocused == false) {
+                    binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColor)
+
+                }
+            }
+
+            if (!text.isNullOrEmpty()) {
+                when (mode) {
+                    0 -> {
+                        binding.filledTextInputLayout.isEndIconVisible = true
+                    }
+                    1 -> {
+                        binding.filledTextInputLayout.endIconDrawable = closeIcon
+                    }
+                }
+            } else {
+                when (mode) {
+                    0 -> {
+                        binding.filledTextInputLayout.isEndIconVisible = false
+                    }
+                    1 -> {
+                        binding.filledTextInputLayout.endIconDrawable = searchIcon
+                    }
+                }
+            }
+        }
+
+        binding.filledTextInputLayout.setEndIconOnClickListener {
+            binding.filledTextInputLayout.editText?.text?.clear()
+            onTextCleared()
+        }
+    }
+
+    fun setOnTextChanged(action: (String) -> Unit) {
+        onTextChanged = action
+    }
+
+    fun setOnClearText(action: () -> Unit) {
+        onTextCleared = action
+    }
+}
