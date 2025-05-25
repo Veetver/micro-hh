@@ -17,10 +17,8 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         if (NetworkUtils.isNetworkAvailable(this)) {
-            Log.d("NETWORK", "Network is available")
+            networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
         }
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
     private fun networkRequestExample(accessToken: String) {
