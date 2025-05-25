@@ -8,6 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.practicum.android.microhh.BuildConfig
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.core.api.HhApiInstance
 import ru.practicum.android.microhh.core.models.VacancyResponse
 
@@ -15,9 +16,10 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
-
         // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+        }
     }
 
     private fun networkRequestExample(accessToken: String) {
