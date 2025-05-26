@@ -10,12 +10,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.practicum.android.microhh.BuildConfig
 import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.databinding.ActivityRootBinding
-import ru.practicum.android.microhh.BuildConfig
-import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.core.api.HhApiInstance
 import ru.practicum.android.microhh.core.models.VacancyResponse
+import ru.practicum.android.microhh.core.utils.NetworkUtils
+import ru.practicum.android.microhh.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
 
