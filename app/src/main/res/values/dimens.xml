@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="side_padding_16">16dp</dimen>
+    <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="inside_padding_16">16dp</dimen>
+</resources>
