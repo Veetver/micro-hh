@@ -9,4 +9,6 @@
     <string name="favorites_fragment_title">Избранное</string>
     <string name="vacancy_fragment_title">Вакансия</string>
     <string name="team_fragment_title">Команда</string>
+
+    <string name="main_screen_title">Главная</string>
 </resources>
