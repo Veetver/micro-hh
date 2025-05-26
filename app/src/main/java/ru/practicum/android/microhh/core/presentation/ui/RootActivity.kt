@@ -24,7 +24,7 @@ class RootActivity : AppCompatActivity() {
         setContentView(binding.root)
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-        //setupUI()
+        setupUI()
     }
 
     private fun networkRequestExample(accessToken: String) {
@@ -33,7 +33,7 @@ class RootActivity : AppCompatActivity() {
 
 
     private fun setupUI() {
-        //navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment?.navController
 
         navController?.addOnDestinationChangedListener { _, destination, _ ->

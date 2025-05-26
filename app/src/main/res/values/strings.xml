@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">micro hh</string>
+    <string name="search_fragment_title">Поиск вакансий</string>
+    <string name="workplace_fragment_title">Выбор места работы</string>
+    <string name="filters_fragment_title">Настройки фильтрации</string>
+    <string name="country_fragment_title">Выбор страны</string>
+    <string name="region_fragment_title">Выбор региона</string>
+    <string name="industry_fragment_title">Выбор отрасли</string>
+    <string name="favorites_fragment_title">Избранное</string>
+    <string name="vacancy_fragment_title">Вакансия</string>
+    <string name="team_fragment_title">Команда</string>
 </resources>
