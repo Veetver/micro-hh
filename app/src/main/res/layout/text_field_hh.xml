@@ -10,20 +10,20 @@
         android:id="@+id/filled_text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:boxCornerRadiusBottomEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
+        android:layout_margin="@dimen/padding_16dp"
+        app:boxCornerRadiusBottomEnd="@dimen/corner_raduis_12"
+        app:boxCornerRadiusBottomStart="@dimen/corner_raduis_12"
+        app:boxCornerRadiusTopEnd="@dimen/corner_raduis_12"
+        app:boxCornerRadiusTopStart="@dimen/corner_raduis_12"
+        app:boxStrokeWidth="@dimen/default_text_field_box_stroke"
+        app:boxStrokeWidthFocused="@dimen/default_text_field_box_stroke"
         app:expandedHintEnabled="false">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/filled_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="56dp" />
+            android:layout_height="@dimen/default_text_field_height" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
