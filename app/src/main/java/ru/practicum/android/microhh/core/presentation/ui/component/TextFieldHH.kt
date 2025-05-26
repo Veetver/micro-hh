@@ -21,7 +21,10 @@ class TextFieldHH @JvmOverloads constructor(
     @AttrRes defStyleAttr: Int = R.attr.hhTextFieldStyle,
     @StyleRes defStyleRes: Int = R.style.TextFieldHHStyle,
 ) : LinearLayout(
-    context, attrs, defStyleAttr, defStyleRes
+    context,
+    attrs,
+    defStyleAttr,
+    defStyleRes
 ) {
     private var binding: TextFieldHhBinding = TextFieldHhBinding.inflate(LayoutInflater.from(context), this)
 
@@ -56,45 +59,42 @@ class TextFieldHH @JvmOverloads constructor(
                 iconColor = getColor(R.styleable.TextFieldHH_iconColor, 0)
                 backgroundColor = getColor(R.styleable.TextFieldHH_backgroundColor, 0)
                 mode = getInt(R.styleable.TextFieldHH_mode, 0)
-
-
                 binding.filledTextInputLayout.endIconMode = END_ICON_CUSTOM
                 when (mode) {
                     0 -> {
                         binding.filledTextInputLayout.hintTextColor = ColorStateList.valueOf(hintTextColorFocused)
-
                         binding.filledTextInputLayout.endIconDrawable = closeIcon
-
                         binding.filledTextInputLayout.hint = getText(R.styleable.TextFieldHH_hintText)
-
                         binding.filledTextInputLayout.defaultHintTextColor =
-                            if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty())
-                                ColorStateList.valueOf(hintTextColorFilled) else
+                            if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty()) {
+                                ColorStateList.valueOf(hintTextColorFilled)
+                            } else {
                                 ColorStateList.valueOf(hintTextColor)
+                            }
 
-                        binding.filledTextInputLayout.isEndIconVisible = !binding.filledTextInputLayout.editText?.text.isNullOrEmpty()
+                        binding.filledTextInputLayout.isEndIconVisible =
+                            !binding.filledTextInputLayout.editText?.text.isNullOrEmpty()
                     }
 
                     else -> {
                         binding.filledTextInputLayout.endIconDrawable = searchIcon
                         binding.filledTextInputLayout.editText?.let { editText ->
-                            editText.setPadding(editText.paddingLeft, editText.paddingBottom, editText.paddingRight, editText.paddingBottom)
+                            editText.setPadding(
+                                editText.paddingLeft,
+                                editText.paddingBottom,
+                                editText.paddingRight,
+                                editText.paddingBottom
+                            )
                         }
                     }
                 }
-
-
                 with(binding) {
-
                     filledTextInputLayout.placeholderTextColor = ColorStateList.valueOf(placeholderTextColor)
                     filledTextInputLayout.editText?.setTextColor(textColor)
                     filledTextInputLayout.setEndIconTintList(ColorStateList.valueOf(iconColor))
                     filledTextInputLayout.backgroundTintList = ColorStateList.valueOf(backgroundColor)
-
                     filledTextInputLayout.placeholderText = getText(R.styleable.TextFieldHH_placeholderText)
-
                     filledTextInputLayout.editText?.setText(getText(R.styleable.TextFieldHH_text))
-
                 }
             } finally {
                 recycle()
@@ -132,6 +132,7 @@ class TextFieldHH @JvmOverloads constructor(
                     0 -> {
                         binding.filledTextInputLayout.isEndIconVisible = true
                     }
+
                     1 -> {
                         binding.filledTextInputLayout.endIconDrawable = closeIcon
                     }
@@ -141,6 +142,7 @@ class TextFieldHH @JvmOverloads constructor(
                     0 -> {
                         binding.filledTextInputLayout.isEndIconVisible = false
                     }
+
                     1 -> {
                         binding.filledTextInputLayout.endIconDrawable = searchIcon
                     }
