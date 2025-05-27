@@ -28,7 +28,7 @@ enum class Currency(val code: String) {
     AZN("AZN"),
     UZS("UZS"),
     GEL("GEL"),
-    KGS("KGS");
+    KGS("KGS")
 }
 
 data class VacancyListItem(
