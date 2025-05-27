@@ -28,8 +28,8 @@ class TextFieldHH @JvmOverloads constructor(
 ) {
     private var binding: TextFieldHhBinding = TextFieldHhBinding.inflate(LayoutInflater.from(context), this)
 
-    private var placeholderTextColor: Int = 0
-    private var hintTextColor: Int = 0
+    private var placeholderColor: Int = 0
+    private var hintTxtColor: Int = 0
     private var hintTextColorFocused: Int = 0
     private var hintTextColorFilled: Int = 0
     private var textColor: Int = 0
@@ -51,50 +51,54 @@ class TextFieldHH @JvmOverloads constructor(
             defStyleRes
         ).apply {
             try {
-                placeholderTextColor = getColor(R.styleable.TextFieldHH_placeholderTextColor, 0)
-                hintTextColor = getColor(R.styleable.TextFieldHH_hintTextColor, 0)
+                placeholderColor = getColor(R.styleable.TextFieldHH_placeholderTextColor, 0)
+                hintTxtColor = getColor(R.styleable.TextFieldHH_hintTextColor, 0)
                 hintTextColorFocused = getColor(R.styleable.TextFieldHH_hintTextColorFocused, 0)
                 hintTextColorFilled = getColor(R.styleable.TextFieldHH_hintTextColorFilled, 0)
                 textColor = getColor(R.styleable.TextFieldHH_textColor, 0)
                 iconColor = getColor(R.styleable.TextFieldHH_iconColor, 0)
                 backgroundColor = getColor(R.styleable.TextFieldHH_backgroundColor, 0)
                 mode = getInt(R.styleable.TextFieldHH_mode, 0)
+
                 binding.filledTextInputLayout.endIconMode = END_ICON_CUSTOM
                 when (mode) {
                     0 -> {
-                        binding.filledTextInputLayout.hintTextColor = ColorStateList.valueOf(hintTextColorFocused)
-                        binding.filledTextInputLayout.endIconDrawable = closeIcon
-                        binding.filledTextInputLayout.hint = getText(R.styleable.TextFieldHH_hintText)
-                        binding.filledTextInputLayout.defaultHintTextColor =
-                            if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty()) {
+                        with(binding.filledTextInputLayout) {
+                            hintTextColor = ColorStateList.valueOf(hintTextColorFocused)
+                            endIconDrawable = closeIcon
+                            hint = getText(R.styleable.TextFieldHH_hintText)
+                            defaultHintTextColor = if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty()) {
                                 ColorStateList.valueOf(hintTextColorFilled)
                             } else {
-                                ColorStateList.valueOf(hintTextColor)
+                                ColorStateList.valueOf(hintTxtColor)
                             }
-
-                        binding.filledTextInputLayout.isEndIconVisible =
-                            !binding.filledTextInputLayout.editText?.text.isNullOrEmpty()
+                            isEndIconVisible =
+                                !binding.filledTextInputLayout.editText?.text.isNullOrEmpty()
+                        }
                     }
 
                     else -> {
-                        binding.filledTextInputLayout.endIconDrawable = searchIcon
-                        binding.filledTextInputLayout.editText?.let { editText ->
-                            editText.setPadding(
-                                editText.paddingLeft,
-                                editText.paddingBottom,
-                                editText.paddingRight,
-                                editText.paddingBottom
-                            )
+                        with(binding.filledTextInputLayout) {
+                            endIconDrawable = searchIcon
+                            editText?.let { editText ->
+                                editText.setPadding(
+                                    editText.paddingLeft,
+                                    editText.paddingBottom,
+                                    editText.paddingRight,
+                                    editText.paddingBottom
+                                )
+                            }
                         }
                     }
                 }
-                with(binding) {
-                    filledTextInputLayout.placeholderTextColor = ColorStateList.valueOf(placeholderTextColor)
-                    filledTextInputLayout.editText?.setTextColor(textColor)
-                    filledTextInputLayout.setEndIconTintList(ColorStateList.valueOf(iconColor))
-                    filledTextInputLayout.backgroundTintList = ColorStateList.valueOf(backgroundColor)
-                    filledTextInputLayout.placeholderText = getText(R.styleable.TextFieldHH_placeholderText)
-                    filledTextInputLayout.editText?.setText(getText(R.styleable.TextFieldHH_text))
+
+                with(binding.filledTextInputLayout) {
+                    placeholderTextColor = ColorStateList.valueOf(placeholderColor)
+                    editText?.setTextColor(textColor)
+                    setEndIconTintList(ColorStateList.valueOf(iconColor))
+                    backgroundTintList = ColorStateList.valueOf(backgroundColor)
+                    placeholderText = getText(R.styleable.TextFieldHH_placeholderText)
+                    editText?.setText(getText(R.styleable.TextFieldHH_text))
                 }
             } finally {
                 recycle()
@@ -109,7 +113,7 @@ class TextFieldHH @JvmOverloads constructor(
                     if (!binding.filledTextInputLayout.editText?.text.isNullOrEmpty()) {
                         binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColorFilled)
                     } else {
-                        binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColor)
+                        binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTxtColor)
                     }
                 }
             }
@@ -122,7 +126,7 @@ class TextFieldHH @JvmOverloads constructor(
                     binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColorFilled)
 
                 } else if (binding.filledTextInputLayout.editText?.isFocused == false) {
-                    binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTextColor)
+                    binding.filledTextInputLayout.defaultHintTextColor = ColorStateList.valueOf(hintTxtColor)
 
                 }
             }
