@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filled_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_16dp"
+        app:boxCornerRadiusBottomEnd="@dimen/corner_radius_12"
+        app:boxCornerRadiusBottomStart="@dimen/corner_radius_12"
+        app:boxCornerRadiusTopEnd="@dimen/corner_radius_12"
+        app:boxCornerRadiusTopStart="@dimen/corner_radius_12"
+        app:boxStrokeWidth="@dimen/default_text_field_box_stroke"
+        app:boxStrokeWidthFocused="@dimen/default_text_field_box_stroke"
+        app:expandedHintEnabled="false">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/filled_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_text_field_height" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</merge>
