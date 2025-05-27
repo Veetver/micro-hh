@@ -13,7 +13,7 @@
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
       
         <item name="colorPrimary">@color/light_primary</item>
-        <item name="colorOnPrimary">@color/light_on_primary</item
+        <item name="colorOnPrimary">@color/light_on_primary</item>
     </style>
 
     <style name="MyTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
