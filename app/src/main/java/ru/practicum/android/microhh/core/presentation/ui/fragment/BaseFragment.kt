@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseFragment<T : ViewBinding>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> T,
 ) : Fragment() {
+
     private var _binding: T? = null
     protected val binding: T
         get() = requireNotNull(_binding) {
