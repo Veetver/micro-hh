@@ -8,7 +8,14 @@
     <string name="industry_fragment_title">Выбор отрасли</string>
     <string name="favorites_fragment_title">Избранное</string>
     <string name="vacancy_fragment_title">Вакансия</string>
+    <!--team screen start-->
     <string name="team_fragment_title">Команда</string>
+    <string name="app_developers">Над приложением\nработали</string>
+    <string name="developer_1">Андрей @Xaxaido</string>
+    <string name="developer_2">Петр @Satturas</string>
+    <string name="developer_3">Анастасия @anastasiya.katolikava</string>
+    <string name="developer_4">Эдуард @w8wha</string>
+    <!--team screen end-->
     <string name="salary_from">От %1$s %2$s</string>
     <string name="salary_to">До %1$s %2$s</string>
     <string name="salary_range">От %1$s до %2$s %3$s</string>
