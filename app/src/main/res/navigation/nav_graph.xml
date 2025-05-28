@@ -33,49 +33,49 @@
 
     <fragment
         android:id="@+id/filters_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.FiltersFragment"
+        android:name="ru.practicum.android.microhh.filters.presentation.ui.FiltersFragment"
         android:label="@string/filters_fragment_title"
         tools:layout="@layout/fragment_filters" />
 
     <fragment
         android:id="@+id/workplace_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.WorkplaceFragment"
+        android:name="ru.practicum.android.microhh.workplace.presentation.ui.WorkplaceFragment"
         android:label="@string/workplace_fragment_title"
         tools:layout="@layout/fragment_workplace" />
 
     <fragment
         android:id="@+id/country_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.CountryFragment"
+        android:name="ru.practicum.android.microhh.country.presentation.ui.CountryFragment"
         android:label="@string/country_fragment_title"
         tools:layout="@layout/fragment_country" />
 
     <fragment
         android:id="@+id/region_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.RegionFragment"
+        android:name="ru.practicum.android.microhh.region.presentation.ui.RegionFragment"
         android:label="@string/region_fragment_title"
         tools:layout="@layout/fragment_region" />
 
     <fragment
         android:id="@+id/industry_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.IndustryFragment"
+        android:name="ru.practicum.android.microhh.industry.presentation.ui.IndustryFragment"
         android:label="@string/industry_fragment_title"
         tools:layout="@layout/fragment_industry" />
 
     <fragment
         android:id="@+id/favorites_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.FavoritesFragment"
+        android:name="ru.practicum.android.microhh.favorites.presentation.ui.FavoritesFragment"
         android:label="@string/favorites_fragment_title"
         tools:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/vacancy_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.VacancyFragment"
+        android:name="ru.practicum.android.microhh.vacancy.presentation.ui.VacancyFragment"
         android:label="@string/vacancy_fragment_title"
         tools:layout="@layout/fragment_vacancy" />
 
     <fragment
         android:id="@+id/team_fragment"
-        android:name="ru.practicum.android.microhh.search.presentation.ui.VacancyFragment"
+        android:name="ru.practicum.android.microhh.team.presentation.ui.TeamFragment"
         android:label="@string/team_fragment_title"
         tools:layout="@layout/fragment_team" />
 
