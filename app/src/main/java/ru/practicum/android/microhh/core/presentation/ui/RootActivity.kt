@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +17,10 @@ import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
+
+    private companion object {
+        const val API_RESPONSE_TAG = "API_RESPONSE"
+    }
 
     private var _binding: ActivityRootBinding? = null
     private val binding get() = requireNotNull(_binding) {
@@ -29,9 +34,10 @@ class RootActivity : AppCompatActivity() {
 
         _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupUI()
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-        setupUI()
 
         if (NetworkUtils.isNetworkAvailable(this)) {
             networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
@@ -46,39 +52,36 @@ class RootActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val vacancyResponse = response.body()
-                    Log.d(Constants.API_RESPONSE_TAG, "Total Found: ${vacancyResponse?.found}")
-                    Log.d(Constants.API_RESPONSE_TAG, "Current Page: ${vacancyResponse?.page}")
-                    Log.d(Constants.API_RESPONSE_TAG, "Items Per Page: ${vacancyResponse?.perPage}")
+                    Log.d(API_RESPONSE_TAG, "Total Found: ${vacancyResponse?.found}")
+                    Log.d(API_RESPONSE_TAG, "Current Page: ${vacancyResponse?.page}")
+                    Log.d(API_RESPONSE_TAG, "Items Per Page: ${vacancyResponse?.perPage}")
 
                     vacancyResponse?.items?.forEach { vacancy ->
-                        Log.d(Constants.API_RESPONSE_TAG, "Vacancy Name: ${vacancy.name}")
-                        Log.d(Constants.API_RESPONSE_TAG, "Employer: ${vacancy.employer?.name}")
+                        Log.d(API_RESPONSE_TAG, "Vacancy Name: ${vacancy.name}")
+                        Log.d(API_RESPONSE_TAG, "Employer: ${vacancy.employer?.name}")
                     }
                 } else {
-                    Log.e(Constants.API_RESPONSE_TAG, "Error: ${response.code()}")
+                    Log.e(API_RESPONSE_TAG, "Error: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<VacancyResponse>, t: Throwable) {
-                Log.e(Constants.API_RESPONSE_TAG, "Request failed: ${t.message}")
+                Log.e(API_RESPONSE_TAG, "Request failed: ${t.message}")
             }
         })
     }
 
-    object Constants {
-        const val API_RESPONSE_TAG = "API_RESPONSE"
-    }
-
-
     private fun setupUI() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment?.navController
+        navController?.let {
+            binding.bottomNav.setupWithNavController(it)
+            it.addOnDestinationChangedListener { _, destination, _ ->
+                val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
 
-        navController?.addOnDestinationChangedListener { _, destination, _ ->
-            val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
-
-            when (destination.id) {
-                else -> {}
+                when (destination.id) {
+                    else -> {}
+                }
             }
         }
     }

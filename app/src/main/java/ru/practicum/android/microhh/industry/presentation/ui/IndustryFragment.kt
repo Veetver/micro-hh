@@ -1,18 +1,6 @@
 package ru.practicum.android.microhh.industry.presentation.ui
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
+import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
+import ru.practicum.android.microhh.databinding.FragmentIndustryBinding
 
-class IndustryFragment : Fragment() {
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setListeners()
-    }
-
-    private fun setListeners() {
-        // TODO
-    }
-}
+class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryBinding::inflate)
