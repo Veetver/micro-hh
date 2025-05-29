@@ -40,7 +40,10 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun networkRequestExample() {
-        HhApiInstance.HHService.vacancies("", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}").enqueue(object : Callback<VacancyResponse> {
+        HhApiInstance.HHService.vacancies(
+            "",
+            "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
+        ).enqueue(object : Callback<VacancyResponse> {
 
             override fun onResponse(
                 call: Call<VacancyResponse>,
