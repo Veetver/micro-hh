@@ -41,7 +41,6 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample() {
         lifecycleScope.launch {
-            try {
                 val response = hhApi.vacancies(
                     text = "",
                     token = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
@@ -57,10 +56,6 @@ class RootActivity : AppCompatActivity() {
                     AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Vacancy Name: ${vacancy.name}")
                     AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Employer: ${vacancy.employer.name}")
                 }
-
-            } catch (e: Exception) {
-                AppLog.e(AppLog.RETROFIT_API_RESPONSE, "Request failed: ${e.message}")
-            }
         }
     }
 
