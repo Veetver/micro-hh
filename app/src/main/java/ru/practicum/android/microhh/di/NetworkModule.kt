@@ -1,8 +1,8 @@
 package ru.practicum.android.microhh.di
 
+import org.koin.dsl.module
 import com.google.gson.GsonBuilder
 import com.google.gson.Gson
-import org.koin.dsl.module
 import okhttp3.OkHttpClient
 import okhttp3.Interceptor
 import retrofit2.Retrofit
