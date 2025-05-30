@@ -1,17 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:id="@+id/buildConfigReadExampleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_collapseMode="pin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/vacancy_screen_actions"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/vacancy_fragment_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/side_padding_16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/side_padding_16" />
+
+        <TextView
+            android:id="@+id/vacancy_name"
+            style="@style/TypographyBold32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorOnPrimary"
+            android:layout_marginTop="@dimen/inside_padding_24"
+            app:layout_constraintBottom_toTopOf="@id/vacancy_salary"
+            app:layout_constraintEnd_toStartOf="@+id/right_border"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginBottom="@dimen/inside_padding_8"
+            tools:text="Android-разработчик" />
+
+        <TextView
+            android:id="@+id/vacancy_salary"
+            style="@style/TypographyMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/inside_padding_4"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorOnPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/right_border"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_name"
+            tools:text="от 100 000 \u20BD" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/light_gray"
+            app:cardCornerRadius="12dp"
+            android:layout_marginTop="@dimen/inside_padding_24"
+            app:layout_constraintEnd_toStartOf="@+id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_salary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/vacancy_cover"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/inside_padding_16"
+                    android:contentDescription="@string/vacancy_cover"
+                    android:src="@drawable/placeholder_with_frame"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/employer_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/employer_name"
+                    style="@style/TypographyMedium22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/inside_padding_8"
+                    android:layout_marginTop="@dimen/inside_padding_16"
+                    android:textColor="@color/dark_primary"
+                    app:layout_constraintBottom_toTopOf="@id/employer_address"
+                    app:layout_constraintStart_toEndOf="@id/vacancy_cover"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Еда" />
+
+                <TextView
+                    android:id="@+id/employer_address"
+                    style="@style/TypographyRegular16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/inside_padding_8"
+                    android:textColor="@color/dark_primary"
+                    app:layout_constraintStart_toEndOf="@id/vacancy_cover"
+                    app:layout_constraintTop_toBottomOf="@id/employer_name"
+                    tools:text="Москва" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+

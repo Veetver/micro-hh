@@ -2,7 +2,10 @@
 <resources>
     <dimen name="side_padding_16">16dp</dimen>
     <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="inside_padding_24">24dp</dimen>
     <dimen name="inside_padding_16">16dp</dimen>
+    <dimen name="inside_padding_8">8dp</dimen>
+    <dimen name="inside_padding_4">4dp</dimen>
     <dimen name="corner_radius_12">12dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="bottom_muenu_height">56dp</dimen>
