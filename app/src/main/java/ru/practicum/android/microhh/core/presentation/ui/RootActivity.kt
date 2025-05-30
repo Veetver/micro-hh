@@ -7,9 +7,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import ru.practicum.android.microhh.BuildConfig
 import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.core.api.HhApiInstance
+import ru.practicum.android.microhh.core.api.HhApi
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.databinding.ActivityRootBinding
@@ -22,6 +23,7 @@ class RootActivity : AppCompatActivity() {
     }
     private var navController: NavController? = null
     private var navHostFragment: NavHostFragment? = null
+    private val hhApi: HhApi by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,7 @@ class RootActivity : AppCompatActivity() {
     private fun networkRequestExample() {
         lifecycleScope.launch {
             try {
-                val response = HhApiInstance.HHService.vacancies(
+                val response = hhApi.vacancies(
                     text = "",
                     token = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
                 )
