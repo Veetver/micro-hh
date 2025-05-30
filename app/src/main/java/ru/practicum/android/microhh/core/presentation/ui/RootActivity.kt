@@ -41,21 +41,21 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample() {
         lifecycleScope.launch {
-                val response = hhApi.vacancies(
-                    text = "",
-                    token = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-                )
+            val response = hhApi.vacancies(
+                text = "",
+                token = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
+            )
 
-                val vacancyResponse = response
+            val vacancyResponse = response
 
-                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Total Found: ${vacancyResponse.found}")
-                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Current Page: ${vacancyResponse.page}")
-                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Items Per Page: ${vacancyResponse.perPage}")
+            AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Total Found: ${vacancyResponse.found}")
+            AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Current Page: ${vacancyResponse.page}")
+            AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Items Per Page: ${vacancyResponse.perPage}")
 
-                vacancyResponse.items.forEach { vacancy ->
-                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Vacancy Name: ${vacancy.name}")
-                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Employer: ${vacancy.employer.name}")
-                }
+            vacancyResponse.items.forEach { vacancy ->
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Vacancy Name: ${vacancy.name}")
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Employer: ${vacancy.employer.name}")
+            }
         }
     }
 
