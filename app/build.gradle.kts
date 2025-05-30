@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
     implementation(libs.glide)
+    implementation(libs.glideCompiler)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

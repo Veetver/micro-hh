@@ -43,7 +43,7 @@ class RootActivity : AppCompatActivity() {
         HhApiInstance.HHService.vacancies(
             "",
             "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-        ).enqueue(object : Callback<VacancyResponse> {
+            ).enqueue(object : Callback<VacancyResponse> {
 
             override fun onResponse(
                 call: Call<VacancyResponse>,
