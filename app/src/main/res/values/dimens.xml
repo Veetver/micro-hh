@@ -3,6 +3,7 @@
     <dimen name="side_padding_16">16dp</dimen>
     <dimen name="toolbar_height">64dp</dimen>
     <dimen name="inside_padding_24">24dp</dimen>
+    <dimen name="inside_padding_32">32dp</dimen>
     <dimen name="inside_padding_16">16dp</dimen>
     <dimen name="inside_padding_8">8dp</dimen>
     <dimen name="inside_padding_4">4dp</dimen>
