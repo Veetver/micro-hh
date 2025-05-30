@@ -2,16 +2,14 @@ package ru.practicum.android.microhh.core.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.BuildConfig
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.api.HhApiInstance
-import ru.practicum.android.microhh.core.models.VacancyResponse
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.databinding.ActivityRootBinding
@@ -40,35 +38,28 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun networkRequestExample() {
-        HhApiInstance.HHService.vacancies(
-            "",
-            "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-        ).enqueue(object : Callback<VacancyResponse> {
+        lifecycleScope.launch {
+            try {
+                val response = HhApiInstance.HHService.vacancies(
+                    text = "",
+                    token = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
+                )
 
-            override fun onResponse(
-                call: Call<VacancyResponse>,
-                response: Response<VacancyResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val vacancyResponse = response.body()
+                val vacancyResponse = response
 
-                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Total Found: ${vacancyResponse?.found}")
-                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Current Page: ${vacancyResponse?.page}")
-                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Items Per Page: ${vacancyResponse?.perPage}")
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Total Found: ${vacancyResponse.found}")
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Current Page: ${vacancyResponse.page}")
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Items Per Page: ${vacancyResponse.perPage}")
 
-                    vacancyResponse?.items?.forEach { vacancy ->
-                        AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Vacancy Name: ${vacancy.name}")
-                        AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Employer: ${vacancy.employer.name}")
-                    }
-                } else {
-                    AppLog.e(AppLog.RETROFIT_API_RESPONSE, "Error: ${response.code()}")
+                vacancyResponse.items.forEach { vacancy ->
+                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Vacancy Name: ${vacancy.name}")
+                    AppLog.d(AppLog.RETROFIT_API_RESPONSE, "Employer: ${vacancy.employer.name}")
                 }
-            }
 
-            override fun onFailure(call: Call<VacancyResponse>, t: Throwable) {
-                AppLog.e(AppLog.RETROFIT_API_RESPONSE, "Request failed: ${t.message}")
+            } catch (e: Exception) {
+                AppLog.e(AppLog.RETROFIT_API_RESPONSE, "Request failed: ${e.message}")
             }
-        })
+        }
     }
 
     private fun setupUI() {
