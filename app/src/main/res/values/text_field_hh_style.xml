@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextFieldHHStyle">
+        <item name="hintTextColor">@color/gray</item>
+        <item name="hintTextColorFilled">@color/black_universal</item>
+        <item name="hintTextColorFocused">@color/blue</item>
+        <item name="iconColor">@color/black_universal</item>
+        <item name="placeholderTextColor">@color/gray</item>
+        <item name="textColor">@color/black_universal</item>
+        <item name="backgroundColor">@color/light_gray</item>
+    </style>
+</resources>
