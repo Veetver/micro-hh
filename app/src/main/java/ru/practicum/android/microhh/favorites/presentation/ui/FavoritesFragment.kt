@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.favorites.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +18,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         viewModel.getLoadingJobLiveData().observe(viewLifecycleOwner) { screenState ->
             if (screenState is FavoriteJobScreenState.FavoriteContent) {
                 if (screenState.jobs.isNullOrEmpty()) {
-                    showSearchNotFoundView(false)
+                    showSearchNotFoundView(true)
                 } else {
                     handleJobData(screenState.jobs)
                 }
@@ -30,6 +31,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
     }
 
     private fun showSearchNotFoundView(isVisible: Boolean) {
-
+        binding.noData.isVisible = isVisible
     }
 }

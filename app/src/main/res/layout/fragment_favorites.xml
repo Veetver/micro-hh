@@ -21,21 +21,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/noData"
         >
-        <ImageView
-            android:id="@+id/mediaNoDataIcon"
-            android:layout_width="@dimen/not_found_image_width"
-            android:layout_height="@dimen/not_found_image_height"
-            android:layout_gravity="center"
-            android:src="@drawable/favorites_not_found"
-            />
         <TextView
-            android:id="@+id/mediaNoDataText"
             android:layout_marginTop="@dimen/default_title_margin_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/job_favorites_empty"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
