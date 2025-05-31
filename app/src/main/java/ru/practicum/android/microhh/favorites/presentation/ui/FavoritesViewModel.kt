@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
 import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.FavoriteJobScreenState
 
-class FavoritesViewModel (
+class FavoritesViewModel(
     private val favoriteJobInteractor: FavoriteJobInteractor,
 ) : ViewModel() {
     private var loadingJobLiveData = MutableLiveData<FavoriteJobScreenState>()
