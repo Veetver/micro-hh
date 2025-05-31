@@ -20,7 +20,6 @@ class FavoritesViewModel (
         showFavorites()
     }
 
-
     private fun showFavorites() {
         viewModelScope.launch {
             favoriteJobInteractor.findAll()
