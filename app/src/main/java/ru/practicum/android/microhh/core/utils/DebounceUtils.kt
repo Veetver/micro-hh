@@ -1,17 +1,16 @@
 package ru.practicum.android.microhh.core.utils
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-object DebounceUtils {
+class DebounceUtils {
     private var job: Job? = null
 
     fun debounce(
         delayMillis: Long = 0,
-        scope: CoroutineScope = GlobalScope,
+        scope: CoroutineScope,
         action: suspend () -> Unit
     ) {
         job?.cancel()
