@@ -15,10 +15,13 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLoadingJobLiveData().observe(viewLifecycleOwner) { screenState ->
-            if (screenState is FavoriteJobScreenState.FavoriteContent) {
-                if (screenState.jobs.isNullOrEmpty()) {
-                    showSearchNotFoundView(true)
+            when (screenState) {
+                is FavoriteJobScreenState.FavoriteContent -> {
+                    if (screenState.jobs.isNullOrEmpty()) {
+                        showSearchNotFoundView(true)
+                    }
                 }
+                else -> Unit
             }
         }
     }
