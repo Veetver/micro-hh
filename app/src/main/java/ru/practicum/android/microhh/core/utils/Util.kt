@@ -6,7 +6,9 @@ object Util {
     private const val FORM_FEW = 1
     private const val FORM_MANY = 2
     private const val TRAILING_1 = 1
-    private val TRAILING_FEW = setOf(2, 3, 4)
+    private const val TRAILING_2 = 2
+    private const val TRAILING_3 = 3
+    private const val TRAILING_4 = 4
     private const val TENS = 10
     private const val HUNDREDS = 100
 
@@ -21,7 +23,7 @@ object Util {
 
         return when (lastNumber) {
             TRAILING_1 -> "$value ${valueNameToFormat[FORM_SINGLE]}"
-            in TRAILING_FEW -> "$value ${valueNameToFormat[FORM_FEW]}"
+            TRAILING_2, TRAILING_3, TRAILING_4 -> "$value ${valueNameToFormat[FORM_FEW]}"
             else -> "$value ${valueNameToFormat[FORM_MANY]}"
         }
     }
