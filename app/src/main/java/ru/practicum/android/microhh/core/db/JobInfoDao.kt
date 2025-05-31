@@ -22,5 +22,15 @@ interface JobInfoDao {
             "ORDER BY job_added_toDB_at DESC"
     )
     suspend fun getJobs(): List<JobInfoEntity>
+
+    @Query(
+        "SELECT id, name, area_name, employer_name, " +
+            "salary_range_from, salary_range_to, currency, " +
+            "experience, employment_form_name, work_format_name, " +
+            "description, key_skills, job_added_toDB_at " +
+            "FROM job_info_table " +
+            "WHERE id = :id"
+    )
+    suspend fun getJobById(id: Long): JobInfoEntity
 }
 
