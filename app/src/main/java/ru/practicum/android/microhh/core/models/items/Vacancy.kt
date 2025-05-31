@@ -27,5 +27,9 @@ data class Vacancy(
     @SerializedName("accept_temporary") val acceptTemporary: Boolean,
     @SerializedName("experience") val experience: Experience,
     @SerializedName("employment") val employment: Employment,
-    @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean
+    @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean,
+    @SerializedName("address_city") val addressCity: String?,
+    @SerializedName("work_format") val workFormat: WorkFormat,
+    @SerializedName("description") val description: String?,
+    @SerializedName("key_skills") val keySkills: List<KeySkills>?
 )
