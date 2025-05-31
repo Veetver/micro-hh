@@ -15,8 +15,8 @@ class FavoriteJobRepositoryImpl(
 
     override fun findAll(): Flow<List<JobInfo>> {
         return flow {
-            val tracks = appDatabase.favoriteJobDao().getJobs()
-            emit(convertFromJobEntity(tracks))
+            val jobs = appDatabase.favoriteJobDao().getJobs()
+            emit(convertFromJobEntity(jobs))
         }
     }
 
