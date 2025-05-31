@@ -12,7 +12,7 @@ import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.Favorit
 
 class FavoritesViewModel (
     private val favoriteJobInteractor: FavoriteJobInteractor,
-): ViewModel() {
+) : ViewModel() {
     private var loadingJobLiveData = MutableLiveData<FavoriteJobScreenState>()
     fun getLoadingJobLiveData(): LiveData<FavoriteJobScreenState> = loadingJobLiveData
 
