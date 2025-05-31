@@ -18,7 +18,7 @@ class VacancySearchRepositoryImpl(
 
         when (response.resultCode) {
             Constants.HTTP_OK -> {
-                val result = (response as VacancyResponse)
+                val result = response as VacancyResponse
 
                 if (result.items.isEmpty()) {
                     emit(VacancySearchState.Success(emptyList(), 0, term))
