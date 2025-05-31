@@ -1,17 +1,21 @@
 package ru.practicum.android.microhh.di
 
+import androidx.room.Room
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.microhh.core.db.AppDataBase
 
 val dataModule = module {
 
-    /*single {
+    single {
         Room.databaseBuilder(
             androidContext(),
             AppDataBase::class.java,
-            androidContext().getString(R.string.database_file_name)
+            "database.db"
         ).build()
     }
 
+    /*
     single<RetrofitNetworkClient> {
         RetrofitNetworkClientImpl(get())
     }
