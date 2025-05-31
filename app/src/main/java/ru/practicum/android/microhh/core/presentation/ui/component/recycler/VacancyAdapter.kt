@@ -11,13 +11,10 @@ class VacancyAdapter(
     private val onClick: (VacancyListItem) -> Unit = {},
 ) : ListAdapter<VacancyListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
-    fun submitList(
+    fun submitVacancyList(
         list: List<VacancyListItem>,
-        doOnEnd: (() -> Unit) = {},
     ) {
-        submitList(list) {
-            doOnEnd()
-        }
+        submitList(list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -1,26 +1,19 @@
 package ru.practicum.android.microhh.di
 
 import org.koin.dsl.module
+import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
+import ru.practicum.android.microhh.search.data.impl.RetrofitNetworkClientImpl
 
 val dataModule = module {
-
-    /*single {
-        Room.databaseBuilder(
-            androidContext(),
-            AppDataBase::class.java,
-            androidContext().getString(R.string.database_file_name)
-        ).build()
-    }
 
     single<RetrofitNetworkClient> {
         RetrofitNetworkClientImpl(get())
     }
 
-    single {
+    /*single {
         androidContext().getSharedPreferences(androidContext()
             .getString(R.string.prefs_file_name), Context.MODE_PRIVATE)
     }
 
     factory { Gson() }*/
-
 }
