@@ -17,30 +17,24 @@ sealed class Salary {
     data object NotSpecified : Salary()
 }
 
-enum class Currency(val code: String) {
-    RUB("RUB"),
-    RUR("RUR"),
-    BYR("BYR"),
-    USD("USD"),
-    EUR("EUR"),
-    KZT("KZT"),
-    UAH("UAH"),
-    AZN("AZN"),
-    UZS("UZS"),
-    GEL("GEL"),
-    KGS("KGS")
+enum class Currency {
+    RUB,
+    RUR,
+    BYR,
+    USD,
+    EUR,
+    KZT,
+    UAH,
+    AZN,
+    UZS,
+    GEL,
+    KGS,
 }
 
 data class VacancyListItem(
-    val vacancyId: String,
+    val id: Long,
+    val companyLogo: String?,
     val title: String,
     val companyName: String,
     val salaryDisplayText: String,
-    val logoState: LogoState
 )
-
-sealed class LogoState {
-    object Placeholder
-    data class Loaded(val imageUrl: String) : LogoState()
-    object Error
-}
