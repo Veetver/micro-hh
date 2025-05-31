@@ -1,10 +1,12 @@
 package ru.practicum.android.microhh.di
 
 import org.koin.dsl.module
+import ru.practicum.android.microhh.search.data.impl.VacancySearchRepositoryImpl
+import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 
 val repositoryModule = module {
 
-    /*single<MainActivityRepository> {
-        MainActivityRepositoryImpl(get())
-    }*/
+    single<VacancySearchRepository> {
+        VacancySearchRepositoryImpl(get())
+    }
 }

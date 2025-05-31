@@ -19,4 +19,8 @@ object AppLog {
             Log.e(tag, message)
         }
     }
+
+    fun getStackTraceString(e: Exception): String {
+        return Log.getStackTraceString(e)
+    }
 }
