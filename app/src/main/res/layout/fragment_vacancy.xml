@@ -40,6 +40,32 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/side_padding_16" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminateTint="@color/blue"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/server_error_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/inside_padding_16"
+            android:contentDescription="@string/vacancy_cover"
+            android:src="@drawable/server_error_image"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <TextView
             android:id="@+id/vacancy_name"
             style="@style/TypographyBold32"
@@ -128,17 +154,17 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-        android:id="@+id/required_exp_title"
-        style="@style/TypographyMedium16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inside_padding_24"
-        android:text="@string/req_exp"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintEnd_toStartOf="@+id/right_border"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@id/cardView" />
+            android:id="@+id/required_exp_title"
+            style="@style/TypographyMedium16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inside_padding_24"
+            android:text="@string/req_exp"
+            android:textColor="?attr/colorOnPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/right_border"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/cardView" />
 
         <TextView
             android:id="@+id/required_exp"
