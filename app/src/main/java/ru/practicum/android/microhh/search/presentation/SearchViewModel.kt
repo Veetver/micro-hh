@@ -59,7 +59,4 @@ class SearchViewModel(
             }
         )
     }
-
-    override fun onCleared() {
-    }
 }

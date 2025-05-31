@@ -8,7 +8,7 @@ class VacancySearchUseCase(
     private val repository: VacancySearchRepository
 ) {
 
-    operator fun invoke(term: String, page: Int = 0) : Flow<VacancySearchState> {
+    operator fun invoke(term: String, page: Int = 0): Flow<VacancySearchState> {
         return repository.searchVacancy(term, page)
     }
 }

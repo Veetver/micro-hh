@@ -23,7 +23,7 @@ import ru.practicum.android.microhh.search.presentation.SearchViewModel
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel by viewModel<SearchViewModel>()
-    private lateinit var vacancyAdapter: VacancyAdapter
+    private var vacancyAdapter: VacancyAdapter? = null
     private var searchRequest = ""
     private var isClickEnabled = true
 
@@ -37,10 +37,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private fun setupUI() {
         vacancyAdapter = VacancyAdapter(
             { vacancy ->
-                if (!isClickEnabled) return@VacancyAdapter
-
-                isClickEnabled = false
-                Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
+                if (isClickEnabled) {
+                    isClickEnabled = false
+                    Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
+                }
             },
         )
 
@@ -69,7 +69,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun showSearchResults(list: List<VacancyDto>, count: Int) {
-        vacancyAdapter.submitVacancyList(list.toVacancyList(requireContext()))
+        vacancyAdapter?.submitVacancyList(list.toVacancyList(requireContext()))
         binding.counterContainer.isVisible = true
         binding.counter.text = requireContext().getString(R.string.vacancies_found,
             Util.formatValue(

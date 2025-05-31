@@ -8,6 +8,7 @@ import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
+import java.io.IOException
 
 class RetrofitNetworkClientImpl(
     private val hhService: HhService,
@@ -20,7 +21,7 @@ class RetrofitNetworkClientImpl(
                 response.apply {
                     resultCode = Constants.HTTP_OK
                 }
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
                 Response().apply {
                     resultCode = Constants.INTERNAL_SERVER_ERROR

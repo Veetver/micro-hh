@@ -23,7 +23,7 @@ class VacancySearchRepositoryImpl(
                 if (result.items.isEmpty()) {
                     emit(VacancySearchState.Success(emptyList(), 0, term))
                 } else {
-                    emit(VacancySearchState.Success(result.items,  result.found, term))
+                    emit(VacancySearchState.Success(result.items, result.found, term))
                 }
             }
             else -> {
