@@ -2,17 +2,12 @@ package ru.practicum.android.microhh.core.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import ru.practicum.android.microhh.BuildConfig
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.api.HhApi
-import ru.practicum.android.microhh.core.utils.AppLog
-import ru.practicum.android.microhh.core.utils.NetworkUtils
 import ru.practicum.android.microhh.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
