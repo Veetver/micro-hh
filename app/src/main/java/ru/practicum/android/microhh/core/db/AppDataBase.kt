@@ -8,5 +8,5 @@ import androidx.room.RoomDatabase
     entities = [JobInfoEntity::class]
 )
 abstract class AppDataBase : RoomDatabase() {
-    abstract fun shoplistDao(): JobInfoDao
+    abstract fun favoriteJobDao(): JobInfoDao
 }

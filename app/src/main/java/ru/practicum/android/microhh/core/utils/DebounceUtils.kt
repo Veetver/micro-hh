@@ -1,15 +1,22 @@
 package ru.practicum.android.microhh.core.utils
 
-import android.os.Handler
-import android.os.Looper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-object DebounceUtils {
-    private val handler = Handler(Looper.getMainLooper())
-    private var runnable: Runnable? = null
+class DebounceUtils {
+    private var job: Job? = null
 
-    fun debounce(delayMs: Long, action: () -> Unit) {
-        runnable?.let { handler.removeCallbacks(it) }
-        runnable = Runnable { action() }
-        handler.postDelayed(runnable!!, delayMs)
+    fun debounce(
+        delayMillis: Long = 0,
+        scope: CoroutineScope,
+        action: suspend () -> Unit
+    ) {
+        job?.cancel()
+        job = scope.launch {
+            delay(delayMillis)
+            action()
+        }
     }
 }
