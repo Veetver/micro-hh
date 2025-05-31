@@ -24,6 +24,7 @@
     <string name="salary_range">От %1$s до %2$s %3$s</string>
     <string name="salary_not_specified">зарплата не указана</string>
 
+
     <!--vacancy screen start-->
     <string name="sharing">Поделиться</string>
     <string name="favorite">Избранное</string>
@@ -42,4 +43,8 @@
     \nЗнание WebRTC</string>
 
     <!--vacancy screen end-->
+
+    <string name="enter_query_text_placeholder">Введите запрос</string>
+    <string name="filter">Фильтр</string>
+
 </resources>
