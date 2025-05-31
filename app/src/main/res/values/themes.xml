@@ -14,6 +14,7 @@
       
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorOnPrimary">@color/light_on_primary</item>
+        <item name="toolbarStyle">@style/Base.Theme.MicroHH.Toolbar</item>
     </style>
 
     <style name="MyTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
