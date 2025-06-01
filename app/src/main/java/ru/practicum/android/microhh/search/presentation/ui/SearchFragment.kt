@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
@@ -92,18 +93,26 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.counter.text = requireContext()
             .resources
             .getQuantityString(R.plurals.vacancy, count, count)
+
+        binding.statePlaceholder.isVisible = false
+        binding.recycler.isVisible = true
+    }
+
+    private fun showPlaceholder(state: StatePlaceholderMode) {
+        binding.statePlaceholder.mode = state
+        binding.recycler.isVisible = false
     }
 
     private fun renderState(state: SearchState) {
         if (state.term != null && searchRequest != state.term && state !is SearchState.NextPage) return
 
         when (state) {
-            is SearchState.NoData -> {}
-            is SearchState.Loading -> {}
+            is SearchState.NoData -> showPlaceholder(StatePlaceholderMode.Default)
+            is SearchState.Loading -> showPlaceholder(StatePlaceholderMode.Loading)
             is SearchState.SearchResults -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
             is SearchState.NextPage -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
-            is SearchState.ConnectionError -> {}
-            is SearchState.NothingFound -> {}
+            is SearchState.ConnectionError -> showPlaceholder(StatePlaceholderMode.ConnectionError)
+            is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
 }

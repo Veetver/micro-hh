@@ -51,4 +51,8 @@
         <item quantity="few">Найдено %d вакансии</item>
         <item quantity="many">Найдено %d вакансий</item>
     </plurals>
+
+    <string name="no_connection_placeholder">Нет интернета</string>
+    <string name="nothing_found_placeholder">Не удалось получить список вакансий</string>
+    <string name="image_placeholder_content_desc">Image Placeholder</string>
 </resources>
