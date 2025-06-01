@@ -23,6 +23,26 @@
     <string name="salary_to">До %1$s %2$s</string>
     <string name="salary_range">От %1$s до %2$s %3$s</string>
     <string name="salary_not_specified">Зарплата не указана</string>
+
+
+    <!--vacancy screen start-->
+    <string name="sharing">Поделиться</string>
+    <string name="favorite">Избранное</string>
+    <string name="currency_icon">currency_icon</string>
+    <string name="vacancy_cover">vacancy_cover</string>
+    <string name="req_exp">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="vacancy_description_example">Разрабатывать новую функциональность приложения
+        \nПомогать с интеграцией нашего SDK в другие приложения
+        \nПроектировать большие новые модули
+        \nПисать UI- и unit-тесты
+        \nСледить за работоспособностью сервиса и устранять технический долг</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="key_skills_example">Знание классических алгоритмов и структуры данных
+    \nПрограммирование для Android больше одного года
+    \nЗнание WebRTC</string>
+    <!--vacancy screen end-->
+
     <string name="enter_query_text_placeholder">Введите запрос</string>
     <string name="filter">Фильтр</string>
     <string name="vacancies_found">Найдено %1$s</string>
