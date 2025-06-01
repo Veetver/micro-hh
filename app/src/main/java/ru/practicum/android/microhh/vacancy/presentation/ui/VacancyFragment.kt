@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.text.Html
 import android.util.TypedValue
 import android.view.View
-import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.models.items.Vacancy
@@ -29,12 +33,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     }
 
     private fun setupUI() {
-        viewModel.getPlaylistById(requireArguments().getInt(VACANCY_ID_KEY))
-
-        viewModel.vacancy.observe(viewLifecycleOwner) { vacancy ->
-            currentVacancy = vacancy
-            showVacancy(vacancy)
-        }
+        requireArguments().getString(VACANCY_ID_KEY)?.let { viewModel.getVacancyById(it) }
     }
 
     private fun setupListeners() {
@@ -55,9 +54,28 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
                 else -> false
             }
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.stateFlow.collect { state ->
+                    renderState(state)
+                }
+            }
+        }
+    }
+
+    private fun renderState(state: VacancyState) {
+        when (state) {
+            is VacancyState.VacancyNotExist -> showError()
+            is VacancyState.Loading -> showLoading()
+            is VacancyState.ConnectionError -> showError()
+            is VacancyState.ShowDetails -> showVacancy(state.result)
+        }
     }
 
     private fun showVacancy(vacancy: Vacancy) {
+        binding.progressBar.isVisible = false
+        binding.serverErrorImage.isVisible = false
         Glide
             .with(binding.vacancyCover)
             .load(vacancy.employer.logoUrls.size90)
@@ -73,18 +91,26 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         binding.workFormat.text = showWorkFormat(vacancy)
 
         if (vacancy.description.isNullOrEmpty()) {
-            binding.vacancyDescriptionTitle.visibility = View.GONE
+            binding.vacancyDescriptionTitle.isVisible = false
         } else {
-            binding.vacancyDescriptionTitle.visibility = View.VISIBLE
+            binding.vacancyDescriptionTitle.isVisible = true
             binding.vacancyDescription.setText(Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT))
         }
 
         if (vacancy.keySkills.isNullOrEmpty()) {
-            binding.keySkillsTitle.visibility = View.GONE
+            binding.keySkillsTitle.isVisible = false
         } else {
-            binding.keySkillsTitle.visibility = View.VISIBLE
+            binding.keySkillsTitle.isVisible = true
             binding.keySkills.text = vacancy.keySkills.joinToString(separator = "\n")
         }
+    }
+
+    private fun showError() {
+        binding.serverErrorImage.isVisible = true
+    }
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
     }
 
     private fun dpToPx(dp: Float, context: Context): Int {
@@ -141,11 +167,5 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         val shareIntent =
             Intent.createChooser(sendIntent, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         requireContext().startActivity(shareIntent)
-    }
-
-    companion object {
-        fun newInstance(id: Int) = VacancyFragment().apply {
-            arguments = bundleOf(VACANCY_ID_KEY to id)
-        }
     }
 }

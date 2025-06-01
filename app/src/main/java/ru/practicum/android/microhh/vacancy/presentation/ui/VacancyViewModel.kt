@@ -5,18 +5,54 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.models.items.Vacancy
+import ru.practicum.android.microhh.vacancy.domain.VacancyInteractor
 
 class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewModel() {
 
-    private val _vacancy= MutableLiveData<Vacancy>()
+    private val _vacancy = MutableLiveData<Vacancy>()
     val vacancy: LiveData<Vacancy> = _vacancy
 
-    fun getPlaylistById(playlistId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+    private val _stateFlow = MutableStateFlow<VacancyState>(VacancyState.Loading)
+    val stateFlow: StateFlow<VacancyState> = _stateFlow.asStateFlow()
 
+    fun getVacancyById(vacancyId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            doRequest(vacancyId)
         }
     }
 
+    private fun updateState(state: VacancyState) {
+        _stateFlow.update {
+            state
+        }
+    }
+
+    private fun doRequest(term: String?) {
+        if (term.isNullOrEmpty()) return
+
+        updateState(VacancyState.Loading)
+
+        viewModelScope.launch {
+            vacancyInteractor(term)
+                .collect { result ->
+                    result.vacancy?.let { processResult(it, result.error, result.term) }
+                }
+        }
+    }
+
+    private fun processResult(vacancy: Vacancy, error: Int?, term: String) {
+        updateState(
+            when {
+                // error != null -> VacancyState.ConnectionError(error, term)
+                else ->
+                    VacancyState.ShowDetails(vacancy, term)
+            }
+        )
+    }
 }
