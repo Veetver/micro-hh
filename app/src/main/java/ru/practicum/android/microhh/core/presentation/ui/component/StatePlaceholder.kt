@@ -42,11 +42,14 @@ class StatePlaceholder @JvmOverloads constructor(
     private val nothingFoundImage: Drawable?
 
     private val rotate = RotateAnimation(
-        0F, 360F,
-        Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.5f
+        ANIM_FROM_DEGREES,
+        ANIM_TO_DEGREES,
+        Animation.RELATIVE_TO_SELF,
+        ANIM_PIVOT_X,
+        Animation.RELATIVE_TO_SELF,
+        ANIM_PIVOT_Y,
     ).apply {
-        duration = 900
+        duration = ANIM_DURATION
         interpolator = LinearInterpolator()
         repeatCount = Animation.INFINITE
     }
@@ -113,6 +116,11 @@ class StatePlaceholder @JvmOverloads constructor(
         private const val STATE_LOADING = 1
         private const val STATE_CONNECTION_ERROR = 2
         private const val STATE_NOTHING_FOUND = 3
+        private const val ANIM_DURATION = 900L
+        private const val ANIM_FROM_DEGREES = 0F
+        private const val ANIM_TO_DEGREES = 360F
+        private const val ANIM_PIVOT_X = 0.5F
+        private const val ANIM_PIVOT_Y = 0.5F
     }
 
     sealed interface StatePlaceholderMode {
