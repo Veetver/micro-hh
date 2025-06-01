@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
@@ -18,23 +19,19 @@ class FavoritesViewModel(
     private val _loadingJobState = MutableStateFlow<FavoriteJobScreenState>(FavoriteJobScreenState.Initial)
     fun getLoadingJobState(): StateFlow<FavoriteJobScreenState> = _loadingJobState
 
-    init {
-        showFavorites()
-    }
-
-    private fun showFavorites() {
+    fun showFavorites() {
         viewModelScope.launch {
             favoriteJobInteractor.findAll()
-                .map { data ->
+                .onEach { data ->
                     if (data.isEmpty()) {
-                        FavoriteJobScreenState.Empty
+                        _loadingJobState.value = FavoriteJobScreenState.Empty
                     } else {
-                        FavoriteJobScreenState.FavoriteContent(data)
+                        _loadingJobState.value = FavoriteJobScreenState.FavoriteContent(data)
                     }
                 }
-                .onStart { emit(FavoriteJobScreenState.Loading) }
+                .onStart { _loadingJobState.value = FavoriteJobScreenState.Loading }
                 .catch { error ->
-                    emit(FavoriteJobScreenState.Error(error.message))
+                    _loadingJobState.value = FavoriteJobScreenState.Error(error.message)
                 }
                 .launchIn(this)
         }

@@ -23,6 +23,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         setListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.showFavorites()
+    }
+
     private fun setListeners() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getLoadingJobState().collect { screenState ->
@@ -56,6 +61,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
                 showResultIssueView(false)
                 vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(requireContext()), false)
             }
+
             else -> Unit
         }
     }
