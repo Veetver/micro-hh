@@ -7,6 +7,7 @@ import ru.practicum.android.microhh.di.dataModule
 import ru.practicum.android.microhh.di.interactorModule
 import ru.practicum.android.microhh.di.networkModule
 import ru.practicum.android.microhh.di.repositoryModule
+import ru.practicum.android.microhh.di.useCaseModule
 import ru.practicum.android.microhh.di.viewModelModule
 
 class App : Application() {
@@ -17,9 +18,11 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
+                networkModule,
                 dataModule,
                 repositoryModule,
                 interactorModule,
+                useCaseModule,
                 viewModelModule,
                 networkModule
             )

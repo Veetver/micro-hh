@@ -5,18 +5,19 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class DebounceUtils {
+class Debounce<T>(
+    private val delay: Long = 0,
+    private val scope: CoroutineScope,
+    private val action: suspend (T?) -> Unit
+) {
+
     private var job: Job? = null
 
-    fun debounce(
-        delayMillis: Long = 0,
-        scope: CoroutineScope,
-        action: suspend () -> Unit
-    ) {
+    fun start(parameter: T? = null) {
         job?.cancel()
         job = scope.launch {
-            delay(delayMillis)
-            action()
+            delay(delay)
+            action(parameter)
         }
     }
 }
