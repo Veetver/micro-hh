@@ -60,6 +60,8 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation(libs.adapterdelegates4.kotlin.dsl)
+    implementation (libs.hannesdorfmann.adapterdelegates4.kotlin.dsl.viewbinding)
     implementation(libs.glide)
     ksp(libs.glideCompiler)
 

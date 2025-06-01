@@ -6,6 +6,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
@@ -66,10 +68,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 if (hasFocus) viewModel.search(searchRequest)
             }
         }
+
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val pos = (binding.recycler.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacancyAdapter?.itemCount ?: 0
+                    if (pos >= itemsCount - 1) {
+                        viewModel.search(searchRequest, isNextPage = true)
+                    }
+                }
+            }
+        })
     }
 
-    private fun showSearchResults(list: List<VacancyDto>, count: Int) {
-        vacancyAdapter?.submitVacancyList(list.toVacancyList(requireContext()))
+    private fun showSearchResults(list: List<VacancyDto>, count: Int, isNextPage: Boolean = false) {
+        val vacancies = viewModel.updateList(list.toVacancyList(requireContext()))
+
+        vacancyAdapter?.submitVacancyList(vacancies, isNextPage)
         binding.counterContainer.isVisible = true
         binding.counter.text = requireContext().getString(R.string.vacancies_found,
             Util.formatValue(
@@ -80,12 +99,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun renderState(state: SearchState) {
-        if (state.term != null && searchRequest != state.term) return
+        if (state.term != null && searchRequest != state.term && state !is SearchState.NextPage) return
 
         when (state) {
             is SearchState.NoData -> {}
             is SearchState.Loading -> {}
-            is SearchState.SearchResults -> showSearchResults(state.results, state.count)
+            is SearchState.SearchResults -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
+            is SearchState.NextPage -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
             is SearchState.ConnectionError -> {}
             is SearchState.NothingFound -> {}
         }

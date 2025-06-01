@@ -17,7 +17,13 @@ sealed class SearchState(
     ) : SearchState(term)
     class SearchResults(
         var results: List<VacancyDto>,
-        val count: Int,
+        val vacanciesCount: Int,
         term: String?,
+        val canLoadMore: Boolean,
     ) : SearchState(term)
+    class NextPage(
+        var results: List<VacancyDto>,
+        val vacanciesCount: Int,
+        val canLoadMore: Boolean,
+    ) : SearchState(null)
 }
