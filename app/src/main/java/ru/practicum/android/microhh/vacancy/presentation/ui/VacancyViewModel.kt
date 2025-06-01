@@ -1,7 +1,5 @@
 package ru.practicum.android.microhh.vacancy.presentation.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +12,6 @@ import ru.practicum.android.microhh.core.models.items.Vacancy
 import ru.practicum.android.microhh.vacancy.domain.VacancyInteractor
 
 class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewModel() {
-
-    private val _vacancy = MutableLiveData<Vacancy>()
-    val vacancy: LiveData<Vacancy> = _vacancy
 
     private val _stateFlow = MutableStateFlow<VacancyState>(VacancyState.Loading)
     val stateFlow: StateFlow<VacancyState> = _stateFlow.asStateFlow()

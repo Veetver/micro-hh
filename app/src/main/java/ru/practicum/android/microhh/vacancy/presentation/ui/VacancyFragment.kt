@@ -19,7 +19,6 @@ import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.models.items.Vacancy
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.databinding.FragmentVacancyBinding
-import ru.practicum.android.microhh.search.presentation.ui.SearchFragment.Companion.VACANCY_ID_KEY
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val viewModel by viewModel<VacancyViewModel>()
