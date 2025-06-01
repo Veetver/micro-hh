@@ -6,7 +6,7 @@ import ru.practicum.android.microhh.search.domain.model.VacancyListItem
 
 class VacancyAdapter(
     onClick: (Vacancy) -> Unit = {},
-): AsyncListDifferDelegationAdapter<VacancyListItem>(DiffCallback()) {
+) : AsyncListDifferDelegationAdapter<VacancyListItem>(DiffCallback()) {
 
     init {
         delegatesManager

@@ -7,7 +7,7 @@ class DiffCallback : DiffUtil.ItemCallback<VacancyListItem>() {
 
     override fun areItemsTheSame(oldItem: VacancyListItem, newItem: VacancyListItem): Boolean {
         return when {
-            oldItem is VacancyListItem.VacancyItem &&newItem is VacancyListItem.VacancyItem -> {
+            oldItem is VacancyListItem.VacancyItem && newItem is VacancyListItem.VacancyItem -> {
                 oldItem.vacancy.id == newItem.vacancy.id
             }
             else -> false
