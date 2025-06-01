@@ -15,7 +15,6 @@ import ru.practicum.android.microhh.core.resources.SearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.core.utils.DtoConverter.toVacancyList
-import ru.practicum.android.microhh.core.utils.Util
 import ru.practicum.android.microhh.databinding.FragmentSearchBinding
 import ru.practicum.android.microhh.search.data.dto.VacancyDto
 import ru.practicum.android.microhh.search.presentation.SearchViewModel
@@ -71,12 +70,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private fun showSearchResults(list: List<VacancyDto>, count: Int) {
         vacancyAdapter?.submitVacancyList(list.toVacancyList(requireContext()))
         binding.counterContainer.isVisible = true
-        binding.counter.text = requireContext().getString(R.string.vacancies_found,
-            Util.formatValue(
-                count,
-                requireContext().getString(R.string.vacancies_found_title)
-            )
-        )
+        binding.counter.text = requireContext()
+            .resources
+            .getQuantityString(R.plurals.vacancy, count, count)
     }
 
     private fun renderState(state: SearchState) {
