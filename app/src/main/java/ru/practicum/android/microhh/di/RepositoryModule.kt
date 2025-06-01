@@ -13,7 +13,7 @@ val repositoryModule = module {
 
     single { JobInfoDBConvertor() }
 
-    factory<FavoriteJobRepository> {
+    single<FavoriteJobRepository> {
         FavoriteJobRepositoryImpl(get(), get())
     }
 }
