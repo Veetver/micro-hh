@@ -1,19 +1,19 @@
 package ru.practicum.android.microhh.vacancy.data
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.microhh.core.domain.models.Area
+import ru.practicum.android.microhh.core.domain.models.Department
+import ru.practicum.android.microhh.core.domain.models.Employer
+import ru.practicum.android.microhh.core.domain.models.Employment
+import ru.practicum.android.microhh.core.domain.models.Experience
+import ru.practicum.android.microhh.core.domain.models.InsiderInterview
+import ru.practicum.android.microhh.core.domain.models.KeySkills
 import ru.practicum.android.microhh.core.domain.models.Salary
-import ru.practicum.android.microhh.core.models.items.Area
-import ru.practicum.android.microhh.core.models.items.Department
-import ru.practicum.android.microhh.core.models.items.Employer
-import ru.practicum.android.microhh.core.models.items.Employment
-import ru.practicum.android.microhh.core.models.items.Experience
-import ru.practicum.android.microhh.core.models.items.InsiderInterview
-import ru.practicum.android.microhh.core.models.items.KeySkills
-import ru.practicum.android.microhh.core.models.items.Type
-import ru.practicum.android.microhh.core.models.items.WorkFormat
-import ru.practicum.android.microhh.core.models.items.WorkingDay
-import ru.practicum.android.microhh.core.models.items.WorkingTimeInterval
-import ru.practicum.android.microhh.core.models.items.WorkingTimeMode
+import ru.practicum.android.microhh.core.domain.models.Type
+import ru.practicum.android.microhh.core.domain.models.WorkFormat
+import ru.practicum.android.microhh.core.domain.models.WorkingDay
+import ru.practicum.android.microhh.core.domain.models.WorkingTimeInterval
+import ru.practicum.android.microhh.core.domain.models.WorkingTimeMode
 
 data class VacancyDetailsDto(
     val id: String,

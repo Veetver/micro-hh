@@ -106,10 +106,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             is SearchState.NothingFound -> {}
         }
     }
-}
-class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
-        companion object {
-            const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
-        }
+    companion object {
+        const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
+    }
 }
+

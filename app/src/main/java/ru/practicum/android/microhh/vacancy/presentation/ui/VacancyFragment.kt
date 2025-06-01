@@ -23,7 +23,7 @@ import ru.practicum.android.microhh.search.presentation.ui.SearchFragment.Compan
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val viewModel by viewModel<VacancyViewModel>()
-    private lateinit var currentVacancy: Vacancy
+    private val currentVacancy: Vacancy? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +42,9 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.sharing_icon -> {
-                    shareVacancy(currentVacancy)
+                    if (currentVacancy != null) {
+                        shareVacancy(currentVacancy)
+                    }
                     true
                 }
 
@@ -78,7 +80,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         binding.serverErrorImage.isVisible = false
         Glide
             .with(binding.vacancyCover)
-            .load(vacancy.employer.logoUrls.size90)
+            .load(vacancy.employer.logoUrls?.size90)
             .placeholder(R.drawable.placeholder_with_frame)
             .centerCrop()
             .transform(RoundedCorners(dpToPx(2.0f, binding.vacancyCover.context)))
@@ -167,5 +169,9 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         val shareIntent =
             Intent.createChooser(sendIntent, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         requireContext().startActivity(shareIntent)
+    }
+
+    companion object {
+        const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
     }
 }
