@@ -1,30 +1,37 @@
 package ru.practicum.android.microhh.core.presentation.ui.component.recycler
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.microhh.core.domain.models.VacancyListItem
-import ru.practicum.android.microhh.databinding.ItemVacancyBinding
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import ru.practicum.android.microhh.core.domain.models.Vacancy
+import ru.practicum.android.microhh.search.domain.model.VacancyListItem
 
 class VacancyAdapter(
-    private val onClick: (VacancyListItem) -> Unit = {},
-) : ListAdapter<VacancyListItem, RecyclerView.ViewHolder>(DiffCallback()) {
+    onClick: (Vacancy) -> Unit = {},
+) : AsyncListDifferDelegationAdapter<VacancyListItem>(DiffCallback()) {
+
+    init {
+        delegatesManager
+            .addDelegate(trackItemDelegate(onClick))
+            .addDelegate(loadingItemDelegate())
+    }
 
     fun submitVacancyList(
-        list: List<VacancyListItem>,
+        list: List<Vacancy>,
+        isNextPage: Boolean = false,
     ) {
-        submitList(list)
+        val items = convertToVacancyListItem(list, isNextPage)
+        differ.submitList(items)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemVacancyBinding.inflate(inflater, parent, false)
-        return VacancyViewHolder(binding, onClick)
-    }
+    private fun convertToVacancyListItem(
+        list: List<Vacancy>,
+        isNextPage: Boolean,
+    ): List<VacancyListItem> {
+        return buildList {
+            this += list.map { VacancyListItem.VacancyItem(it) }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
-        (holder as VacancyViewHolder).bind(item)
+            if (isNextPage) {
+                this += VacancyListItem.Loading
+            }
+        }
     }
 }
