@@ -3,13 +3,13 @@ package ru.practicum.android.microhh.favorites.presentation.ui
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
+import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
 import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.FavoriteJobScreenState
 
@@ -17,17 +17,25 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
 
     private val viewModel: FavoritesViewModel by viewModel()
     private var jobs = listOf<JobInfo>()
-    private var recyclerView: RecyclerView? = null
-    private var adapter: VacancyAdapter? = null
+    private var vacancyAdapter: VacancyAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        setListeners()
+    }
 
+    private fun setListeners() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getLoadingJobState().collect { screenState ->
                 renderState(screenState)
             }
         }
+    }
+
+    private fun setupUI() {
+        vacancyAdapter = VacancyAdapter()
+        binding.jobList.adapter = vacancyAdapter
     }
 
     private fun renderState(screenState: FavoriteJobScreenState) {
@@ -48,11 +56,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
                 showJobList(true)
                 showResultNotFoundView(false)
                 showResultIssueView(false)
-                jobs = screenState.jobs
-//                recyclerView = binding.jobList
-//                recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-//                adapter = VacancyAdapter(jobs)
-//                recyclerView?.adapter = adapter
+                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(requireContext()), false)
             }
             else -> Unit
         }
