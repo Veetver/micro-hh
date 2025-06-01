@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
@@ -16,7 +15,6 @@ import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.Favorit
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
 
     private val viewModel: FavoritesViewModel by viewModel()
-    private var jobs = listOf<JobInfo>()
     private var vacancyAdapter: VacancyAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +40,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         when (screenState) {
             is FavoriteJobScreenState.Empty -> {
                 showResultNotFoundView(true)
-                showResultIssueView(true)
+                showResultIssueView(false)
                 showJobList(false)
             }
 

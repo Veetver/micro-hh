@@ -24,7 +24,11 @@ class FavoritesViewModel(
         viewModelScope.launch {
             favoriteJobInteractor.findAll()
                 .onEach { data ->
-                    _loadingJobState.value = FavoriteJobScreenState.FavoriteContent(data)
+                    if (data.isEmpty()) {
+                        _loadingJobState.value = FavoriteJobScreenState.Empty
+                    } else {
+                        _loadingJobState.value = FavoriteJobScreenState.FavoriteContent(data)
+                    }
                 }
                 .launchIn(this)
         }
