@@ -8,9 +8,10 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.microhh.BuildConfig
-import ru.practicum.android.microhh.core.api.HhApi
+import ru.practicum.android.microhh.core.data.network.HhService
 
 val networkModule = module {
+
     single {
         GsonBuilder()
             .serializeNulls()
@@ -22,23 +23,20 @@ val networkModule = module {
             .addInterceptor(Interceptor { chain ->
                 val original = chain.request()
                 val request = original.newBuilder()
-                    .header("User-Agent", BuildConfig.APPLICATION_ID)
+                    .header("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
+                    .header("HH-User-Agent", "mirco hh (${BuildConfig.HH_EMAIL})")
                     .header("Accept", "application/json")
                     .build()
                 chain.proceed(request)
-            })
-            .build()
+            }).build()
     }
 
-    single {
+    single<HhService> {
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru")
             .client(get<OkHttpClient>())
             .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
             .build()
-    }
-
-    single<HhApi> {
-        get<Retrofit>().create(HhApi::class.java)
+            .create(HhService::class.java)
     }
 }

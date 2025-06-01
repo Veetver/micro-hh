@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.core.domain.models.VacancyListItem
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
@@ -21,6 +23,22 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getLoadingJobState().collect { screenState ->
+                renderState(screenState)
+            }
+        }
+    }
+
+    private fun renderState(screenState: FavoriteJobScreenState) {
+        when (screenState) {
+            is FavoriteJobScreenState.FavoriteContent -> {
+                if (screenState.jobs.isEmpty()) {
+                    showSearchNotFoundView(true)
+                }
+            }
+            else -> Unit
         viewModel.getLoadingJobLiveData().observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is FavoriteJobScreenState.FavoriteContent -> {

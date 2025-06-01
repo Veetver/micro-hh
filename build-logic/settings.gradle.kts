@@ -1,6 +1,6 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name = "build-logic"
+rootProject.name = "micro-hh"
 
 pluginManagement {
     repositories {
@@ -25,11 +25,6 @@ dependencyResolutionManagement {
     }
 }
 
-/**
- * renamed from 'gradle' to prevent IDE resolution conflict:
- * usages of "typesafe project accessors", e.g. `projects.gradle.someProject` was red in IDE
- * build was fine however
- */
 include("gradle-ext")
 include(":develop-properties")
 include(":checks")

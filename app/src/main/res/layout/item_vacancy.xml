@@ -5,6 +5,8 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/inside_padding_16"
+    android:paddingVertical="@dimen/inside_padding_8"
     android:orientation="horizontal"
     android:background="?android:colorBackground"
     android:foreground="?selectableItemBackground"

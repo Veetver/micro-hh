@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import org.koin.android.ext.android.inject
 import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.core.api.HhApi
 import ru.practicum.android.microhh.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
@@ -18,7 +16,6 @@ class RootActivity : AppCompatActivity() {
     }
     private var navController: NavController? = null
     private var navHostFragment: NavHostFragment? = null
-    private val hhApi: HhApi by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

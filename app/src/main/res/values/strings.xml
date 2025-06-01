@@ -45,6 +45,12 @@
 
     <string name="enter_query_text_placeholder">Введите запрос</string>
     <string name="filter">Фильтр</string>
+
+    <plurals name="vacancy">
+        <item quantity="one">Найдено %d вакансия</item>
+        <item quantity="few">Найдено %d вакансии</item>
+        <item quantity="many">Найдено %d вакансий</item>
+    </plurals>
     <string name="job_favorites_empty">Список пуст</string>
     <string name="job_favorites_unexpected_issue">Не удалось получить список вакансий</string>
 </resources>
