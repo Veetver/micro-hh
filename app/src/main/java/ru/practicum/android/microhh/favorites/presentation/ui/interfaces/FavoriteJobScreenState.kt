@@ -1,10 +1,10 @@
 package ru.practicum.android.microhh.favorites.presentation.ui.interfaces
 
-import ru.practicum.android.microhh.core.domain.models.JobInfo
+import ru.practicum.android.microhh.core.domain.models.VacancyListItem
 
 sealed class FavoriteJobScreenState {
     data class FavoriteContent(
-        val jobs: List<JobInfo>?,
+        val jobs: List<VacancyListItem>?,
     ) : FavoriteJobScreenState()
 
 }

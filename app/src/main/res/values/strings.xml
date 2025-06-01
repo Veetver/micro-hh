@@ -46,4 +46,5 @@
     <string name="enter_query_text_placeholder">Введите запрос</string>
     <string name="filter">Фильтр</string>
     <string name="job_favorites_empty">Список пуст</string>
+    <string name="job_favorites_unexpected_issue">Не удалось получить список вакансий</string>
 </resources>

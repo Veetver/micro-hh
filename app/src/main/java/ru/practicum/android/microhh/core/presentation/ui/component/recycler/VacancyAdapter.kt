@@ -8,6 +8,7 @@ import ru.practicum.android.microhh.core.domain.models.VacancyListItem
 import ru.practicum.android.microhh.databinding.ItemVacancyBinding
 
 class VacancyAdapter(
+    private val vacancies: List<VacancyListItem>,
     private val onClick: (VacancyListItem) -> Unit = {},
 ) : ListAdapter<VacancyListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
@@ -30,4 +31,6 @@ class VacancyAdapter(
         val item = getItem(position)
         (holder as VacancyViewHolder).bind(item)
     }
+
+    override fun getItemCount() = vacancies.size
 }
