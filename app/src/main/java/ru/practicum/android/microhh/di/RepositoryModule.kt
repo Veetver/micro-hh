@@ -11,7 +11,7 @@ val repositoryModule = module {
         MainActivityRepositoryImpl(get())
     }*/
 
-    factory { JobInfoDBConvertor() }
+    single { JobInfoDBConvertor() }
 
     factory<FavoriteJobRepository> {
         FavoriteJobRepositoryImpl(get(), get())
