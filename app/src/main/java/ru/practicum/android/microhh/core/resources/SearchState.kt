@@ -13,6 +13,7 @@ sealed class SearchState(
     ): SearchState(term)
     class ConnectionError(
         val error: Int,
+        val isNextPage: Boolean = false,
         term: String,
     ) : SearchState(term)
     class SearchResults(

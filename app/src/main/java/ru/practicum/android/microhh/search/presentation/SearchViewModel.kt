@@ -85,7 +85,7 @@ class SearchViewModel(
                         SearchState.NextPage(vacancies, count, canLoadMore)
                     }
                 }
-                error != null -> SearchState.ConnectionError(error, term)
+                error != null -> SearchState.ConnectionError(error, isNextPage, term)
                 else -> SearchState.NothingFound(term)
             }
         )

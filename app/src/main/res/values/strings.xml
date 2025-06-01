@@ -8,8 +8,9 @@
     <string name="industry_fragment_title">Выбор отрасли</string>
     <string name="favorites_fragment_title">Избранное</string>
     <string name="vacancy_fragment_title">Вакансия</string>
-  
     <string name="main_screen_title">Главная</string>
+
+    <string name="connection_error">Произошла ошибка</string>
   
     <!--team screen start-->
     <string name="team_fragment_title">Команда</string>
