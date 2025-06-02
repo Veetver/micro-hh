@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.search.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -37,14 +38,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setupUI() {
-        vacancyAdapter = VacancyAdapter(
-            { vacancy ->
-                if (isClickEnabled) {
-                    isClickEnabled = false
-                    Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
-                }
-            },
-        )
+        vacancyAdapter = VacancyAdapter { vacancy ->
+            if (isClickEnabled) {
+                isClickEnabled = false
+                Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
+            }
+        }
 
         binding.recycler.adapter = vacancyAdapter
     }
@@ -103,6 +102,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.recycler.isVisible = false
     }
 
+    private fun showErrorLoadingNextPage() {
+        vacancyAdapter?.hideLoading()
+        requireContext().also {
+            Toast.makeText(it, it.getString(R.string.connection_error), Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
     private fun renderState(state: SearchState) {
         if (state.term != null && searchRequest != state.term && state !is SearchState.NextPage) return
 
@@ -111,8 +118,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             is SearchState.Loading -> showPlaceholder(StatePlaceholderMode.Loading)
             is SearchState.SearchResults -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
             is SearchState.NextPage -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
-            is SearchState.ConnectionError -> showPlaceholder(StatePlaceholderMode.ConnectionError)
+            is SearchState.ConnectionError -> {
+                if (state.isNextPage) {
+                    showErrorLoadingNextPage()
+                } else {
+                  showPlaceholder(StatePlaceholderMode.ConnectionError)
+                }
+            }
             is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
 }
+

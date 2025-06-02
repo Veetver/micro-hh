@@ -27,6 +27,7 @@ class VacancySearchRepositoryImpl(
                 }
             }
             else -> {
+                emit(VacancySearchState.Error(Constants.NO_CONNECTION, term))
             }
         }
     }
