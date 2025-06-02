@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.domain.models.Vacancy
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
-import ru.practicum.android.microhh.core.utils.DtoConverter.toVacancyList
 import ru.practicum.android.microhh.databinding.FragmentSearchBinding
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
 import ru.practicum.android.microhh.search.presentation.SearchViewModel
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
@@ -83,8 +82,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         })
     }
 
-    private fun showSearchResults(list: List<VacancyDto>, count: Int, isNextPage: Boolean = false) {
-        val vacancies = viewModel.updateList(list.toVacancyList(requireContext()))
+    private fun showSearchResults(list: List<Vacancy>, count: Int, isNextPage: Boolean = false) {
+        val vacancies = viewModel.updateList(list)
 
         vacancyAdapter?.submitVacancyList(vacancies, isNextPage)
         binding.counterContainer.isVisible = true
