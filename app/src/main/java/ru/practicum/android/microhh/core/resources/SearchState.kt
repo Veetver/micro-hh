@@ -1,6 +1,6 @@
 package ru.practicum.android.microhh.core.resources
 
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
+import ru.practicum.android.microhh.core.domain.models.Vacancy
 
 sealed class SearchState(
     val term: String?,
@@ -17,13 +17,13 @@ sealed class SearchState(
         term: String,
     ) : SearchState(term)
     class SearchResults(
-        var results: List<VacancyDto>,
+        var results: List<Vacancy>,
         val vacanciesCount: Int,
         term: String?,
         val canLoadMore: Boolean,
     ) : SearchState(term)
     class NextPage(
-        var results: List<VacancyDto>,
+        var results: List<Vacancy>,
         val vacanciesCount: Int,
         val canLoadMore: Boolean,
     ) : SearchState(null)

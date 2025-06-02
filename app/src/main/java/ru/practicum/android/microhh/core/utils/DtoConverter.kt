@@ -4,8 +4,6 @@ import android.content.Context
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.Currency
 import ru.practicum.android.microhh.core.domain.models.Salary
-import ru.practicum.android.microhh.core.domain.models.Vacancy
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
 
 object DtoConverter {
 
@@ -37,19 +35,6 @@ object DtoConverter {
                 )
             }
             else -> context.getString(R.string.salary_not_specified)
-        }
-    }
-
-    fun List<VacancyDto>.toVacancyList(context: Context): List<Vacancy> {
-        return map {
-            Vacancy(
-                id = it.id,
-                companyLogo = it.employer.logoUrls?.size90 ?: "",
-                title = it.name,
-                companyName = it.employer.name,
-                salaryDisplayText = it.salary?.toSalaryDisplayText(context)
-                    ?: context.getString(R.string.salary_not_specified),
-            )
         }
     }
 }

@@ -11,7 +11,6 @@ import ru.practicum.android.microhh.core.domain.models.Vacancy
 import ru.practicum.android.microhh.core.resources.SearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
 import ru.practicum.android.microhh.search.domain.impl.VacancySearchUseCase
 
 class SearchViewModel(
@@ -75,7 +74,7 @@ class SearchViewModel(
         }
     }
 
-    private fun processResult(vacancies: List<VacancyDto>, error: Int?, count: Int, term: String) {
+    private fun processResult(vacancies: List<Vacancy>, error: Int?, count: Int, term: String) {
         updateState(
             when {
                 vacancies.isNotEmpty() -> {
