@@ -1,6 +1,7 @@
-package ru.practicum.android.microhh.vacancy.data
+package ru.practicum.android.microhh.vacancy.data.dto
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.microhh.core.domain.models.Address
 import ru.practicum.android.microhh.core.domain.models.Area
 import ru.practicum.android.microhh.core.domain.models.Department
 import ru.practicum.android.microhh.core.domain.models.Employer
@@ -41,7 +42,7 @@ data class VacancyDetailsDto(
     val experience: Experience,
     val employment: Employment,
     @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean,
-    @SerializedName("address_city") val addressCity: String?,
+    @SerializedName("address") val address: Address?,
     @SerializedName("work_format") val workFormat: WorkFormat,
     @SerializedName("description") val description: String?,
     @SerializedName("key_skills") val keySkills: List<KeySkills>?

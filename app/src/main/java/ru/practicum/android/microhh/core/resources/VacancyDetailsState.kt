@@ -1,6 +1,7 @@
-package ru.practicum.android.microhh.vacancy.data
+package ru.practicum.android.microhh.core.resources
 
 import ru.practicum.android.microhh.core.models.items.Vacancy
+
 
 sealed class VacancyDetailsState(
     var vacancy: Vacancy? = null,

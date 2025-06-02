@@ -115,6 +115,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         binding.progressBar.isVisible = true
     }
 
+
     private fun showAddress(vacancy: Vacancy): String {
         return if (vacancy.addressCity.isNullOrEmpty()) {
             vacancy.area.name
