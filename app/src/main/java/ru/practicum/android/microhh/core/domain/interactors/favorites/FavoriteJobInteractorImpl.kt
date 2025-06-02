@@ -11,7 +11,7 @@ class FavoriteJobInteractorImpl(
         return favoriteJobRepository.findAll()
     }
 
-    override fun findById(id: Long): Flow<JobInfo> {
+    override fun findById(id: Long): Flow<JobInfo?> {
         return favoriteJobRepository.findById(id)
     }
 
@@ -22,4 +22,5 @@ class FavoriteJobInteractorImpl(
     override suspend fun remove(job: JobInfo) {
         favoriteJobRepository.remove(job)
     }
+
 }

@@ -6,17 +6,29 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
+import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
 import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.FavoriteJobScreenState
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
 
     private val viewModel: FavoritesViewModel by viewModel()
+    private var vacancyAdapter: VacancyAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        setListeners()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.showFavorites()
+    }
+
+    private fun setListeners() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getLoadingJobState().collect { screenState ->
                 renderState(screenState)
@@ -24,18 +36,45 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         }
     }
 
+    private fun setupUI() {
+        vacancyAdapter = VacancyAdapter()
+        binding.jobList.adapter = vacancyAdapter
+    }
+
     private fun renderState(screenState: FavoriteJobScreenState) {
         when (screenState) {
-            is FavoriteJobScreenState.FavoriteContent -> {
-                if (screenState.jobs.isEmpty()) {
-                    showSearchNotFoundView(true)
-                }
+            is FavoriteJobScreenState.Empty -> {
+                showResultNotFoundView(true)
+                showResultIssueView(false)
+                showJobList(false)
             }
+
+            is FavoriteJobScreenState.Error -> {
+                showResultNotFoundView(false)
+                showResultIssueView(true)
+                showJobList(false)
+            }
+
+            is FavoriteJobScreenState.FavoriteContent -> {
+                showJobList(true)
+                showResultNotFoundView(false)
+                showResultIssueView(false)
+                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(requireContext()), false)
+            }
+
             else -> Unit
         }
     }
 
-    private fun showSearchNotFoundView(isVisible: Boolean) {
+    private fun showJobList(isVisible: Boolean) {
+        binding.jobListContainer.isVisible = isVisible
+    }
+
+    private fun showResultIssueView(isVisible: Boolean) {
+        binding.unexpectedIssue.isVisible = isVisible
+    }
+
+    private fun showResultNotFoundView(isVisible: Boolean) {
         binding.noData.isVisible = isVisible
     }
 }

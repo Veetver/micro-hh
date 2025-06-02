@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,22 +8,78 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/favorites_fragment_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:title="@string/favorites_fragment_title" />
 
-    <TextView
-        android:id="@+id/noData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/job_favorites_empty"
-        android:visibility="gone"
-        android:textAlignment="center"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/default_title_margin_top" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/noData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mediaNoDataIcon"
+                android:layout_width="@dimen/not_found_image_width"
+                android:layout_height="@dimen/not_found_image_height"
+                android:src="@drawable/favorites_not_found" />
+
+            <TextView
+                style="@style/favoritesNotFoundTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_title_margin_top"
+                android:text="@string/job_favorites_empty" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unexpectedIssue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mediaIssueIcon"
+                android:layout_width="@dimen/not_found_image_width"
+                android:layout_height="@dimen/not_found_image_height"
+                android:src="@drawable/favorites_issue" />
+
+            <TextView
+                style="@style/favoritesIssueTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_title_margin_top"
+                android:text="@string/job_favorites_unexpected_issue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/jobListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/jobList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/default_recycle_margin_top"
+                style="@style/favoritesVacancyViewContainer"/>
+        </LinearLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
