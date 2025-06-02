@@ -11,7 +11,7 @@
     <string name="main_screen_title">Главная</string>
 
     <string name="connection_error">Произошла ошибка</string>
-  
+
     <!--team screen start-->
     <string name="team_fragment_title">Команда</string>
     <string name="app_developers">Над приложением\nработали</string>
@@ -57,4 +57,5 @@
     <string name="no_connection_placeholder">Нет интернета</string>
     <string name="nothing_found_placeholder">Не удалось получить список вакансий</string>
     <string name="image_placeholder_content_desc">Image Placeholder</string>
+    <string name="job_favorites_empty">Список пуст</string>
 </resources>
