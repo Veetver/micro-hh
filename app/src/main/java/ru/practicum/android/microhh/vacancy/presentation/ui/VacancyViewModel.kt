@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.models.items.Vacancy
-import ru.practicum.android.microhh.vacancy.domain.VacancyInteractor
+import ru.practicum.android.microhh.vacancy.domain.VacancyUseCase
 
-class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewModel() {
+class VacancyViewModel(private val vacancyUseCase: VacancyUseCase) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<VacancyState>(VacancyState.Loading)
     val stateFlow: StateFlow<VacancyState> = _stateFlow.asStateFlow()
@@ -34,7 +34,7 @@ class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewM
         updateState(VacancyState.Loading)
 
         viewModelScope.launch {
-            vacancyInteractor(term)
+            vacancyUseCase(term)
                 .collect { result ->
                     result.vacancy?.let { processResult(it, result.error, result.term) }
                 }
