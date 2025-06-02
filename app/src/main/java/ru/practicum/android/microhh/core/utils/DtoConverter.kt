@@ -10,7 +10,7 @@ import ru.practicum.android.microhh.search.data.dto.VacancyDto
 
 object DtoConverter {
 
-    private fun Salary.toSalaryDisplayText(context: Context): String {
+    fun Salary.toSalaryDisplayText(context: Context): String {
         val currencySign = Currency.entries
             .firstOrNull { it.name == this.currency }?.sign
 

@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.search.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
@@ -36,14 +38,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setupUI() {
-        vacancyAdapter = VacancyAdapter(
-            { vacancy ->
-                if (isClickEnabled) {
-                    isClickEnabled = false
-                    Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
-                }
-            },
-        )
+        vacancyAdapter = VacancyAdapter { vacancy ->
+            if (isClickEnabled) {
+                isClickEnabled = false
+                Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
+            }
+        }
 
         binding.recycler.adapter = vacancyAdapter
     }
@@ -92,18 +92,43 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.counter.text = requireContext()
             .resources
             .getQuantityString(R.plurals.vacancy, count, count)
+
+        binding.statePlaceholder.isVisible = false
+        binding.recycler.isVisible = true
+    }
+
+    private fun showPlaceholder(state: StatePlaceholderMode) {
+        binding.statePlaceholder.mode = state
+        binding.recycler.isVisible = false
+        binding.counterContainer.isVisible = false
+    }
+
+    private fun showErrorLoadingNextPage() {
+        vacancyAdapter?.hideLoading()
+        requireContext().also {
+            Toast.makeText(it, it.getString(R.string.connection_error), Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     private fun renderState(state: SearchState) {
         if (state.term != null && searchRequest != state.term && state !is SearchState.NextPage) return
 
         when (state) {
-            is SearchState.NoData -> {}
-            is SearchState.Loading -> {}
+            is SearchState.NoData -> showPlaceholder(StatePlaceholderMode.Default)
+            is SearchState.Loading -> showPlaceholder(StatePlaceholderMode.Loading)
             is SearchState.SearchResults -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
             is SearchState.NextPage -> showSearchResults(state.results, state.vacanciesCount, state.canLoadMore)
-            is SearchState.ConnectionError -> {}
-            is SearchState.NothingFound -> {}
+            is SearchState.ConnectionError -> {
+                if (state.isNextPage) {
+                    showErrorLoadingNextPage()
+                } else {
+                    showPlaceholder(StatePlaceholderMode.ConnectionError)
+                }
+            }
+
+            is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
 }
+
