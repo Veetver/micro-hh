@@ -11,7 +11,7 @@
     <string name="main_screen_title">Главная</string>
 
     <string name="connection_error">Произошла ошибка</string>
-  
+
     <!--team screen start-->
     <string name="team_fragment_title">Команда</string>
     <string name="app_developers">Над приложением\nработали</string>
@@ -23,7 +23,7 @@
     <string name="salary_from">От %1$s %2$s</string>
     <string name="salary_to">До %1$s %2$s</string>
     <string name="salary_range">От %1$s до %2$s %3$s</string>
-    <string name="salary_not_specified">Зарплата не указана</string>
+    <string name="salary_not_specified">зарплата не указана</string>
 
 
     <!--vacancy screen start-->
@@ -42,6 +42,7 @@
     <string name="key_skills_example">Знание классических алгоритмов и структуры данных
     \nПрограммирование для Android больше одного года
     \nЗнание WebRTC</string>
+
     <!--vacancy screen end-->
 
     <string name="enter_query_text_placeholder">Введите запрос</string>
@@ -52,4 +53,9 @@
         <item quantity="few">Найдено %d вакансии</item>
         <item quantity="many">Найдено %d вакансий</item>
     </plurals>
+
+    <string name="no_connection_placeholder">Нет интернета</string>
+    <string name="nothing_found_placeholder">Не удалось получить список вакансий</string>
+    <string name="image_placeholder_content_desc">Image Placeholder</string>
+    <string name="job_favorites_empty">Список пуст</string>
 </resources>
