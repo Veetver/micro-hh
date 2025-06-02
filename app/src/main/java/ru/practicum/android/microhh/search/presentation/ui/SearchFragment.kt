@@ -100,6 +100,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private fun showPlaceholder(state: StatePlaceholderMode) {
         binding.statePlaceholder.mode = state
         binding.recycler.isVisible = false
+        binding.counterContainer.isVisible = false
     }
 
     private fun showErrorLoadingNextPage() {
@@ -122,9 +123,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 if (state.isNextPage) {
                     showErrorLoadingNextPage()
                 } else {
-                  showPlaceholder(StatePlaceholderMode.ConnectionError)
+                    showPlaceholder(StatePlaceholderMode.ConnectionError)
                 }
             }
+
             is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
