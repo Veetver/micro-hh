@@ -4,7 +4,9 @@ import org.koin.dsl.module
 import ru.practicum.android.microhh.core.data.impl.NetworkCheckImpl
 import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
+import ru.practicum.android.microhh.search.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.search.data.impl.RetrofitNetworkClientImpl
+import ru.practicum.android.microhh.search.data.impl.VacancyDtoConverterImpl
 
 val dataModule = module {
 
@@ -14,6 +16,10 @@ val dataModule = module {
 
     single<RetrofitNetworkClient> {
         RetrofitNetworkClientImpl(get(), get())
+    }
+
+    single<VacancyDtoConverter> {
+        VacancyDtoConverterImpl(get())
     }
 
     /*single {
