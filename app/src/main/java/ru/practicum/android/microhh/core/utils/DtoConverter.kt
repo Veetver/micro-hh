@@ -5,6 +5,8 @@ import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.Currency
 import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.domain.models.Salary
+import ru.practicum.android.microhh.core.domain.models.Vacancy
+import ru.practicum.android.microhh.search.data.dto.VacancyDto
 
 object DtoConverter {
 
