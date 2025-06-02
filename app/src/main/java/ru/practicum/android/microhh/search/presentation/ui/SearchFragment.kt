@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.Vacancy
 import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
+import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
@@ -45,6 +46,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         binding.recycler.adapter = vacancyAdapter
+        binding.recycler.itemAnimator = ItemAnimator()
     }
 
     private fun setListeners() {
@@ -86,14 +88,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private fun showSearchResults(list: List<Vacancy>, count: Int, isNextPage: Boolean = false) {
         val vacancies = viewModel.updateList(list)
 
-        vacancyAdapter?.submitVacancyList(vacancies, isNextPage)
-        binding.counterContainer.isVisible = true
         binding.counter.text = requireContext()
             .resources
             .getQuantityString(R.plurals.vacancy, count, count)
 
-        binding.statePlaceholder.isVisible = false
-        binding.recycler.isVisible = true
+        vacancyAdapter?.submitVacancyList(vacancies, isNextPage) {
+            binding.counterContainer.isVisible = true
+            binding.statePlaceholder.isVisible = false
+            binding.recycler.isVisible = true
+        }
     }
 
     private fun showPlaceholder(state: StatePlaceholderMode) {
