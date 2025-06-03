@@ -77,6 +77,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     private fun showVacancy(vacancy: Vacancy) {
         binding.progressBar.isVisible = false
         binding.serverErrorImage.isVisible = false
+        showTitles(true)
         Glide
             .with(binding.vacancyCover)
             .load(vacancy.employer.logoUrls?.size90)
@@ -108,10 +109,13 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     }
 
     private fun showError() {
+        showTitles(false)
         binding.serverErrorImage.isVisible = true
+
     }
 
     private fun showLoading() {
+        showTitles(false)
         binding.progressBar.isVisible = true
     }
 
@@ -145,6 +149,20 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         val shareIntent =
             Intent.createChooser(sendIntent, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         requireContext().startActivity(shareIntent)
+    }
+
+    private fun showTitles(show: Boolean) {
+        if (show) {
+            binding.keySkillsTitle.isVisible = true
+            binding.vacancyDescriptionTitle.isVisible = true
+            binding.requiredExpTitle.isVisible = true
+            binding.cardView.isVisible = true
+        } else {
+            binding.keySkillsTitle.isVisible = false
+            binding.vacancyDescriptionTitle.isVisible = false
+            binding.requiredExpTitle.isVisible = false
+            binding.cardView.isVisible = false
+        }
     }
 
     companion object {
