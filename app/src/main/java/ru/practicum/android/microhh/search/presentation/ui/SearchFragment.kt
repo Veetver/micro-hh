@@ -3,7 +3,6 @@ package ru.practicum.android.microhh.search.presentation.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,6 +17,10 @@ import ru.practicum.android.microhh.core.presentation.ui.component.recycler.Item
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
+import ru.practicum.android.microhh.core.resources.VisibilityState.Placeholder
+import ru.practicum.android.microhh.core.resources.VisibilityState.Results
+import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
+import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.databinding.FragmentSearchBinding
@@ -27,6 +30,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private val viewModel by viewModel<SearchViewModel>()
     private var vacancyAdapter: VacancyAdapter? = null
+    private var visibility: ViewsList? = null
     private var searchRequest = ""
     private var isClickEnabled = true
 
@@ -38,6 +42,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setupUI() {
+        visibility = ViewsList(
+            listOf(
+                VisibilityItem(binding.statePlaceholder, Placeholder),
+                VisibilityItem(binding.recycler, Results),
+                VisibilityItem(binding.counterContainer, Results),
+            )
+        )
+
         vacancyAdapter = VacancyAdapter { vacancy ->
             if (isClickEnabled) {
                 isClickEnabled = false
@@ -59,7 +71,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         binding.search.also { editText ->
-
             editText.setOnTextChanged { text ->
                 val hasFocus = editText.hasFocus()
 
@@ -91,18 +102,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.counter.text = requireContext()
             .resources
             .getQuantityString(R.plurals.vacancy, count, count)
-
         vacancyAdapter?.submitVacancyList(vacancies, isNextPage) {
-            binding.counterContainer.isVisible = true
-            binding.statePlaceholder.isVisible = false
-            binding.recycler.isVisible = true
+            visibility?.show(Results)
         }
     }
 
     private fun showPlaceholder(state: StatePlaceholderMode) {
         binding.statePlaceholder.mode = state
-        binding.recycler.isVisible = false
-        binding.counterContainer.isVisible = false
+        visibility?.show(Placeholder)
     }
 
     private fun showErrorLoadingNextPage() {
@@ -128,9 +135,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     showPlaceholder(StatePlaceholderMode.ConnectionError)
                 }
             }
-
             is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
 }
-

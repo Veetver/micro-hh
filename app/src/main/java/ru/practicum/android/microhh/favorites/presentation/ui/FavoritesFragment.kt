@@ -2,23 +2,31 @@ package ru.practicum.android.microhh.favorites.presentation.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
+import ru.practicum.android.microhh.core.resources.FavoriteJobScreenState
+import ru.practicum.android.microhh.core.resources.VisibilityState.Error
+import ru.practicum.android.microhh.core.resources.VisibilityState.NoData
+import ru.practicum.android.microhh.core.resources.VisibilityState.Results
+import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
+import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
 import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
-import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.FavoriteJobScreenState
+import ru.practicum.android.microhh.favorites.presentation.FavoritesViewModel
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
 
     private val viewModel: FavoritesViewModel by viewModel()
     private var vacancyAdapter: VacancyAdapter? = null
+    private var visibility: ViewsList? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupUI()
         setListeners()
     }
@@ -37,44 +45,29 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
     }
 
     private fun setupUI() {
+        visibility = ViewsList(
+            listOf(
+                VisibilityItem(binding.noData, NoData),
+                VisibilityItem(binding.unexpectedIssue, Error),
+                VisibilityItem(binding.jobListContainer, Results),
+            )
+        )
+
         vacancyAdapter = VacancyAdapter()
         binding.jobList.adapter = vacancyAdapter
+        binding.jobList.itemAnimator = ItemAnimator()
     }
 
     private fun renderState(screenState: FavoriteJobScreenState) {
         when (screenState) {
-            is FavoriteJobScreenState.Empty -> {
-                showResultNotFoundView(true)
-                showResultIssueView(false)
-                showJobList(false)
-            }
-
-            is FavoriteJobScreenState.Error -> {
-                showResultNotFoundView(false)
-                showResultIssueView(true)
-                showJobList(false)
-            }
-
+            is FavoriteJobScreenState.Empty -> visibility?.show(NoData)
+            is FavoriteJobScreenState.Error -> visibility?.show(Error)
             is FavoriteJobScreenState.FavoriteContent -> {
-                showJobList(true)
-                showResultNotFoundView(false)
-                showResultIssueView(false)
-                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(requireContext()), false)
+                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(), false) {
+                    visibility?.show(Results)
+                }
             }
-
-            else -> Unit
+            else -> {}
         }
-    }
-
-    private fun showJobList(isVisible: Boolean) {
-        binding.jobListContainer.isVisible = isVisible
-    }
-
-    private fun showResultIssueView(isVisible: Boolean) {
-        binding.unexpectedIssue.isVisible = isVisible
-    }
-
-    private fun showResultNotFoundView(isVisible: Boolean) {
-        binding.noData.isVisible = isVisible
     }
 }

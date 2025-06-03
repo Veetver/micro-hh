@@ -1,4 +1,4 @@
-package ru.practicum.android.microhh.favorites.presentation.ui
+package ru.practicum.android.microhh.favorites.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
-import ru.practicum.android.microhh.favorites.presentation.ui.interfaces.FavoriteJobScreenState
+import ru.practicum.android.microhh.core.resources.FavoriteJobScreenState
 
 class FavoritesViewModel(
     private val favoriteJobInteractor: FavoriteJobInteractor,
