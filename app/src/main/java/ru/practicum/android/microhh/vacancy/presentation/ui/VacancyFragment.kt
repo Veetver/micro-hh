@@ -84,7 +84,8 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
             binding.keySkillsTitle.isVisible = false
         } else {
             binding.keySkillsTitle.isVisible = true
-            binding.keySkills.text = vacancy.keySkills.joinToString(separator = "\n") { it.name }
+            val keySkills = "   •   " + vacancy.keySkills.joinToString(separator = "\n   •   ") { it.name }
+            binding.keySkills.text = keySkills//"\u" + vacancy.keySkills.joinToString(separator = "\n") { it.name }
         }
 
         binding.toolbar.setOnMenuItemClickListener {
@@ -160,6 +161,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
             binding.cardView.isVisible = false
         }
     }
+
 
     companion object {
         const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
