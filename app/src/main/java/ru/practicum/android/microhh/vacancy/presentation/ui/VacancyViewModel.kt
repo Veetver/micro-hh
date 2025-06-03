@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.models.items.Vacancy
+import ru.practicum.android.microhh.vacancy.data.VacancyDetailsDto
 import ru.practicum.android.microhh.vacancy.domain.VacancyInteractor
 
 class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewModel() {
@@ -41,7 +41,7 @@ class VacancyViewModel(private val vacancyInteractor: VacancyInteractor) : ViewM
         }
     }
 
-    private fun processResult(vacancy: Vacancy, error: Int?, term: String) {
+    private fun processResult(vacancy: VacancyDetailsDto, error: Int?, term: String) {
         updateState(
             when {
                 // error != null -> VacancyState.ConnectionError(error, term)

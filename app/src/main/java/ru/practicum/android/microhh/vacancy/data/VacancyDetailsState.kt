@@ -1,15 +1,13 @@
 package ru.practicum.android.microhh.vacancy.data
 
-import ru.practicum.android.microhh.core.models.items.Vacancy
-
 sealed class VacancyDetailsState(
-    var vacancy: Vacancy? = null,
+    var vacancy: VacancyDetailsDto? = null,
     val error: Int? = null,
     val term: String = "",
 ) {
 
     class Success(
-        vacancy: Vacancy,
+        vacancy: VacancyDetailsDto,
         term: String
     ) : VacancyDetailsState(vacancy, term = term)
 

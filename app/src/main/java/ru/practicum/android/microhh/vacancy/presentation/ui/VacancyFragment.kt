@@ -16,13 +16,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.core.models.items.Vacancy
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.databinding.FragmentVacancyBinding
+import ru.practicum.android.microhh.vacancy.data.VacancyDetailsDto
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val viewModel by viewModel<VacancyViewModel>()
-    private val currentVacancy: Vacancy? = null
+    private val currentVacancy: VacancyDetailsDto? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +74,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-    private fun showVacancy(vacancy: Vacancy) {
+    private fun showVacancy(vacancy: VacancyDetailsDto) {
         binding.progressBar.isVisible = false
         binding.serverErrorImage.isVisible = false
         Glide
@@ -122,7 +122,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         ).toInt()
     }
 
-    private fun showSalary(vacancy: Vacancy): String {
+    private fun showSalary(vacancy: VacancyDetailsDto): String {
         return if (vacancy.salary == null) {
             R.string.salary_not_specified.toString()
         } else if (vacancy.salary.to == null) {
@@ -139,7 +139,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-    private fun showAddress(vacancy: Vacancy): String {
+    private fun showAddress(vacancy: VacancyDetailsDto): String {
         return if (vacancy.addressCity.isNullOrEmpty()) {
             vacancy.area.name
         } else {
@@ -147,7 +147,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-    private fun showWorkFormat(vacancy: Vacancy): String {
+    private fun showWorkFormat(vacancy: VacancyDetailsDto): String {
         return if (vacancy.employment.name.isNullOrEmpty() && vacancy.workFormat.name.isNullOrEmpty()) {
             ""
         } else if (vacancy.employment.name.isNullOrEmpty()) {
@@ -159,7 +159,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-    private fun shareVacancy(vacancy: Vacancy) {
+    private fun shareVacancy(vacancy: VacancyDetailsDto) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, vacancy.url)
