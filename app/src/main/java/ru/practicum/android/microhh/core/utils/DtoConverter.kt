@@ -6,7 +6,6 @@ import ru.practicum.android.microhh.core.domain.models.Currency
 import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.domain.models.Salary
 import ru.practicum.android.microhh.core.domain.models.Vacancy
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
 
 object DtoConverter {
 
@@ -41,20 +40,7 @@ object DtoConverter {
         }
     }
 
-    fun List<VacancyDto>.toVacancyList(context: Context): List<Vacancy> {
-        return map {
-            Vacancy(
-                id = it.id,
-                companyLogo = it.employer.logoUrls?.size90 ?: "",
-                title = it.name,
-                companyName = it.employer.name,
-                salaryDisplayText = it.salary?.toSalaryDisplayText(context)
-                    ?: context.getString(R.string.salary_not_specified),
-            )
-        }
-    }
-
-    fun List<JobInfo>.toJobVacancyList(context: Context): List<Vacancy> {
+    fun List<JobInfo>.toJobVacancyList(): List<Vacancy> {
         return map {
             Vacancy(
                 id = it.id.toString(),
