@@ -52,6 +52,7 @@
         <item quantity="one">Найдено %d вакансия</item>
         <item quantity="few">Найдено %d вакансии</item>
         <item quantity="many">Найдено %d вакансий</item>
+        <item quantity="other">Найдено %d вакансий</item>
     </plurals>
 
     <string name="no_connection_placeholder">Нет интернета</string>
