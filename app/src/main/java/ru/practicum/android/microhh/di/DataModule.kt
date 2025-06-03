@@ -8,8 +8,6 @@ import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.db.AppDataBase
 import ru.practicum.android.microhh.search.data.impl.RetrofitNetworkClientImpl
-import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsDtoConverter
-import ru.practicum.android.microhh.vacancy.data.impl.VacancyDetailsDtoConverterImpl
 
 val dataModule = module {
 
@@ -29,9 +27,6 @@ val dataModule = module {
         ).build()
     }
 
-    single<VacancyDetailsDtoConverter> {
-        VacancyDetailsDtoConverterImpl(get())
-    }
 
     /*
     single {

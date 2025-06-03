@@ -103,7 +103,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
             binding.keySkillsTitle.isVisible = false
         } else {
             binding.keySkillsTitle.isVisible = true
-            binding.keySkills.text = vacancy.keySkills.joinToString(separator = "\n")
+            binding.keySkills.text = vacancy.keySkills.joinToString(separator = "\n") { it.name }
         }
     }
 
@@ -125,14 +125,14 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     }
 
     private fun showWorkFormat(vacancy: Vacancy): String {
-        return if (vacancy.employment.name.isNullOrEmpty() && vacancy.workFormat.name.isNullOrEmpty()) {
+        return if (vacancy.employment.name.isNullOrEmpty() && vacancy.workFormat.isEmpty()) {
             ""
         } else if (vacancy.employment.name.isNullOrEmpty()) {
-            vacancy.workFormat.name.toString()
-        } else if (vacancy.workFormat.name.isNullOrEmpty()) {
+            vacancy.workFormat.joinToString { it.name.toString() }
+        } else if (vacancy.workFormat.isEmpty()) {
             vacancy.employment.name
         } else {
-            "${vacancy.workFormat.name}, ${vacancy.employment.name}"
+            "${vacancy.workFormat.joinToString { it.name.toString() }}, ${vacancy.employment.name}"
         }
     }
 

@@ -19,7 +19,7 @@ data class Vacancy(
     @SerializedName("experience") val experience: Experience,
     @SerializedName("employment") val employment: Employment,
     @SerializedName("address_city") val addressCity: String?,
-    @SerializedName("work_format") val workFormat: WorkFormat,
+    @SerializedName("work_format") val workFormat: List<WorkFormat>,
     @SerializedName("description") val description: String?,
     @SerializedName("key_skills") val keySkills: List<KeySkills>?
 )

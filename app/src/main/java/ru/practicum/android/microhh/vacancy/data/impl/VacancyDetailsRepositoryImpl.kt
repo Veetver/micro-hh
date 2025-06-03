@@ -6,13 +6,12 @@ import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.resources.VacancyDetailsState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
-import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsDtoConverter
 import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsResponse
+import ru.practicum.android.microhh.vacancy.data.dto.toVacancy
 import ru.practicum.android.microhh.vacancy.domain.api.VacancyDetailsRepository
 
 class VacancyDetailsRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
-    private val dtoConverter: VacancyDetailsDtoConverter,
 ) : VacancyDetailsRepository {
 
     override fun getVacancyDetails(term: String): Flow<VacancyDetailsState> = flow {
@@ -20,9 +19,12 @@ class VacancyDetailsRepositoryImpl(
 
         when (response.resultCode) {
             Constants.HTTP_OK -> {
-                val result = response as VacancyDetailsResponse
-                val vacancy = dtoConverter.toVacancy(result.item)
-                emit(VacancyDetailsState.Success(vacancy, term))
+                when (response) {
+                    is VacancyDetailsResponse -> {
+                        val vacancy = response.toVacancy()
+                        emit(VacancyDetailsState.Success(vacancy, term))
+                    }
+                }
             }
 
 
@@ -31,6 +33,4 @@ class VacancyDetailsRepositoryImpl(
             }
         }
     }
-
 }
-
