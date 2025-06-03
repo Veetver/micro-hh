@@ -85,7 +85,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         } else {
             binding.keySkillsTitle.isVisible = true
             val keySkills = "   •   " + vacancy.keySkills.joinToString(separator = "\n   •   ") { it.name }
-            binding.keySkills.text = keySkills//"\u" + vacancy.keySkills.joinToString(separator = "\n") { it.name }
+            binding.keySkills.text = keySkills
         }
 
         binding.toolbar.setOnMenuItemClickListener {

@@ -26,8 +26,6 @@ class VacancyDetailsRepositoryImpl(
                     }
                 }
             }
-
-
             else -> {
                 emit(VacancyDetailsState.Error(Constants.NO_CONNECTION, term))
             }
