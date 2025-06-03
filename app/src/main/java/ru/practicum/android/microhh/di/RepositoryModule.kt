@@ -9,10 +9,11 @@ import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 import ru.practicum.android.microhh.vacancy.data.impl.VacancyDetailsRepositoryImpl
 import ru.practicum.android.microhh.vacancy.domain.api.VacancyDetailsRepository
 
+
 val repositoryModule = module {
 
     single<VacancySearchRepository> {
-        VacancySearchRepositoryImpl(get())
+        VacancySearchRepositoryImpl(get(), get())
     }
 
     single { JobInfoDBConvertor() }

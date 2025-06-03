@@ -6,11 +6,13 @@ import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.resources.VacancySearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
+import ru.practicum.android.microhh.search.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.search.data.dto.VacancyResponse
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 
 class VacancySearchRepositoryImpl(
-    private val networkClient: RetrofitNetworkClient
+    private val networkClient: RetrofitNetworkClient,
+    private val dtoConverter: VacancyDtoConverter,
 ) : VacancySearchRepository {
 
     override fun searchVacancy(term: String, page: Int): Flow<VacancySearchState> = flow {
@@ -23,7 +25,8 @@ class VacancySearchRepositoryImpl(
                 if (result.items.isEmpty()) {
                     emit(VacancySearchState.Success(emptyList(), 0, 0, term))
                 } else {
-                    emit(VacancySearchState.Success(result.items, result.pages, result.found, term))
+                    val vacancies = dtoConverter.toVacancyList(result.items)
+                    emit(VacancySearchState.Success(vacancies, result.pages, result.found, term))
                 }
             }
             else -> {

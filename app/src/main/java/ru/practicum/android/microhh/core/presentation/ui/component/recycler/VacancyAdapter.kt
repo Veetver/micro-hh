@@ -29,9 +29,13 @@ class VacancyAdapter(
     fun submitVacancyList(
         list: List<Vacancy>,
         isNextPage: Boolean = false,
+        doOnEnd: (() -> Unit) = {},
     ) {
         val items = convertToVacancyListItem(list, isNextPage)
-        differ.submitList(items)
+
+        differ.submitList(items) {
+            doOnEnd()
+        }
     }
 
     private fun convertToVacancyListItem(

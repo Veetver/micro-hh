@@ -1,9 +1,9 @@
 package ru.practicum.android.microhh.core.resources
 
-import ru.practicum.android.microhh.search.data.dto.VacancyDto
+import ru.practicum.android.microhh.core.domain.models.Vacancy
 
 sealed class VacancySearchState(
-    var vacancies: List<VacancyDto> = emptyList(),
+    var vacancies: List<Vacancy> = emptyList(),
     val error: Int? = null,
     val pagesCount: Int = 0,
     val vacanciesCount: Int = 0,
@@ -11,7 +11,7 @@ sealed class VacancySearchState(
 ) {
 
     class Success(
-        vacancies: List<VacancyDto>,
+        vacancies: List<Vacancy>,
         pagesCount: Int,
         vacanciesCount: Int,
         term: String
