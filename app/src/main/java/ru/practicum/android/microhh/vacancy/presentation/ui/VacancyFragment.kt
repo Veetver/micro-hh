@@ -162,7 +162,6 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-
     companion object {
         const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
     }
