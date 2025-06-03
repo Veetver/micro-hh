@@ -22,11 +22,9 @@ import ru.practicum.android.microhh.databinding.FragmentVacancyBinding
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val viewModel by viewModel<VacancyViewModel>()
-    private val currentVacancy: Vacancy? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupUI()
         setupListeners()
     }
@@ -36,25 +34,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     }
 
     private fun setupListeners() {
-        binding.toolbar.setOnClickListener { findNavController().popBackStack() }
-
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.sharing_icon -> {
-                    if (currentVacancy != null) {
-                        shareVacancy(currentVacancy)
-                    }
-                    true
-                }
-
-                R.id.favorites_icon -> {
-                    // to do
-                    true
-                }
-
-                else -> false
-            }
-        }
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -105,6 +85,22 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         } else {
             binding.keySkillsTitle.isVisible = true
             binding.keySkills.text = vacancy.keySkills.joinToString(separator = "\n") { it.name }
+        }
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.sharing_icon -> {
+                    shareVacancy(vacancy)
+                    true
+                }
+
+                R.id.favorites_icon -> {
+                    // to do
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 
