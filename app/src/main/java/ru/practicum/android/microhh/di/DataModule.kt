@@ -32,5 +32,6 @@ val dataModule = module {
             "database.db"
         ).build()
     }
+}
 
 
