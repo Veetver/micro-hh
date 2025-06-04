@@ -1,7 +1,6 @@
 package ru.practicum.android.microhh.vacancy.presentation.mapper
 
 import android.content.Context
-import android.text.Html
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.core.utils.DtoConverter.toSalaryDisplayText
@@ -16,7 +15,7 @@ fun VacancyDetails.toVacancyDetailsUi(
     } else {
         null
     },
-    description = Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT).toString(),
+    description = description?.let { editHtml(it) },
     experience = experience,
     companyName = companyName,
     title = companyName,
@@ -30,3 +29,16 @@ fun VacancyDetails.toVacancyDetailsUi(
         null
     },
 )
+
+fun editHtml(description: String): String {
+    return "<html>\n" +
+        "        <head>\n" +
+        "            <style type='text/css'>\n" +
+        "                body {}; }\n" +
+        "            </style>\n" +
+        "        </head>\n" +
+        "        <body>\n" +
+        "            ${description}\n" +
+        "        </body>\n" +
+        "    </html>"
+}

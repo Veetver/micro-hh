@@ -49,7 +49,11 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
             is VacancyState.VacancyNotExist -> showError()
             is VacancyState.Loading -> showLoading()
             is VacancyState.ConnectionError -> showError()
-            is VacancyState.ShowDetails -> showVacancy(state.result.toVacancyDetailsUi(requireContext()))
+            is VacancyState.ShowDetails -> showVacancy(
+                state.result.toVacancyDetailsUi(
+                    requireContext()
+                )
+            )
         }
     }
 
@@ -95,7 +99,13 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         vacancy.description?.let {
             binding.vacancyDescriptionTitle.isVisible = true
             binding.vacancyDescription.isVisible = true
-            binding.vacancyDescription.text = vacancy.description
+            binding.vacancyDescription.loadDataWithBaseURL(
+                null,
+                vacancy.description,
+                "text/html",
+                "utf-8",
+                null
+            )
         }
 
         vacancy.keySkills?.let {

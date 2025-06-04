@@ -211,10 +211,10 @@
                 app:layout_constraintTop_toBottomOf="@id/work_format"
                 tools:visibility="visible" />
 
-            <TextView
+            <WebView
                 android:id="@+id/vacancy_description"
                 style="@style/TypographyRegular16"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/inside_padding_16"
                 android:textColor="?attr/colorOnPrimary"
