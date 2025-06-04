@@ -48,7 +48,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         visibility = ViewsList(
             listOf(
                 VisibilityItem(binding.noData, NoData),
-                VisibilityItem(binding.jobList, Results),
                 VisibilityItem(binding.unexpectedIssue, Error),
                 VisibilityItem(binding.jobListContainer, Results),
             )
