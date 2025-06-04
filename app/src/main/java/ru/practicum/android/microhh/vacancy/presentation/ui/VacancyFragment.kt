@@ -21,7 +21,7 @@ import ru.practicum.android.microhh.databinding.FragmentVacancyBinding
 import ru.practicum.android.microhh.vacancy.presentation.mapper.toVacancyDetailsUi
 import ru.practicum.android.microhh.vacancy.presentation.models.VacancyDetailsUi
 
-class VacancyFragment() : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
+class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val args: VacancyFragmentArgs by navArgs()
     private val viewModel by viewModel<VacancyViewModel>() {
         parametersOf(args.vacancyId)
