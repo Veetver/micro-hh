@@ -3,6 +3,7 @@ package ru.practicum.android.microhh.favorites.presentation.ui
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
@@ -14,9 +15,12 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.NoData
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
 import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
+import ru.practicum.android.microhh.core.utils.Constants
+import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
 import ru.practicum.android.microhh.favorites.presentation.FavoritesViewModel
+import ru.practicum.android.microhh.search.presentation.ui.SearchFragmentDirections
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
 
@@ -52,10 +56,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
                 VisibilityItem(binding.jobListContainer, Results),
             )
         )
-
-        vacancyAdapter = VacancyAdapter()
-        binding.jobList.adapter = vacancyAdapter
-        binding.jobList.itemAnimator = ItemAnimator()
     }
 
     private fun renderState(screenState: FavoriteJobScreenState) {
@@ -63,7 +63,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
             is FavoriteJobScreenState.Empty -> visibility?.show(NoData)
             is FavoriteJobScreenState.Error -> visibility?.show(Error)
             is FavoriteJobScreenState.FavoriteContent -> {
-                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(
+                vacancyAdapter = VacancyAdapter()
+                binding.jobList.adapter = vacancyAdapter
+                binding.jobList.itemAnimator = ItemAnimator()
+                vacancyAdapter?.submitVacancyList(
+                    screenState.jobs.toJobVacancyList(
                     requireContext()
                 ), false) {
                     visibility?.show(Results)
