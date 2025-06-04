@@ -204,10 +204,12 @@
                 android:layout_marginTop="@dimen/inside_padding_32"
                 android:text="@string/vacancy_description"
                 android:textColor="?attr/colorOnPrimary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/right_border"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/left_border"
-                app:layout_constraintTop_toBottomOf="@id/work_format" />
+                app:layout_constraintTop_toBottomOf="@id/work_format"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/vacancy_description"
@@ -216,11 +218,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/inside_padding_16"
                 android:textColor="?attr/colorOnPrimary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/right_border"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/left_border"
                 app:layout_constraintTop_toBottomOf="@id/vacancy_description_title"
-                tools:text="@string/vacancy_description_example" />
+                tools:text="@string/vacancy_description_example"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/key_skills_title"
@@ -230,10 +234,12 @@
                 android:layout_marginTop="@dimen/inside_padding_24"
                 android:text="@string/key_skills"
                 android:textColor="?attr/colorOnPrimary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/right_border"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/left_border"
-                app:layout_constraintTop_toBottomOf="@id/vacancy_description" />
+                app:layout_constraintTop_toBottomOf="@id/vacancy_description"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/key_skills"

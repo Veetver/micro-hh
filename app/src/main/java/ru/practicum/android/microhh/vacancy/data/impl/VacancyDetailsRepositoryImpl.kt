@@ -7,7 +7,7 @@ import ru.practicum.android.microhh.core.resources.VacancyDetailsState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
 import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsResponse
-import ru.practicum.android.microhh.vacancy.data.dto.toVacancy
+import ru.practicum.android.microhh.vacancy.data.dto.toVacancyDetails
 import ru.practicum.android.microhh.vacancy.domain.api.VacancyDetailsRepository
 
 class VacancyDetailsRepositoryImpl(
@@ -21,7 +21,7 @@ class VacancyDetailsRepositoryImpl(
             Constants.HTTP_OK -> {
                 when (response) {
                     is VacancyDetailsResponse -> {
-                        val vacancy = response.toVacancy()
+                        val vacancy = response.toVacancyDetails()
                         emit(VacancyDetailsState.Success(vacancy, term))
                     }
                 }

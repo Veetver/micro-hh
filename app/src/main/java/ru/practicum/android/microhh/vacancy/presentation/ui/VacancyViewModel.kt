@@ -8,15 +8,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.models.items.Vacancy
+import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.vacancy.domain.impl.VacancyDetailsUseCase
 
-class VacancyViewModel(private val vacancyDetailsUseCase: VacancyDetailsUseCase) : ViewModel() {
+class VacancyViewModel(
+    private val vacancyId: String,
+    private val vacancyDetailsUseCase: VacancyDetailsUseCase
+) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<VacancyState>(VacancyState.Loading)
     val stateFlow: StateFlow<VacancyState> = _stateFlow.asStateFlow()
 
-    fun getVacancyById(vacancyId: String) {
+    init {
         viewModelScope.launch(Dispatchers.IO) {
             doRequest(vacancyId)
         }
@@ -28,20 +31,18 @@ class VacancyViewModel(private val vacancyDetailsUseCase: VacancyDetailsUseCase)
         }
     }
 
-    private fun doRequest(term: String?) {
+    private suspend fun doRequest(term: String?) {
         if (term.isNullOrEmpty()) return
 
         updateState(VacancyState.Loading)
 
-        viewModelScope.launch {
-            vacancyDetailsUseCase(term)
-                .collect { result ->
-                    result.vacancy?.let { processResult(it, result.error, result.term) }
-                }
-        }
+        vacancyDetailsUseCase(term)
+            .collect { result ->
+                result.vacancy?.let { processResult(it, result.error, result.term) }
+            }
     }
 
-    private fun processResult(vacancy: Vacancy, error: Int?, term: String) {
+    private fun processResult(vacancy: VacancyDetails, error: Int?, term: String) {
         updateState(
             when {
                 // error != null -> VacancyState.ConnectionError(error, term)

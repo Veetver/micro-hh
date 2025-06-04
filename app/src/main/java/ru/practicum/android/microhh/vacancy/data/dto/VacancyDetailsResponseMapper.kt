@@ -1,18 +1,17 @@
 package ru.practicum.android.microhh.vacancy.data.dto
 
-import ru.practicum.android.microhh.core.models.items.Vacancy
+import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 
-fun VacancyDetailsResponse.toVacancy() = Vacancy(
+fun VacancyDetailsResponse.toVacancyDetails() = VacancyDetails(
     id = id,
+    title = name,
     salary = salary,
-    name = name,
+    companyLogo = employer.logoUrls,
+    companyName = employer.name,
     area = area,
-    url = alternateUrl,
-    employer = employer,
-    experience = experience,
-    employment = employment,
-    addressCity = address?.city,
-    workFormat = workFormat,
+    experience = experience.name,
+    workFormats = workFormat,
     description = description,
-    keySkills = keySkills
+    keySkills = keySkills,
+    url = alternateUrl,
 )
