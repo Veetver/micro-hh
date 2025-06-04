@@ -21,7 +21,10 @@ class JobInfoDBConvertor {
         )
     }
 
-    fun map(jobInfo: JobInfoEntity): JobInfo {
+    fun map(jobInfo: JobInfoEntity?): JobInfo? {
+        if (jobInfo == null) {
+            return null
+        }
         return JobInfo(
             jobInfo.id,
             jobInfo.name,
