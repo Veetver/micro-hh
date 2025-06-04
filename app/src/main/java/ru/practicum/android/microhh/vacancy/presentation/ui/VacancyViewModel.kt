@@ -54,17 +54,13 @@ class VacancyViewModel(
     fun updateFavorite(vacancy: VacancyDetailsUi, isFavorite: Boolean?) {
         viewModelScope.launch(Dispatchers.IO) {
             _stateFavoriteFlow.value = VacancyFavoriteState.Loading
-            try {
-                if (isFavorite == true) {
-                    interactor.remove(vacancy.toJobInfo(vacancyId.toLong()))
-                } else {
-                    interactor.add(vacancy.toJobInfo(vacancyId.toLong()))
-                }
-                _stateFavoriteFlow.value = VacancyFavoriteState.Success
-                observeFavoriteStatus(vacancyId)
-            } catch (e: Exception) {
-                _stateFavoriteFlow.value = VacancyFavoriteState.Error
+            if (isFavorite == true) {
+                interactor.remove(vacancy.toJobInfo(vacancyId.toLong()))
+            } else {
+                interactor.add(vacancy.toJobInfo(vacancyId.toLong()))
             }
+            _stateFavoriteFlow.value = VacancyFavoriteState.Success
+            observeFavoriteStatus(vacancyId)
         }
 
     }
