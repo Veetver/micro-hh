@@ -134,7 +134,7 @@
                         style="@style/TypographyMedium22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/inside_padding_8"
+                         android:layout_marginStart="@dimen/inside_padding_8"
                         android:textColor="@color/dark_primary"
                         app:layout_constraintBottom_toTopOf="@id/employer_address"
                         app:layout_constraintStart_toEndOf="@id/vacancy_cover"
@@ -211,10 +211,10 @@
                 app:layout_constraintTop_toBottomOf="@id/work_format"
                 tools:visibility="visible" />
 
-            <TextView
+            <WebView
                 android:id="@+id/vacancy_description"
                 style="@style/TypographyRegular16"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/inside_padding_16"
                 android:textColor="?attr/colorOnPrimary"
