@@ -142,8 +142,4 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             is SearchState.NothingFound -> showPlaceholder(StatePlaceholderMode.NothingFound)
         }
     }
-
-    companion object {
-        const val VACANCY_ID_KEY = "VACANCY_ID_KEY"
-    }
 }
