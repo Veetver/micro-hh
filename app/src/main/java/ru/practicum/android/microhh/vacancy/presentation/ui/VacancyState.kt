@@ -1,6 +1,6 @@
 package ru.practicum.android.microhh.vacancy.presentation.ui
 
-import ru.practicum.android.microhh.vacancy.data.VacancyDetailsDto
+import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 
 sealed class VacancyState(
     val term: String?,
@@ -14,7 +14,7 @@ sealed class VacancyState(
     ) : VacancyState(term)
 
     class ShowDetails(
-        var result: VacancyDetailsDto,
+        var result: VacancyDetails,
         term: String?,
     ) : VacancyState(term)
 }

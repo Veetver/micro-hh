@@ -6,6 +6,9 @@ import ru.practicum.android.microhh.core.db.JobInfoDBConvertor
 import ru.practicum.android.microhh.core.domain.repositories.favorites.FavoriteJobRepository
 import ru.practicum.android.microhh.search.data.impl.VacancySearchRepositoryImpl
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
+import ru.practicum.android.microhh.vacancy.data.impl.VacancyDetailsRepositoryImpl
+import ru.practicum.android.microhh.vacancy.domain.api.VacancyDetailsRepository
+
 
 val repositoryModule = module {
 
@@ -17,5 +20,9 @@ val repositoryModule = module {
 
     single<FavoriteJobRepository> {
         FavoriteJobRepositoryImpl(get(), get())
+    }
+
+    single<VacancyDetailsRepository> {
+        VacancyDetailsRepositoryImpl(get())
     }
 }

@@ -32,12 +32,6 @@ val dataModule = module {
             "database.db"
         ).build()
     }
-
-    /*single {
-        androidContext().getSharedPreferences(androidContext()
-            .getString(R.string.prefs_file_name), Context.MODE_PRIVATE)
-    }
-
-    factory { Gson() }*/
-
 }
+
+

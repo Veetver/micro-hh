@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
@@ -55,6 +56,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 isClickEnabled = false
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
+            )
         }
 
         binding.recycler.adapter = vacancyAdapter

@@ -1,6 +1,8 @@
-package ru.practicum.android.microhh.vacancy.data
+package ru.practicum.android.microhh.vacancy.data.dto
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.microhh.core.data.dto.Response
+import ru.practicum.android.microhh.core.domain.models.Address
 import ru.practicum.android.microhh.core.domain.models.Area
 import ru.practicum.android.microhh.core.domain.models.Department
 import ru.practicum.android.microhh.core.domain.models.Employer
@@ -15,7 +17,7 @@ import ru.practicum.android.microhh.core.domain.models.WorkingDay
 import ru.practicum.android.microhh.core.domain.models.WorkingTimeInterval
 import ru.practicum.android.microhh.core.domain.models.WorkingTimeMode
 
-data class VacancyDetailsDto(
+data class VacancyDetailsResponse(
     val id: String,
     val premium: Boolean,
     @SerializedName("has_test") val hasTest: Boolean,
@@ -27,7 +29,6 @@ data class VacancyDetailsDto(
     val name: String,
     @SerializedName("insider_interview") val insiderInterview: InsiderInterview?,
     val area: Area,
-    val url: String,
     @SerializedName("published_at") val publishedAt: String,
     val relations: List<Any>,
     val employer: Employer,
@@ -41,8 +42,8 @@ data class VacancyDetailsDto(
     val experience: Experience,
     val employment: Employment,
     @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean,
-    @SerializedName("address_city") val addressCity: String?,
-    @SerializedName("work_format") val workFormat: WorkFormat,
+    @SerializedName("address") val address: Address?,
+    @SerializedName("work_format") val workFormat: List<WorkFormat>,
     @SerializedName("description") val description: String?,
     @SerializedName("key_skills") val keySkills: List<KeySkills>?
-)
+) : Response()

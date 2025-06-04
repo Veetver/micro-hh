@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.core.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -33,9 +34,15 @@ class RootActivity : AppCompatActivity() {
             binding.bottomNav.setupWithNavController(it)
             it.addOnDestinationChangedListener { _, destination, _ ->
                 // val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
-
                 when (destination.id) {
-                    else -> {}
+                    R.id.vacancy_fragment -> {
+                        binding.bottomNavDivider.isVisible = false
+                        binding.bottomNav.isVisible = false
+                    }
+                    else -> {
+                        binding.bottomNavDivider.isVisible = true
+                        binding.bottomNav.isVisible = true
+                    }
                 }
             }
         }
