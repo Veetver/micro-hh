@@ -15,7 +15,7 @@ data class VacancyDetailsUi(
     val workFormats: String?,
     val salaryFrom: Int?,
     val salaryTo: Int?,
-    val currency: String?
+    val currency: String?,
 )
 
 fun VacancyDetailsUi.toJobInfo(id: Long = 0L): JobInfo =
@@ -31,5 +31,6 @@ fun VacancyDetailsUi.toJobInfo(id: Long = 0L): JobInfo =
         employmentFormName = null,
         workFormatName = workFormats ?: "",
         description = description ?: "",
-        keySkills = keySkills ?: ""
+        keySkills = keySkills ?: "",
+        employerLogo = companyLogo
     )

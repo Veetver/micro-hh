@@ -35,5 +35,7 @@ data class JobInfoEntity(
     val keySkills: String,
     @ColumnInfo(name = "job_added_toDB_at")
     val addedAt: String,
+    @ColumnInfo(name = "employer_logo")
+    val employerLogo: String?,
 )
 

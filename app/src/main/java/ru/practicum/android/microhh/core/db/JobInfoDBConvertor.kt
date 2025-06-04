@@ -17,7 +17,8 @@ class JobInfoDBConvertor {
             jobInfo.workFormatName,
             jobInfo.description,
             jobInfo.keySkills,
-            System.currentTimeMillis().toString()
+            System.currentTimeMillis().toString(),
+            jobInfo.employerLogo
         )
     }
 
@@ -37,7 +38,8 @@ class JobInfoDBConvertor {
             jobInfo.employmentFormName,
             jobInfo.workFormatName,
             jobInfo.description,
-            jobInfo.keySkills
+            jobInfo.keySkills,
+            jobInfo.employerLogo
         )
     }
 }

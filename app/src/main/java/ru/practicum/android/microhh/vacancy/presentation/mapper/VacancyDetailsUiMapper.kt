@@ -31,5 +31,5 @@ fun VacancyDetails.toVacancyDetailsUi(
     },
     salaryFrom = salary?.from,
     salaryTo = salary?.to,
-    currency = salary?.currency
+    currency = salary?.currency,
 )
