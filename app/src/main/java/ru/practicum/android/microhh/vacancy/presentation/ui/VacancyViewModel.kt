@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
-import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.vacancy.domain.impl.VacancyDetailsUseCase
 import ru.practicum.android.microhh.vacancy.presentation.models.VacancyDetailsUi
