@@ -49,9 +49,7 @@ class VacancyFragment() : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBi
             is VacancyState.VacancyNotExist -> showError()
             is VacancyState.Loading -> showLoading()
             is VacancyState.ConnectionError -> showError()
-            is VacancyState.ShowDetails -> {
-                showVacancy(state.result.toVacancyDetailsUi(requireContext()))
-            }
+            is VacancyState.ShowDetails -> showVacancy(state.result.toVacancyDetailsUi(requireContext()))
         }
     }
 
@@ -105,7 +103,6 @@ class VacancyFragment() : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBi
     private fun showError() {
         showTitles(false)
         binding.serverErrorImage.isVisible = true
-
     }
 
     private fun showLoading() {
