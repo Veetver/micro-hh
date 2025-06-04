@@ -29,7 +29,11 @@
         android:id="@+id/search_fragment"
         android:name="ru.practicum.android.microhh.search.presentation.ui.SearchFragment"
         android:label="@string/search_fragment_title"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_fragment_to_vacancy_fragment"
+            app:destination="@id/vacancy_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/filters_fragment"
@@ -71,7 +75,11 @@
         android:id="@+id/vacancy_fragment"
         android:name="ru.practicum.android.microhh.vacancy.presentation.ui.VacancyFragment"
         android:label="@string/vacancy_fragment_title"
-        tools:layout="@layout/fragment_vacancy" />
+        tools:layout="@layout/fragment_vacancy" >
+        <argument
+            android:name="vacancyId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/team_fragment"

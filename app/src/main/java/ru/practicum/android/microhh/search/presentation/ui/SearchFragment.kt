@@ -56,11 +56,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 isClickEnabled = false
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
-            findNavController().navigate(R.id.vacancy_fragment, Bundle().apply {
-                putString(
-                    VACANCY_ID_KEY, vacancy.id
-                )
-            })
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
+            )
         }
 
         binding.recycler.adapter = vacancyAdapter
