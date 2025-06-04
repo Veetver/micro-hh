@@ -57,6 +57,27 @@ class VacancyFragment() : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBi
         binding.progressBar.isVisible = false
         binding.serverErrorImage.isVisible = false
         showTitles(true)
+
+        fillContent(vacancy)
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.sharing_icon -> {
+                    shareVacancy(vacancy.url)
+                    true
+                }
+
+                R.id.favorites_icon -> {
+                    // to do
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    private fun fillContent(vacancy: VacancyDetailsUi) {
         Glide
             .with(binding.vacancyCover)
             .load(vacancy.companyLogo)
@@ -81,22 +102,6 @@ class VacancyFragment() : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBi
             binding.keySkillsTitle.isVisible = true
             binding.keySkills.isVisible = true
             binding.keySkills.text = vacancy.keySkills
-        }
-
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.sharing_icon -> {
-                    shareVacancy(vacancy.url)
-                    true
-                }
-
-                R.id.favorites_icon -> {
-                    // to do
-                    true
-                }
-
-                else -> false
-            }
         }
     }
 
