@@ -58,9 +58,9 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         when (state) {
             is VacancyFavoriteState.Error -> showError()
             is VacancyFavoriteState.VacancyFavorite -> showFavoriteVacancy(state.isFavorite)
-            VacancyFavoriteState.Loading -> {}
-            VacancyFavoriteState.Success -> {}
-            VacancyFavoriteState.VacancyNotFavorite -> showFavoriteVacancy(state.isFavorite)
+            is VacancyFavoriteState.Loading -> {}
+            is VacancyFavoriteState.Success -> {}
+            is VacancyFavoriteState.VacancyNotFavorite -> showFavoriteVacancy(state.isFavorite)
         }
     }
 
