@@ -40,13 +40,13 @@ class VacancyViewModel(
             val id = runCatching { vacancyId.toLong() }.getOrNull()
             if (id == null) {
                 _stateFavoriteFlow.value = VacancyFavoriteState.Error
-                return@launch
-            }
-            val jobInfo = interactor.findById(id).first()
-            _stateFavoriteFlow.value = if (jobInfo != null) {
-                VacancyFavoriteState.VacancyFavorite
             } else {
-                VacancyFavoriteState.VacancyNotFavorite
+                val jobInfo = interactor.findById(id).first()
+                _stateFavoriteFlow.value = if (jobInfo != null) {
+                    VacancyFavoriteState.VacancyFavorite
+                } else {
+                    VacancyFavoriteState.VacancyNotFavorite
+                }
             }
         }
     }

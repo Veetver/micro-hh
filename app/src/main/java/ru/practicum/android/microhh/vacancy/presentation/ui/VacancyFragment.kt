@@ -34,7 +34,6 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         setupListeners()
     }
 
-
     private fun setupListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
 
