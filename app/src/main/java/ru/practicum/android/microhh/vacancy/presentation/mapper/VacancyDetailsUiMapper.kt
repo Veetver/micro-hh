@@ -2,7 +2,6 @@ package ru.practicum.android.microhh.vacancy.presentation.mapper
 
 import android.content.Context
 import android.text.Html
-import android.util.Log
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.core.utils.DtoConverter.toSalaryDisplayText
@@ -14,7 +13,6 @@ fun VacancyDetails.toVacancyDetailsUi(
     VacancyDetailsUi(
         url = url,
         keySkills = if (!keySkills.isNullOrEmpty()) {
-            Log.d("TAG", "toVacancyDetailsUi: $keySkills")
             keySkills.joinToString(
                 separator = "\n   •   ", prefix = "   •   "
             ) { it.name }
@@ -23,7 +21,8 @@ fun VacancyDetails.toVacancyDetailsUi(
         experience = experience,
         companyName = companyName,
         title = companyName,
-        salaryDisplayText = salary?.toSalaryDisplayText(context) ?: context.getString(R.string.salary_not_specified),
+        salaryDisplayText = salary?.toSalaryDisplayText(context)
+            ?: context.getString(R.string.salary_not_specified),
         companyLogo = companyLogo?.size90,
         region = area.name,
         workFormats = if (!workFormats.isNullOrEmpty()) {
