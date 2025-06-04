@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
@@ -94,6 +95,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 }
             }
         })
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filter_icon -> {
+                    findNavController().navigate(
+                        R.id.open_filters
+                    )
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun showSearchResults(list: List<Vacancy>, count: Int, isNextPage: Boolean = false) {

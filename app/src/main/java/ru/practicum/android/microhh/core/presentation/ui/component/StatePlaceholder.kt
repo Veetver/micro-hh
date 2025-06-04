@@ -73,7 +73,7 @@ class StatePlaceholder @JvmOverloads constructor(
                 connectionErrorImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
                 nothingFoundImage = getDrawable(R.styleable.StatePlaceholder_nothing_found_image)
 
-                binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_text_color, 0))
+                binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_textColor, 0))
             } finally {
                 recycle()
             }
