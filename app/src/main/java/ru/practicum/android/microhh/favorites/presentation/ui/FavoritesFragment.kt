@@ -56,6 +56,10 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
                 VisibilityItem(binding.jobListContainer, Results),
             )
         )
+
+        vacancyAdapter = VacancyAdapter()
+        binding.jobList.adapter = vacancyAdapter
+        binding.jobList.itemAnimator = ItemAnimator()
     }
 
     private fun renderState(screenState: FavoriteJobScreenState) {
@@ -63,11 +67,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
             is FavoriteJobScreenState.Empty -> visibility?.show(NoData)
             is FavoriteJobScreenState.Error -> visibility?.show(Error)
             is FavoriteJobScreenState.FavoriteContent -> {
-                vacancyAdapter = VacancyAdapter()
-                binding.jobList.adapter = vacancyAdapter
-                binding.jobList.itemAnimator = ItemAnimator()
-                vacancyAdapter?.submitVacancyList(
-                    screenState.jobs.toJobVacancyList(
+                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(
                     requireContext()
                 ), false) {
                     visibility?.show(Results)
