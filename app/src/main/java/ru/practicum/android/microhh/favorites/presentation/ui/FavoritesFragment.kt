@@ -6,7 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.FavoriteVacancyScreenState
@@ -67,7 +66,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
             )
         }
         binding.jobList.adapter = vacancyAdapter
-        binding.jobList.itemAnimator = ItemAnimator()
     }
 
     private fun renderState(state: FavoriteVacancyScreenState) {
