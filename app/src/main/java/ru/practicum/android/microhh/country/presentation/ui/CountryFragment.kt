@@ -5,7 +5,6 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.databinding.FragmentCountryBinding
-import ru.practicum.android.microhh.workplace.presentation.ui.WorkplaceFragmentDirections
 
 class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBinding::inflate) {
 

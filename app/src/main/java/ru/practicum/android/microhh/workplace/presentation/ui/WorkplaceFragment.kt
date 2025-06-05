@@ -17,8 +17,16 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
 
     private fun setupListeners() {
         binding.toolbar.setOnClickListener { findNavController().popBackStack() }
-        binding.country.setOnClickListener { findNavController().navigate(WorkplaceFragmentDirections.actionWorkplaceFragmentToCountryFragment()) }
-        binding.region.setOnClickListener { findNavController().navigate(WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()) }
+        binding.country.setOnClickListener {
+            findNavController().navigate(
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToCountryFragment()
+            )
+        }
+        binding.region.setOnClickListener {
+            findNavController().navigate(
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()
+            )
+        }
     }
 }
 
