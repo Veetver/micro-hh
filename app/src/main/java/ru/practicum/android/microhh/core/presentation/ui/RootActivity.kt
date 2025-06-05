@@ -12,9 +12,10 @@ import ru.practicum.android.microhh.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private var _binding: ActivityRootBinding? = null
-    private val binding get() = requireNotNull(_binding) {
-        "ViewBinding cannot be null"
-    }
+    private val binding
+        get() = requireNotNull(_binding) {
+            "ViewBinding cannot be null"
+        }
     private var navController: NavController? = null
     private var navHostFragment: NavHostFragment? = null
 
@@ -35,10 +36,14 @@ class RootActivity : AppCompatActivity() {
             it.addOnDestinationChangedListener { _, destination, _ ->
                 // val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
                 when (destination.id) {
-                    R.id.vacancy_fragment, R.id.filters_fragment, R.id.workplace_fragment -> {
+                    R.id.vacancy_fragment,
+                    R.id.filters_fragment,
+                    R.id.workplace_fragment,
+                    R.id.country_fragment -> {
                         binding.bottomNavDivider.isVisible = false
                         binding.bottomNav.isVisible = false
                     }
+
                     else -> {
                         binding.bottomNavDivider.isVisible = true
                         binding.bottomNav.isVisible = true
