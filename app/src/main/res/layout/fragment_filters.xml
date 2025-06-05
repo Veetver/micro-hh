@@ -14,44 +14,73 @@
         app:title="@string/filters_fragment_title" />
 
     <ru.practicum.android.microhh.core.presentation.ui.component.SelectableViewHH
+        android:id="@+id/workplace"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_height"
         app:hhSelectableViewStyle="@style/SelectableViewHHStyle"
-        app:label="@string/expected_salary"
-        app:text="@string/salary_textfield_hint"
+        app:text="@string/workplace"
         app:data="empty" />
 
-    <LinearLayout
-        android:id="@+id/salary_container"
+    <ru.practicum.android.microhh.core.presentation.ui.component.SelectableViewHH
+        android:id="@+id/industry"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_height"
+        app:hhSelectableViewStyle="@style/SelectableViewHHStyle"
+        app:text="@string/industry"
+        app:data="empty" />
+
+    <ru.practicum.android.microhh.core.presentation.ui.component.SalaryViewHH
+        android:id="@+id/salary"
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:orientation="vertical"
+        android:layout_marginTop="@dimen/side_padding_24"
         android:layout_marginHorizontal="@dimen/side_padding_16"
         android:background="@drawable/rounded_shape_12"
-        android:backgroundTint="@color/light_gray">
+        android:backgroundTint="@color/light_gray"
+        app:hhSelectableViewStyle="@style/SelectableViewHHStyle"
+        app:label="@string/expected_salary"
+        app:hintText="@string/salary_textfield_hint" />
 
-        <TextView
-            android:id="@+id/salary_label"
-            style="@style/TypographyRegular12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/side_padding_8"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/myCheckBox"
+        style="@style/TypographyRegular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/side_padding_24"
+        android:layout_marginHorizontal="@dimen/side_padding_16"
+        android:layoutDirection="rtl"
+        android:text="@string/show_no_salary"
+        android:button="@drawable/checkbox_selector" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/apply"
+            style="@style/ButtonStyle"
+            android:layout_marginBottom="@dimen/side_padding_8"
             android:layout_marginHorizontal="@dimen/side_padding_16"
-            android:text="@string/expected_salary"
-            android:textColor="@color/gray"/>
+            android:text="@string/apply"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="@dimen/corner_radius_12" />
 
-        <EditText
-            android:id="@+id/salary"
-            style="@style/TypographyRegular16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clear"
+            style="@style/ButtonStyle"
+            android:layout_marginBottom="@dimen/side_padding_24"
             android:layout_marginHorizontal="@dimen/side_padding_16"
-            android:inputType="number"
-            android:hint="@string/salary_textfield_hint"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:background="@android:color/transparent"/>
+            android:text="@string/clear"
+            android:textColor="@color/red" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

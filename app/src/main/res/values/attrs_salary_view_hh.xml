@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SalaryViewHH">
+        <attr name="labelTextColor" />
+        <attr name="labelTextColorFocused" format="color" />
+        <attr name="hintTextColor" />
+        <attr name="textColor" />
+        <attr name="hhSalaryViewStyle" format="reference" />
+        <attr name="label" />
+        <attr name="hintText" />
+    </declare-styleable>
+
+</resources>

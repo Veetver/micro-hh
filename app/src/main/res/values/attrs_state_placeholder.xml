@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatePlaceholder">
+        <attr name="textColor" />
+
+        <attr name="connection_error_text" format="string|reference" />
+        <attr name="nothing_found_text" format="string|reference" />
+
+        <attr name="default_image" format="reference" />
+        <attr name="loading_image" format="reference" />
+        <attr name="connection_error_image" format="reference" />
+        <attr name="nothing_found_image" format="reference" />
+
+        <attr name="state" format="enum">
+            <enum name="default_state" value="0" />
+            <enum name="loading_state" value="1" />
+            <enum name="connection_error_state" value="2" />
+            <enum name="nothing_found_state" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

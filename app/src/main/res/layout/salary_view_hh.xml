@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:layout_width="match_parent"
-    tools:layout_height="@dimen/panel_height"
+    tools:layout_height="51dp"
     tools:gravity="center_vertical"
+    tools:background="@drawable/rounded_shape_12"
+    tools:backgroundTint="@color/light_gray"
     tools:parentTag="android.widget.LinearLayout">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/inside_padding_16"
         android:orientation="vertical"
+        android:layout_marginStart="@dimen/side_padding_16"
         android:layout_weight="1">
 
         <TextView
@@ -19,15 +21,19 @@
             style="@style/TypographyRegular12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Label"/>
+            android:text="@string/expected_salary"
+            android:textColor="@color/gray"/>
 
-        <TextView
+        <EditText
             android:id="@+id/text"
             style="@style/TypographyRegular16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            tools:text="TextView" />
+            android:inputType="number"
+            android:hint="@string/salary_textfield_hint"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:background="@android:color/transparent" />
 
     </LinearLayout>
 
@@ -35,8 +41,10 @@
         android:id="@+id/trailing_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/side_padding_16"
-        android:src="@drawable/ic_arrow_forward"
-        app:tint="?attr/colorOnPrimary" />
+        android:layout_marginEnd="@dimen/inside_padding_12"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        app:tint="?attr/colorOnPrimary"
+        tools:visibility="visible"/>
 
 </merge>

@@ -4,19 +4,22 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.resources.FiltersDataState
 import ru.practicum.android.microhh.databinding.SelectableViewHhBinding
 
 class SelectableViewHH @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    @AttrRes defStyleAttr: Int = R.attr.hhTextFieldStyle,
-    @StyleRes defStyleRes: Int = R.style.TextFieldHHStyle,
+    @AttrRes defStyleAttr: Int = R.attr.hhSelectableViewStyle,
+    @StyleRes defStyleRes: Int = R.style.SelectableViewHHStyle,
 ) : LinearLayout(
     context,
     attrs,
@@ -31,61 +34,79 @@ class SelectableViewHH @JvmOverloads constructor(
     private var textColorFilled: Int = 0
     private val arrowIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_arrow_forward)
     private val clearIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_close)
-    private var data: Int = 0
+    private var state: Int = 0
     private var onTextCleared: () -> Unit = {}
 
     init {
+        this.orientation = HORIZONTAL
+        this.gravity = Gravity.CENTER_VERTICAL
+
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.SelectableViewHH,
             defStyleAttr,
-            defStyleRes
+            defStyleRes,
         ).apply {
             try {
                 labelTextColor = getColor(R.styleable.SelectableViewHH_labelTextColor, 0)
                 labelTextColorFilled = getColor(R.styleable.SelectableViewHH_textColorFilled, 0)
                 textColor = getColor(R.styleable.SelectableViewHH_textColor, 0)
                 textColorFilled = getColor(R.styleable.SelectableViewHH_textColorFilled, 0)
-                data = getInt(R.styleable.SelectableViewHH_data, 0)
+                state = getInt(R.styleable.SelectableViewHH_dataState, 0)
 
                 binding.label.text = getText(R.styleable.SelectableViewHH_label)
-                binding.textView.text = getText(R.styleable.SelectableViewHH_text)
+                binding.text.text = getText(R.styleable.SelectableViewHH_text)
 
-                val _labelTextColor: Int
-                val _textColor: Int
-                val _trailingIcon: Drawable?
 
-                when (data) {
-                    0 -> {
-                        _labelTextColor = labelTextColor
-                        _textColor = textColor
-                        _trailingIcon = arrowIcon
-                    }
-
-                    else -> {
-                        _labelTextColor = labelTextColorFilled
-                        _textColor = textColorFilled
-                        _trailingIcon = clearIcon
-                    }
-                }
-
-                with(binding) {
-                    label.setTextColor(ColorStateList.valueOf(_labelTextColor))
-                    textView.setTextColor(ColorStateList.valueOf(_textColor))
-                    trailingIcon.setImageDrawable(_trailingIcon)
-                }
             } finally {
                 recycle()
             }
         }
 
+        updateFiltersDataState()
         binding.trailingIcon.setOnClickListener {
-            binding.textView.text = ""
+            state = FiltersDataState.EMPTY.code
             onTextCleared()
         }
     }
 
+    fun setText(text: String) {
+        binding.label.text = binding.text.text
+        binding.text.text = text
+        state = FiltersDataState.FILLED.code
+        updateFiltersDataState()
+    }
+
     fun setOnClearText(action: () -> Unit) {
         onTextCleared = action
+        binding.text.text = binding.label.text
+        state = FiltersDataState.EMPTY.code
+        updateFiltersDataState()
+    }
+
+    private fun updateFiltersDataState() {
+        var labelTextColorVar = 0
+        var textColorVar = 0
+        var trailingIconVar: Drawable? = null
+
+        when (state) {
+            FiltersDataState.EMPTY.code -> {
+                labelTextColorVar = labelTextColor
+                textColorVar = textColor
+                trailingIconVar = arrowIcon
+            }
+            FiltersDataState.FILLED.code -> {
+                labelTextColorVar = labelTextColorFilled
+                textColorVar = textColorFilled
+                trailingIconVar = clearIcon
+            }
+        }
+
+        with(binding) {
+            label.setTextColor(ColorStateList.valueOf(labelTextColorVar))
+            text.setTextColor(ColorStateList.valueOf(textColorVar))
+            trailingIcon.setImageDrawable(trailingIconVar)
+            label.isVisible = state == FiltersDataState.FILLED.code
+        }
     }
 }
