@@ -37,6 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/side_padding_16"
         android:src="@drawable/ic_arrow_forward"
-        app:tint="?attr/colorOnPrimary" />
+        app:tint="@color/black" />
 
 </merge>
