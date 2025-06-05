@@ -49,7 +49,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
             listOf(
                 VisibilityItem(binding.noData, NoData),
                 VisibilityItem(binding.unexpectedIssue, Error),
-                VisibilityItem(binding.jobListContainer, Results),
+                VisibilityItem(binding.jobList, Results),
             )
         )
 
