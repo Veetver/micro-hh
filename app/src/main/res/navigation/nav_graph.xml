@@ -6,6 +6,10 @@
     android:id="@+id/nav_graph">
 
     <action
+        android:id="@+id/open_vacancy_details"
+        app:destination="@id/vacancy_fragment" />
+
+    <action
         android:id="@+id/open_filters"
         app:destination="@id/filters_fragment" />
 
@@ -29,11 +33,7 @@
         android:id="@+id/search_fragment"
         android:name="ru.practicum.android.microhh.search.presentation.ui.SearchFragment"
         android:label="@string/search_fragment_title"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_search_fragment_to_vacancy_fragment"
-            app:destination="@id/vacancy_fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/filters_fragment"
