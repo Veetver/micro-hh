@@ -68,4 +68,6 @@
     <string name="image_placeholder_content_desc">Image Placeholder</string>
     <string name="job_favorites_empty">Список пуст</string>
     <string name="job_favorites_unexpected_issue">Не удалось получить список вакансий</string>
+    <string name="country_title">Страна</string>
+    <string name="region_title">Регион</string>
 </resources>
