@@ -48,6 +48,14 @@
     <string name="enter_query_text_placeholder">Введите запрос</string>
     <string name="filter">Фильтр</string>
 
+    <string name="workplace">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="salary_textfield_hint">Введите сумму</string>
+    <string name="show_no_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="clear">Сбросить</string>
+
     <plurals name="vacancy">
         <item quantity="one">Найдено %d вакансия</item>
         <item quantity="few">Найдено %d вакансии</item>

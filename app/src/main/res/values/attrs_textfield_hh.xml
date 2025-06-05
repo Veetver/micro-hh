@@ -2,16 +2,16 @@
 <resources>
     <declare-styleable name="TextFieldHH">
         <attr name="placeholderTextColor" format="color" />
-        <attr name="hintTextColor" format="color" />
+        <attr name="hintTextColor" />
         <attr name="hintTextColorFocused" format="color" />
         <attr name="hintTextColorFilled" format="color" />
-        <attr name="textColor" format="color" />
+        <attr name="textColor" />
         <attr name="iconColor" format="color" />
         <attr name="backgroundColor" format="color" />
         <attr name="hhTextFieldStyle" format="reference" />
         <attr name="placeholderText" format="string|reference" />
-        <attr name="hintText" format="string|reference" />
-        <attr name="text" format="string|reference" />
+        <attr name="hintText" />
+        <attr name="text" />
 
         <attr name="mode" format="enum">
             <enum name="textField" value="0" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StatePlaceholder">
-        <attr name="text_color" format="color" />
+        <attr name="textColor" />
 
         <attr name="connection_error_text" format="string|reference" />
         <attr name="nothing_found_text" format="string|reference" />
@@ -17,7 +17,5 @@
             <enum name="connection_error_state" value="2" />
             <enum name="nothing_found_state" value="3" />
         </attr>
-
-        <attr name="statePlaceholderStyle" format="reference" />
     </declare-styleable>
 </resources>

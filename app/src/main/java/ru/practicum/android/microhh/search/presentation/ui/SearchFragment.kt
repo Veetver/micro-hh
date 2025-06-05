@@ -98,6 +98,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 }
             }
         })
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filter_icon -> {
+                    findNavController().navigate(
+                        R.id.open_filters
+                    )
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun showSearchResults(list: List<Vacancy>, count: Int, isNextPage: Boolean = false) {

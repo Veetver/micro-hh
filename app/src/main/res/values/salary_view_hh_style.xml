@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SalaryViewHHStyle">
+        <item name="labelTextColor">@color/gray</item>
+        <item name="labelTextColorFocused">@color/blue</item>
+        <item name="textColor">@color/black_universal</item>
+        <item name="hintTextColor">@color/gray</item>
+    </style>
+</resources>

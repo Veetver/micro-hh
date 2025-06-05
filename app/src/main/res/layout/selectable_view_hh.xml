@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_width="match_parent"
+    tools:layout_height="@dimen/panel_height"
+    tools:gravity="center_vertical"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/inside_padding_16"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/label"
+            style="@style/TypographyRegular12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Label"/>
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/TypographyRegular16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            tools:text="TextView" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/trailing_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/side_padding_16"
+        android:src="@drawable/ic_arrow_forward"
+        app:tint="?attr/colorOnPrimary" />
+
+</merge>

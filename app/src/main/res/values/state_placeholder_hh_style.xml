@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <style name="StatePlaceholderHHStyle">
-            <item name="text_color">@color/black</item>
+    <style name="StatePlaceholderHHStyle">
+        <item name="textColor">@color/black</item>
 
-            <item name="connection_error_text">@string/no_connection_placeholder</item>
-            <item name="nothing_found_text">@string/nothing_found_placeholder</item>
+        <item name="connection_error_text">@string/no_connection_placeholder</item>
+        <item name="nothing_found_text">@string/nothing_found_placeholder</item>
 
-            <item name="default_image">@drawable/default_search_placeholder</item>
-            <item name="loading_image">@drawable/loader</item>
-            <item name="connection_error_image">@drawable/no_connection_placeholder</item>
-            <item name="nothing_found_image">@drawable/empty_search_placeholder</item>
-        </style>
+        <item name="default_image">@drawable/default_search_placeholder</item>
+        <item name="loading_image">@drawable/loader</item>
+        <item name="connection_error_image">@drawable/no_connection_placeholder</item>
+        <item name="nothing_found_image">@drawable/empty_search_placeholder</item>
+    </style>
 </resources>
