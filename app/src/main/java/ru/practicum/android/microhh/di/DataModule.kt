@@ -1,7 +1,6 @@
 package ru.practicum.android.microhh.di
 
 import androidx.room.Room
-import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
@@ -39,8 +38,4 @@ val dataModule = module {
             "database.db"
         ).build()
     }
-
-    factory { Gson() }
 }
-
-
