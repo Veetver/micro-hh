@@ -12,6 +12,7 @@ data class JobInfo(
     val employmentFormName: String?,
     val workFormatName: String?,
     val description: String,
-    val keySkills: String
+    val keySkills: String,
+    val employerLogo: String?,
 ) : java.io.Serializable
 

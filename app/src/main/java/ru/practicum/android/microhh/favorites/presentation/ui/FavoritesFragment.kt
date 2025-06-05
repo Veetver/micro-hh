@@ -63,7 +63,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
             is FavoriteJobScreenState.Empty -> visibility?.show(NoData)
             is FavoriteJobScreenState.Error -> visibility?.show(Error)
             is FavoriteJobScreenState.FavoriteContent -> {
-                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(), false) {
+                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(
+                    requireContext()
+                ), false) {
                     visibility?.show(Results)
                 }
             }

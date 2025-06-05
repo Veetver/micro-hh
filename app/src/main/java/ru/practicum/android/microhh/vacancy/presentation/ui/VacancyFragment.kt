@@ -3,6 +3,7 @@ package ru.practicum.android.microhh.vacancy.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
     private val viewModel by viewModel<VacancyViewModel>() {
         parametersOf(args.vacancyId)
     }
+    private var isFavorite: Boolean? = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +43,34 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
                     renderState(state)
                 }
             }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.stateFavoriteFlow.collect { state ->
+                    renderFavoriteState(state)
+                }
+            }
+        }
+    }
+
+    private fun renderFavoriteState(state: VacancyFavoriteState) {
+        when (state) {
+            is VacancyFavoriteState.Error -> showError()
+            is VacancyFavoriteState.VacancyFavorite -> showFavoriteVacancy(state.isFavorite)
+            is VacancyFavoriteState.Loading -> {}
+            is VacancyFavoriteState.Success -> {}
+            is VacancyFavoriteState.VacancyNotFavorite -> showFavoriteVacancy(state.isFavorite)
+        }
+    }
+
+    private fun showFavoriteVacancy(isFavorite: Boolean?) {
+        this.isFavorite = isFavorite
+        val favoritesItem = binding.toolbar.menu.findItem(R.id.favorites_icon)
+        if (this.isFavorite == true) {
+            favoritesItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_on)
+        } else {
+            favoritesItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_off)
         }
     }
 
@@ -72,13 +102,17 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
                 }
 
                 R.id.favorites_icon -> {
-                    // to do
+                    setFavorite(vacancy)
                     true
                 }
 
                 else -> false
             }
         }
+    }
+
+    private fun setFavorite(vacancy: VacancyDetailsUi) {
+        viewModel.updateFavorite(vacancy, this.isFavorite)
     }
 
     private fun fillContent(vacancy: VacancyDetailsUi) {

@@ -40,14 +40,21 @@ object DtoConverter {
         }
     }
 
-    fun List<JobInfo>.toJobVacancyList(): List<Vacancy> {
+    fun List<JobInfo>.toJobVacancyList(context: Context): List<Vacancy> {
         return map {
+            val salary = Salary(
+                from = it.salaryFrom,
+                to = it.salaryTo,
+                currency = it.currency,
+                gross = false
+            )
+
             Vacancy(
                 id = it.id.toString(),
-                companyLogo = "",
+                companyLogo = it.employerLogo ?: "",
                 title = it.name,
                 companyName = it.employerName,
-                salaryDisplayText = "",
+                salaryDisplayText = salary.toSalaryDisplayText(context),
             )
         }
     }

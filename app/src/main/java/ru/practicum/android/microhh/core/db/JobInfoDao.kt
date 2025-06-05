@@ -31,6 +31,6 @@ interface JobInfoDao {
             "FROM job_info_table " +
             "WHERE id = :id"
     )
-    suspend fun getJobById(id: Long): JobInfoEntity
+    suspend fun getJobById(id: Long): JobInfoEntity?
 }
 

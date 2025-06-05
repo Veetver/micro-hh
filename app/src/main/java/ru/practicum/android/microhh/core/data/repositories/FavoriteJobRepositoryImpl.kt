@@ -20,7 +20,7 @@ class FavoriteJobRepositoryImpl(
         }
     }
 
-    override fun findById(id: Long): Flow<JobInfo> {
+    override fun findById(id: Long): Flow<JobInfo?> {
         return flow {
             val job = appDatabase.favoriteJobDao().getJobById(id)
             emit(jobInfoDBConvertor.map(job))
@@ -40,6 +40,6 @@ class FavoriteJobRepositoryImpl(
     }
 
     private fun convertFromJobEntity(items: List<JobInfoEntity>): List<JobInfo> {
-        return items.map { job -> jobInfoDBConvertor.map(job) }
+        return items.map { job -> jobInfoDBConvertor.map(job)!! }
     }
 }

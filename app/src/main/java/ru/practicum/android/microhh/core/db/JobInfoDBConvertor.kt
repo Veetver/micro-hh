@@ -17,11 +17,15 @@ class JobInfoDBConvertor {
             jobInfo.workFormatName,
             jobInfo.description,
             jobInfo.keySkills,
-            System.currentTimeMillis().toString()
+            System.currentTimeMillis().toString(),
+            jobInfo.employerLogo
         )
     }
 
-    fun map(jobInfo: JobInfoEntity): JobInfo {
+    fun map(jobInfo: JobInfoEntity?): JobInfo? {
+        if (jobInfo == null) {
+            return null
+        }
         return JobInfo(
             jobInfo.id,
             jobInfo.name,
@@ -34,7 +38,8 @@ class JobInfoDBConvertor {
             jobInfo.employmentFormName,
             jobInfo.workFormatName,
             jobInfo.description,
-            jobInfo.keySkills
+            jobInfo.keySkills,
+            jobInfo.employerLogo
         )
     }
 }

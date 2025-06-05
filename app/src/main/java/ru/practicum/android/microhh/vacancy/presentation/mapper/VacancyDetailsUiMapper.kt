@@ -28,6 +28,9 @@ fun VacancyDetails.toVacancyDetailsUi(
     } else {
         null
     },
+    salaryFrom = salary?.from,
+    salaryTo = salary?.to,
+    currency = salary?.currency,
 )
 
 fun editHtml(description: String): String {

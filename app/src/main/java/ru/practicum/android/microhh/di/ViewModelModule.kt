@@ -20,6 +20,7 @@ val viewModelModule = module {
         VacancyViewModel(
             vacancyId = vacancyId,
             vacancyDetailsUseCase = get(),
+            get()
         )
     }
 }
