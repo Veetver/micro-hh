@@ -1,9 +1,9 @@
 package ru.practicum.android.microhh.di
 
 import org.koin.dsl.module
-import ru.practicum.android.microhh.core.data.repositories.FavoriteJobRepositoryImpl
-import ru.practicum.android.microhh.core.db.JobInfoDBConvertor
-import ru.practicum.android.microhh.core.domain.repositories.favorites.FavoriteJobRepository
+import ru.practicum.android.microhh.core.db.impl.VacancyDetailsDBConvertorImpl
+import ru.practicum.android.microhh.favorites.data.impl.FavoriteVacancyRepositoryImpl
+import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyRepository
 import ru.practicum.android.microhh.search.data.impl.VacancySearchRepositoryImpl
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 import ru.practicum.android.microhh.vacancy.data.impl.VacancyDetailsRepositoryImpl
@@ -16,13 +16,13 @@ val repositoryModule = module {
         VacancySearchRepositoryImpl(get(), get())
     }
 
-    single { JobInfoDBConvertor() }
+    single { VacancyDetailsDBConvertorImpl() }
 
-    single<FavoriteJobRepository> {
-        FavoriteJobRepositoryImpl(get(), get())
+    single<FavoriteVacancyRepository> {
+        FavoriteVacancyRepositoryImpl(get(), get())
     }
 
     single<VacancyDetailsRepository> {
-        VacancyDetailsRepositoryImpl(get())
+        VacancyDetailsRepositoryImpl(get(), get())
     }
 }

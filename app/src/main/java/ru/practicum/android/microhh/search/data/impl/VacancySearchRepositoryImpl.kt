@@ -2,11 +2,11 @@ package ru.practicum.android.microhh.search.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.resources.VacancySearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
-import ru.practicum.android.microhh.search.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.search.data.dto.VacancyResponse
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 
