@@ -8,13 +8,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
-import ru.practicum.android.microhh.core.resources.FavoriteJobScreenState
+import ru.practicum.android.microhh.core.resources.FavoriteVacancyScreenState
 import ru.practicum.android.microhh.core.resources.VisibilityState.Error
 import ru.practicum.android.microhh.core.resources.VisibilityState.NoData
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
 import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
-import ru.practicum.android.microhh.core.utils.DtoConverter.toJobVacancyList
 import ru.practicum.android.microhh.databinding.FragmentFavoritesBinding
 import ru.practicum.android.microhh.favorites.presentation.FavoritesViewModel
 
@@ -58,14 +57,12 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         binding.jobList.itemAnimator = ItemAnimator()
     }
 
-    private fun renderState(screenState: FavoriteJobScreenState) {
-        when (screenState) {
-            is FavoriteJobScreenState.Empty -> visibility?.show(NoData)
-            is FavoriteJobScreenState.Error -> visibility?.show(Error)
-            is FavoriteJobScreenState.FavoriteContent -> {
-                vacancyAdapter?.submitVacancyList(screenState.jobs.toJobVacancyList(
-                    requireContext()
-                ), false) {
+    private fun renderState(state: FavoriteVacancyScreenState) {
+        when (state) {
+            is FavoriteVacancyScreenState.Empty -> visibility?.show(NoData)
+            is FavoriteVacancyScreenState.Error -> visibility?.show(Error)
+            is FavoriteVacancyScreenState.FavoriteContent -> {
+                vacancyAdapter?.submitVacancyList(state.results, false) {
                     visibility?.show(Results)
                 }
             }

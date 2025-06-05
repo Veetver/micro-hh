@@ -16,11 +16,11 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.utils.Extensions.dpToPx
 import ru.practicum.android.microhh.databinding.FragmentVacancyBinding
-import ru.practicum.android.microhh.vacancy.presentation.mapper.toVacancyDetailsUi
-import ru.practicum.android.microhh.vacancy.presentation.models.VacancyDetailsUi
+import ru.practicum.android.microhh.vacancy.presentation.VacancyViewModel
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val args: VacancyFragmentArgs by navArgs()
@@ -79,15 +79,11 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
             is VacancyState.VacancyNotExist -> showError()
             is VacancyState.Loading -> showLoading()
             is VacancyState.ConnectionError -> showError()
-            is VacancyState.ShowDetails -> showVacancy(
-                state.result.toVacancyDetailsUi(
-                    requireContext()
-                )
-            )
+            is VacancyState.ShowDetails -> showVacancy(state.result)
         }
     }
 
-    private fun showVacancy(vacancy: VacancyDetailsUi) {
+    private fun showVacancy(vacancy: VacancyDetails) {
         binding.progressBar.isVisible = false
         binding.serverErrorImage.isVisible = false
         showTitles(true)
@@ -111,26 +107,26 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         }
     }
 
-    private fun setFavorite(vacancy: VacancyDetailsUi) {
+    private fun setFavorite(vacancy: VacancyDetails) {
         viewModel.updateFavorite(vacancy, this.isFavorite)
     }
 
-    private fun fillContent(vacancy: VacancyDetailsUi) {
+    private fun fillContent(vacancy: VacancyDetails) {
         Glide
             .with(binding.vacancyCover)
-            .load(vacancy.companyLogo)
+            .load(vacancy.employerLogo)
             .placeholder(R.drawable.placeholder_with_frame)
             .centerCrop()
             .transform(RoundedCorners(2.0f.dpToPx(binding.vacancyCover.context)))
             .into(binding.vacancyCover)
-        binding.vacancyName.text = vacancy.title
+        binding.vacancyName.text = vacancy.name
         binding.vacancySalary.text = vacancy.salaryDisplayText
-        binding.employerName.text = vacancy.companyName
-        binding.employerAddress.text = vacancy.region
+        binding.employerName.text = vacancy.employerName
+        binding.employerAddress.text = vacancy.areaName
         binding.requiredExp.text = vacancy.experience
-        binding.workFormat.text = vacancy.workFormats
+        binding.workFormat.text = vacancy.workFormat
 
-        vacancy.description?.let {
+        vacancy.description.let {
             binding.vacancyDescriptionTitle.isVisible = true
             binding.vacancyDescription.isVisible = true
             binding.vacancyDescription.loadDataWithBaseURL(
