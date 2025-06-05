@@ -1,7 +1,7 @@
 package ru.practicum.android.microhh.core.data.network
 
 import ru.practicum.android.microhh.core.data.dto.Response
-import ru.practicum.android.microhh.country.data.dto.AreaRequest
+import ru.practicum.android.microhh.region.data.dto.AreaRequest
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
 
