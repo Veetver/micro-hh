@@ -3,13 +3,13 @@ package ru.practicum.android.microhh.core.utils
 import android.content.Context
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.Currency
-import ru.practicum.android.microhh.core.domain.models.JobInfo
 import ru.practicum.android.microhh.core.domain.models.Salary
-import ru.practicum.android.microhh.core.domain.models.Vacancy
 
 object DtoConverter {
 
-    fun Salary.toSalaryDisplayText(context: Context): String {
+    fun Salary?.toSalaryDisplayText(context: Context): String {
+        if (this == null) return context.getString(R.string.salary_not_specified)
+
         val currencySign = Currency.entries
             .firstOrNull { it.name == this.currency }?.sign
 
@@ -37,25 +37,6 @@ object DtoConverter {
                 )
             }
             else -> context.getString(R.string.salary_not_specified)
-        }
-    }
-
-    fun List<JobInfo>.toJobVacancyList(context: Context): List<Vacancy> {
-        return map {
-            val salary = Salary(
-                from = it.salaryFrom,
-                to = it.salaryTo,
-                currency = it.currency,
-                gross = false
-            )
-
-            Vacancy(
-                id = it.id.toString(),
-                companyLogo = it.employerLogo ?: "",
-                title = it.name,
-                companyName = it.employerName,
-                salaryDisplayText = salary.toSalaryDisplayText(context),
-            )
         }
     }
 }

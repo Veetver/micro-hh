@@ -57,7 +57,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
             findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
+                SearchFragmentDirections.openVacancyDetails(vacancy.id)
             )
         }
 

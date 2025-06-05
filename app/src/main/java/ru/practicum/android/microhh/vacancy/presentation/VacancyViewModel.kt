@@ -1,4 +1,4 @@
-package ru.practicum.android.microhh.vacancy.presentation.ui
+package ru.practicum.android.microhh.vacancy.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,19 +6,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
 import ru.practicum.android.microhh.core.domain.models.VacancyDetails
+import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyInteractor
 import ru.practicum.android.microhh.vacancy.domain.impl.VacancyDetailsUseCase
-import ru.practicum.android.microhh.vacancy.presentation.models.VacancyDetailsUi
-import ru.practicum.android.microhh.vacancy.presentation.models.toJobInfo
+import ru.practicum.android.microhh.vacancy.presentation.ui.VacancyFavoriteState
+import ru.practicum.android.microhh.vacancy.presentation.ui.VacancyState
 
 class VacancyViewModel(
     private val vacancyId: String,
     private val vacancyDetailsUseCase: VacancyDetailsUseCase,
-    private val interactor: FavoriteJobInteractor
+    private val interactor: FavoriteVacancyInteractor
 ) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<VacancyState>(VacancyState.Loading)
@@ -36,28 +35,29 @@ class VacancyViewModel(
     }
 
     private fun observeFavoriteStatus(vacancyId: String) {
-        viewModelScope.launch {
-            val id = runCatching { vacancyId.toLong() }.getOrNull()
-            if (id == null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                interactor.isVacancyFavorite(vacancyId.toLong())
+                    .collect { isFavorite ->
+                        _stateFavoriteFlow.value = if (isFavorite) {
+                            VacancyFavoriteState.VacancyFavorite
+                        } else {
+                            VacancyFavoriteState.VacancyNotFavorite
+                        }
+                    }
+            }.onFailure {
                 _stateFavoriteFlow.value = VacancyFavoriteState.Error
-            } else {
-                val jobInfo = interactor.findById(id).first()
-                _stateFavoriteFlow.value = if (jobInfo != null) {
-                    VacancyFavoriteState.VacancyFavorite
-                } else {
-                    VacancyFavoriteState.VacancyNotFavorite
-                }
             }
         }
     }
 
-    fun updateFavorite(vacancy: VacancyDetailsUi, isFavorite: Boolean?) {
+    fun updateFavorite(vacancy: VacancyDetails, isFavorite: Boolean?) {
         viewModelScope.launch(Dispatchers.IO) {
             _stateFavoriteFlow.value = VacancyFavoriteState.Loading
             if (isFavorite == true) {
-                interactor.remove(vacancy.toJobInfo(vacancyId.toLong()))
+                interactor.remove(vacancy)
             } else {
-                interactor.add(vacancy.toJobInfo(vacancyId.toLong()))
+                interactor.add(vacancy)
             }
             _stateFavoriteFlow.value = VacancyFavoriteState.Success
             observeFavoriteStatus(vacancyId)

@@ -1,7 +1,6 @@
 package ru.practicum.android.microhh.vacancy.data.dto
 
 import com.google.gson.annotations.SerializedName
-import ru.practicum.android.microhh.core.data.dto.Response
 import ru.practicum.android.microhh.core.domain.models.Address
 import ru.practicum.android.microhh.core.domain.models.Area
 import ru.practicum.android.microhh.core.domain.models.Department
@@ -17,7 +16,7 @@ import ru.practicum.android.microhh.core.domain.models.WorkingDay
 import ru.practicum.android.microhh.core.domain.models.WorkingTimeInterval
 import ru.practicum.android.microhh.core.domain.models.WorkingTimeMode
 
-data class VacancyDetailsResponse(
+data class VacancyDetailsDto(
     val id: String,
     val premium: Boolean,
     @SerializedName("has_test") val hasTest: Boolean,
@@ -47,4 +46,4 @@ data class VacancyDetailsResponse(
     @SerializedName("work_format") val workFormat: List<WorkFormat>?,
     @SerializedName("description") val description: String?,
     @SerializedName("key_skills") val keySkills: List<KeySkills>?,
-) : Response()
+)
