@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="StatePlaceholderHHStyle.Region" parent="StatePlaceholderHHStyle">
+        <item name="connection_error_text">Не удалось получить список</item>
+        <item name="nothing_found_text">Такого региона нет</item>
+
+        <item name="connection_error_image">@drawable/error_placeholder_region</item>
+    </style>
+</resources>

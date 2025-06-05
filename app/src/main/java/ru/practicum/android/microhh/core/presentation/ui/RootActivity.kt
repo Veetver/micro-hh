@@ -39,7 +39,8 @@ class RootActivity : AppCompatActivity() {
                     R.id.vacancy_fragment,
                     R.id.filters_fragment,
                     R.id.workplace_fragment,
-                    R.id.country_fragment -> {
+                    R.id.country_fragment,
+                    R.id.region_fragment -> {
                         binding.bottomNavDivider.isVisible = false
                         binding.bottomNav.isVisible = false
                     }
