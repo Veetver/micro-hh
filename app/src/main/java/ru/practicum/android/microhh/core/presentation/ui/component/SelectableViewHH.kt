@@ -56,8 +56,6 @@ class SelectableViewHH @JvmOverloads constructor(
 
                 binding.label.text = getText(R.styleable.SelectableViewHH_label)
                 binding.text.text = getText(R.styleable.SelectableViewHH_text)
-
-
             } finally {
                 recycle()
             }
