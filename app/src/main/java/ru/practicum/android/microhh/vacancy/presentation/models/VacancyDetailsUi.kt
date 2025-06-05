@@ -26,7 +26,7 @@ fun VacancyDetailsUi.toJobInfo(id: Long = 0L): JobInfo =
         employerName = companyName,
         salaryFrom = salaryFrom,
         salaryTo = salaryTo,
-        currency = "",
+        currency = currency ?: "",
         experience = experience ?: "",
         employmentFormName = null,
         workFormatName = workFormats ?: "",
