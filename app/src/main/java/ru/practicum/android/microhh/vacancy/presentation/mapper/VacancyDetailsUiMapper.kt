@@ -18,7 +18,7 @@ fun VacancyDetails.toVacancyDetailsUi(
     description = description?.let { editHtml(it) },
     experience = experience,
     companyName = companyName,
-    title = companyName,
+    title = title,
     salaryDisplayText = salary?.toSalaryDisplayText(context)
         ?: context.getString(R.string.salary_not_specified),
     companyLogo = companyLogo?.size90,
