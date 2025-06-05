@@ -33,7 +33,6 @@ interface VacancyDetailsDao {
     )
     suspend fun getVacancyById(id: Long): VacancyDetailsEntity?
 
-
     @Query("SELECT EXISTS (SELECT 1 FROM job_info_table WHERE id = :id)")
     suspend fun isVacancyFavorite(id: Long): Boolean
 }

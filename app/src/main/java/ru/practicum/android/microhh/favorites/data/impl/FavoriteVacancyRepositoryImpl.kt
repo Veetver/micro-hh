@@ -26,7 +26,7 @@ class FavoriteVacancyRepositoryImpl(
     override fun findById(id: Long): Flow<Vacancy> {
         return flow {
             val vacancy = appDatabase.favoriteVacanciesDao().getVacancyById(id)
-            vacancy?.let {  emit(dtoConverter.toVacancy(it)) }
+            vacancy?.let { emit(dtoConverter.toVacancy(it)) }
         }
     }
 
