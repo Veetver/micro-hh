@@ -15,4 +15,4 @@ data class IndustryItem(
 
 data class IndustryItemResponse(
     val items: List<IndustryResponse>
-): Response()
+) : Response()
