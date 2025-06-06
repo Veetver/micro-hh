@@ -9,4 +9,12 @@ data class FilterSettings(
     val industry: String = "",
     val salary: String = "",
     val showWithoutSalary: Boolean = false,
-) : Parcelable
+) : Parcelable {
+
+    fun isEmpty(): Boolean {
+        return this.workplace.isEmpty() &&
+            this.industry.isEmpty() &&
+            this.salary.isEmpty() &&
+            this.showWithoutSalary.not()
+    }
+}

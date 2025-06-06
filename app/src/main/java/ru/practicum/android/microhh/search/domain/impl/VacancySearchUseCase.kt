@@ -10,7 +10,6 @@ class VacancySearchUseCase(
 ) {
 
     operator fun invoke(term: String, page: Int = 0, filters: FilterSettings): Flow<VacancySearchState> {
-        repository.buildQuery(term, page, filters)
-        return repository.searchVacancy()
+        return repository.searchVacancy(term, page, filters)
     }
 }

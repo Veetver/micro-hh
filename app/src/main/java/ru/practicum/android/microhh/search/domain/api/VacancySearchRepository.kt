@@ -5,6 +5,5 @@ import ru.practicum.android.microhh.core.resources.VacancySearchState
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 
 interface VacancySearchRepository {
-    fun buildQuery(term: String, page: Int, filters: FilterSettings)
-    fun searchVacancy(): Flow<VacancySearchState>
+    fun searchVacancy(term: String, page: Int, filters: FilterSettings): Flow<VacancySearchState>
 }

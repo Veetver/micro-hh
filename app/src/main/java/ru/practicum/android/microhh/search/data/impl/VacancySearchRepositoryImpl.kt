@@ -17,9 +17,9 @@ class VacancySearchRepositoryImpl(
     private val dtoConverter: VacancyDtoConverter,
 ) : VacancySearchRepository {
 
-    private val options: HashMap<String, String> = HashMap()
+    private fun buildQuery(term: String, page: Int, filters: FilterSettings): HashMap<String, String> {
+        val options: HashMap<String, String> = HashMap()
 
-    override fun buildQuery(term: String, page: Int, filters: FilterSettings) {
         options[QueryParams.TEXT.query] = term
         options[QueryParams.PAGE.query] = page.toString()
         options[QueryParams.PER_PAGE.query] = "20"
@@ -37,9 +37,12 @@ class VacancySearchRepositoryImpl(
         }
 
         options[QueryParams.ONLY_WITH_SALARY.query] = filters.showWithoutSalary.toString()
+
+        return options
     }
 
-    override fun searchVacancy(): Flow<VacancySearchState> = flow {
+    override fun searchVacancy(term: String, page: Int, filters: FilterSettings): Flow<VacancySearchState> = flow {
+        val options = buildQuery(term, page, filters)
         val response = networkClient.doRequest(RetrofitSearchRequest(options))
 
         when (response.resultCode) {
@@ -67,6 +70,5 @@ class VacancySearchRepositoryImpl(
                 emit(VacancySearchState.Error(Constants.NO_CONNECTION, options[QueryParams.TEXT.query]))
             }
         }
-        options.clear()
     }
 }
