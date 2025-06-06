@@ -18,7 +18,7 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
     private fun setupListeners() {
         binding.toolbar.setOnClickListener { findNavController().popBackStack() }
         binding.workplace.setOnClickListener {
-            findNavController().navigate(FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment())
+            findNavController().navigate(FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment(""))
         }
     }
 }
