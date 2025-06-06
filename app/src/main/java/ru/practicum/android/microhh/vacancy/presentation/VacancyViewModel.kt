@@ -1,5 +1,7 @@
 package ru.practicum.android.microhh.vacancy.presentation
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -71,6 +73,7 @@ class VacancyViewModel(
         }
     }
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     private suspend fun doRequest(term: String?) {
         if (term.isNullOrEmpty()) return
 
@@ -85,7 +88,7 @@ class VacancyViewModel(
     private fun processResult(vacancy: VacancyDetails, error: Int?, term: String) {
         updateState(
             when {
-                // error != null -> VacancyState.ConnectionError(error, term)
+                error != null -> VacancyState.ConnectionError(error, term)
                 else ->
                     VacancyState.ShowDetails(vacancy, term)
             }

@@ -14,7 +14,7 @@ class FavoriteVacancyInteractorImpl(
         return favoriteJobRepository.findAll()
     }
 
-    override fun findById(id: Long): Flow<Vacancy> {
+    override fun findById(id: Long): Flow<VacancyDetails?> {
         return favoriteJobRepository.findById(id)
     }
 
