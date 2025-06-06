@@ -85,7 +85,7 @@ class RetrofitNetworkClientImpl(
     override suspend fun getAreas(): Response = withContext(Dispatchers.IO) {
         if (networkCheck.isNetworkAvailable()) {
             try {
-                val response = hhService.getCountries()
+                val response = hhService.getAreas()
                 response.apply {
                     resultCode = Constants.HTTP_OK
                 }
@@ -105,7 +105,7 @@ class RetrofitNetworkClientImpl(
     override suspend fun getAreaById(dto: AreaRequest): Response = withContext(Dispatchers.IO) {
         if (networkCheck.isNetworkAvailable()) {
             try {
-                val response = hhService.getCountries()
+                val response = hhService.getAreaById(dto.id)
                 response.apply {
                     resultCode = Constants.HTTP_OK
                 }
