@@ -31,7 +31,7 @@ class VacancyDetailsUseCase(
 
                 when (state) {
                     is VacancyDetailsState.Success -> {
-                        checkAndMaybeUpdateFavorite(state.vacancy!!, id)
+                        checkAndMaybeUpdateFavorite(state.vacancy, id)
                         emit(state)
                     }
                     is VacancyDetailsState.Error -> checkAndEmitCachedIfFavorite(id, term)
@@ -46,9 +46,9 @@ class VacancyDetailsUseCase(
         }
     }
 
-    private suspend fun checkAndMaybeUpdateFavorite(vacancy: VacancyDetails, id: Long) {
+    private suspend fun checkAndMaybeUpdateFavorite(vacancy: VacancyDetails?, id: Long) {
         val isFavorite = favoriteRepository.isVacancyFavorite(id).first()
-        if (isFavorite) {
+        if (isFavorite && vacancy != null) {
             favoriteRepository.update(vacancy)
         }
     }
