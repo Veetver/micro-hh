@@ -50,19 +50,23 @@ class VacancySearchRepositoryImpl(
                 val result = response as VacancyResponse
 
                 if (result.items.isEmpty()) {
-                    emit(VacancySearchState.Success(
-                        emptyList(),
-                        0,
-                        0,
-                        options[QueryParams.TEXT.query])
+                    emit(
+                        VacancySearchState.Success(
+                            emptyList(),
+                            0,
+                            0,
+                            options[QueryParams.TEXT.query]
+                        )
                     )
                 } else {
                     val vacancies = dtoConverter.toVacancyList(result.items)
-                    emit(VacancySearchState.Success(
-                        vacancies,
-                        result.pages,
-                        result.found,
-                        options[QueryParams.TEXT.query])
+                    emit(
+                        VacancySearchState.Success(
+                            vacancies,
+                            result.pages,
+                            result.found,
+                            options[QueryParams.TEXT.query]
+                        )
                     )
                 }
             }

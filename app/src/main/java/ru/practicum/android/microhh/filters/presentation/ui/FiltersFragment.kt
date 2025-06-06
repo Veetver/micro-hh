@@ -43,7 +43,7 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
             }
         }
 
-        with (binding) {
+        with(binding) {
             toolbar.setOnClickListener { findNavController().popBackStack() }
             salary.setOnTextChanged { text ->
                 viewModel.updateButtons(viewModel.filterSettings.copy(salary = text))

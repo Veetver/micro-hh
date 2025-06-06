@@ -10,7 +10,7 @@ import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 class SettingsRepositoryImpl(
     private val prefs: SharedPreferences,
     private val gson: Gson,
-): SettingsRepository {
+) : SettingsRepository {
 
     private var _filterSettings = loadFilterSettings()
     override val filterSettings: FilterSettings
@@ -21,7 +21,9 @@ class SettingsRepositoryImpl(
 
         return if (!prefsSettings.isNullOrBlank()) {
             gson.fromJson(prefsSettings, FilterSettings::class.java)
-        } else FilterSettings()
+        } else {
+            FilterSettings()
+        }
     }
 
     private fun saveSettings() {

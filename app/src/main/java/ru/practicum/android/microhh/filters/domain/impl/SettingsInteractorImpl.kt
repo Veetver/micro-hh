@@ -6,7 +6,7 @@ import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 
 class SettingsInteractorImpl(
     private val settingsRepository: SettingsRepository
-): SettingsInteractor {
+) : SettingsInteractor {
 
     override val filterSettings = settingsRepository.filterSettings
 
