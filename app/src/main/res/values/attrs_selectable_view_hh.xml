@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectableViewHH">
+        <attr name="labelTextColor" />
+        <attr name="labelTextColorFilled" format="color" />
+        <attr name="textColor" />
+        <attr name="textColorFilled" format="color" />
+        <attr name="hhSelectableViewStyle" format="reference" />
+        <attr name="label" />
+        <attr name="text" />
+
+        <attr name="dataState" format="enum">
+            <enum name="empty" value="0" />
+            <enum name="filled" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
