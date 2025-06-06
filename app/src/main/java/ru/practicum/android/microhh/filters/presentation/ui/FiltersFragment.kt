@@ -27,11 +27,6 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
     }
 
     private fun setupListeners() {
-
-        binding.toolbar.setOnClickListener { findNavController().popBackStack() }
-        binding.workplace.setOnClickListener {
-            findNavController().navigate(FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment(""))
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.filtersStateFlow.collect { state ->
