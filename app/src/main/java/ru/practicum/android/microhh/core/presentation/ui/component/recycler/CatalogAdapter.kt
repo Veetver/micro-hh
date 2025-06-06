@@ -31,7 +31,7 @@ class CatalogAdapter(
         type: CatalogListItem,
     ): List<CatalogListItem> {
         return buildList {
-            when(type) {
+            when (type) {
                 is CatalogListItem.CheckboxItem -> this += list.map { CatalogListItem.CheckboxItem(it) }
                 is CatalogListItem.ArrowItem -> this += list.map { CatalogListItem.ArrowItem(it) }
             }
