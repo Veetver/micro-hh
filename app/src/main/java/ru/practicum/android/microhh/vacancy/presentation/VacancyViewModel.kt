@@ -85,7 +85,7 @@ class VacancyViewModel(
     private fun processResult(vacancy: VacancyDetails, error: Int?, term: String) {
         updateState(
             when {
-                // error != null -> VacancyState.ConnectionError(error, term)
+                error != null -> VacancyState.ConnectionError(error, term)
                 else ->
                     VacancyState.ShowDetails(vacancy, term)
             }
