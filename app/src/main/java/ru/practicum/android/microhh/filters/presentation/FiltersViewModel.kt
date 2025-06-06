@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import ru.practicum.android.microhh.core.resources.FiltersButtonState
 import ru.practicum.android.microhh.core.resources.FiltersState
-Пimport ru.practicum.android.microhh.core.utils.Extensions.isEmpty
+import ru.practicum.android.microhh.core.utils.Extensions.isEmpty
 import ru.practicum.android.microhh.filters.domain.api.SettingsInteractor
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 
@@ -30,7 +30,7 @@ class FiltersViewModel(
 
     fun updateButtons(newSettings: FilterSettings) {
         setButtonsState(FiltersButtonState.Apply(_filterSettings != newSettings))
-        setButtonsState(FiltersButtonState.Clear(newSettings.isEmpty().not()Ghf))
+        setButtonsState(FiltersButtonState.Clear(newSettings.isEmpty().not()))
     }
 
     fun updateSettings(
