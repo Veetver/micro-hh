@@ -10,4 +10,5 @@ interface FavoriteVacancyRepository {
     suspend fun isVacancyFavorite(id: Long): Flow<Boolean>
     suspend fun add(vacancy: VacancyDetails)
     suspend fun remove(vacancy: VacancyDetails)
+    suspend fun update(vacancy: VacancyDetails)
 }

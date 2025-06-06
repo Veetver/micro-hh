@@ -46,4 +46,10 @@ class FavoriteVacancyRepositoryImpl(
             vacancy.id
         )
     }
+
+    override suspend fun update(vacancy: VacancyDetails) {
+        appDatabase.favoriteVacanciesDao().updateVacancy(
+            dtoConverter.toVacancyDetailsEntity(vacancy)
+        )
+    }
 }

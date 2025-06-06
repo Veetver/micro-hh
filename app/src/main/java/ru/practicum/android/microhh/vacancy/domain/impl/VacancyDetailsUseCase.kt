@@ -6,8 +6,10 @@ import androidx.annotation.RequiresExtension
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 import ru.practicum.android.microhh.core.resources.VacancyDetailsState
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyRepository
@@ -28,7 +30,10 @@ class VacancyDetailsUseCase(
                 val state = repository.getVacancyDetails(term).first()
 
                 when (state) {
-                    is VacancyDetailsState.Success -> emit(state)
+                    is VacancyDetailsState.Success -> {
+                        checkAndMaybeUpdateFavorite(state.vacancy!!, id)
+                        emit(state)
+                    }
                     is VacancyDetailsState.Error -> checkAndEmitCachedIfFavorite(id, term)
                 }
             } catch (e: IOException) {
@@ -41,12 +46,23 @@ class VacancyDetailsUseCase(
         }
     }
 
+    private suspend fun checkAndMaybeUpdateFavorite(vacancy: VacancyDetails, id: Long) {
+        val isFavorite = favoriteRepository.isVacancyFavorite(id).first()
+        if (isFavorite) {
+            favoriteRepository.update(vacancy)
+        }
+    }
+
     private suspend fun FlowCollector<VacancyDetailsState>.checkAndEmitCachedIfFavorite(id: Long, term: String) {
         val isFavorite = favoriteRepository.isVacancyFavorite(id).first()
 
         if (isFavorite) {
-            val favoriteVacancy = favoriteRepository.findById(id).first()
-            favoriteVacancy?.let { VacancyDetailsState.Success(it, term) }?.let { emit(it) }
+            val favoriteVacancy = favoriteRepository.findById(id).firstOrNull()
+            if (favoriteVacancy != null) {
+                emit(VacancyDetailsState.Success(favoriteVacancy, term))
+            } else {
+                emit(VacancyDetailsState.Error(R.string.no_internet, term))
+            }
         } else {
             emit(VacancyDetailsState.Error(R.string.no_internet_and_not_favorite, term))
         }

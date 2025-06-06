@@ -73,4 +73,5 @@
 
     <string name="invalid_vacancy_id">Невалидный id вакансии</string>
     <string name="no_internet_and_not_favorite">Невалидная вакансия</string>
+    <string name="no_internet">Нет интернета</string>
 </resources>
