@@ -21,7 +21,7 @@ class RetrofitNetworkClientImpl(
         return withContext(Dispatchers.IO) {
             if (networkCheck.isNetworkAvailable()) {
                 try {
-                    val response = hhService.searchVacancies(text = dto.term, page = dto.page)
+                    val response = hhService.searchVacancies(dto.options)
                     response.apply {
                         resultCode = Constants.HTTP_OK
                     }

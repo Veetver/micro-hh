@@ -63,6 +63,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.recycler.adapter = vacancyAdapter
     }
 
+    @Suppress("DEPRECATION")
     private fun setListeners() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -108,6 +109,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 }
                 else -> false
             }
+        }
+
+        parentFragmentManager.setFragmentResultListener(Constants.KEY_FILTERS, viewLifecycleOwner) { _, _ ->
+            viewModel.search(searchRequest)
         }
     }
 
