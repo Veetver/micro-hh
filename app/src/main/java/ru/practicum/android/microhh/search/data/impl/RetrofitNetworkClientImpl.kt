@@ -8,7 +8,10 @@ import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.Constants
-import ru.practicum.android.microhh.region.data.dto.AreaRequest
+import ru.practicum.android.microhh.country.data.dto.response.CountriesResponse
+import ru.practicum.android.microhh.region.data.dto.request.AreaByIdRequest
+import ru.practicum.android.microhh.region.data.dto.response.AreaExtendedResponse
+import ru.practicum.android.microhh.region.data.dto.response.AreasResponse
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
 import java.io.IOException
@@ -65,7 +68,7 @@ class RetrofitNetworkClientImpl(
     override suspend fun getCountries(): Response = withContext(Dispatchers.IO) {
         if (networkCheck.isNetworkAvailable()) {
             try {
-                val response = hhService.getCountries()
+                val response = CountriesResponse(areas = hhService.getCountries())
                 response.apply {
                     resultCode = Constants.HTTP_OK
                 }
@@ -85,7 +88,7 @@ class RetrofitNetworkClientImpl(
     override suspend fun getAreas(): Response = withContext(Dispatchers.IO) {
         if (networkCheck.isNetworkAvailable()) {
             try {
-                val response = hhService.getAreas()
+                val response = AreasResponse(areas = hhService.getAreas())
                 response.apply {
                     resultCode = Constants.HTTP_OK
                 }
@@ -102,11 +105,17 @@ class RetrofitNetworkClientImpl(
         }
     }
 
-    override suspend fun getAreaById(dto: AreaRequest): Response = withContext(Dispatchers.IO) {
+    override suspend fun getAreaById(dto: AreaByIdRequest): Response = withContext(Dispatchers.IO) {
         if (networkCheck.isNetworkAvailable()) {
             try {
                 val response = hhService.getAreaById(dto.id)
-                response.apply {
+                val result = AreaExtendedResponse(
+                    areas = response.areas,
+                    id = response.id,
+                    name = response.name,
+                    parentId = response.parentId,
+                )
+                result.apply {
                     resultCode = Constants.HTTP_OK
                 }
             } catch (e: IOException) {
