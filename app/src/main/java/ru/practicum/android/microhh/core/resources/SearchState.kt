@@ -9,12 +9,12 @@ sealed class SearchState(
     data object NoData: SearchState(null)
     data object Loading: SearchState(null)
     class NothingFound(
-        term: String,
+        term: String?,
     ): SearchState(term)
     class ConnectionError(
         val error: Int,
         val isNextPage: Boolean = false,
-        term: String,
+        term: String?,
     ) : SearchState(term)
     class SearchResults(
         var results: List<Vacancy>,
