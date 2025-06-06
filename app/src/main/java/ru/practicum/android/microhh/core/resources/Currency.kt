@@ -1,4 +1,4 @@
-package ru.practicum.android.microhh.core.domain.models
+package ru.practicum.android.microhh.core.resources
 
 enum class Currency(val sign: String) {
     RUR("₽"),

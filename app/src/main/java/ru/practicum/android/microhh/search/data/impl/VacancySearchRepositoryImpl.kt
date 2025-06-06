@@ -4,8 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
+import ru.practicum.android.microhh.core.resources.QueryParams
 import ru.practicum.android.microhh.core.resources.VacancySearchState
 import ru.practicum.android.microhh.core.utils.Constants
+import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.search.data.dto.VacancyResponse
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
@@ -15,23 +17,56 @@ class VacancySearchRepositoryImpl(
     private val dtoConverter: VacancyDtoConverter,
 ) : VacancySearchRepository {
 
-    override fun searchVacancy(term: String, page: Int): Flow<VacancySearchState> = flow {
-        val response = networkClient.doRequest(RetrofitSearchRequest(term, page))
+    private val options: HashMap<String, String> = HashMap()
+
+    override fun buildQuery(term: String, page: Int, filters: FilterSettings) {
+        options[QueryParams.TEXT.query] = term
+        options[QueryParams.PAGE.query] = page.toString()
+        options[QueryParams.PER_PAGE.query] = "20"
+
+        if (filters.workplace.isNotEmpty()) {
+            options[QueryParams.AREA.query] = "true"
+        }
+
+        if (filters.industry.isNotEmpty()) {
+            options[QueryParams.INDUSTRY.query] = filters.industry
+        }
+
+        if (filters.salary.isNotEmpty()) {
+            options[QueryParams.SALARY.query] = filters.salary
+        }
+
+        options[QueryParams.ONLY_WITH_SALARY.query] = filters.showWithoutSalary.toString()
+    }
+
+    override fun searchVacancy(): Flow<VacancySearchState> = flow {
+        val response = networkClient.doRequest(RetrofitSearchRequest(options))
 
         when (response.resultCode) {
             Constants.HTTP_OK -> {
                 val result = response as VacancyResponse
 
                 if (result.items.isEmpty()) {
-                    emit(VacancySearchState.Success(emptyList(), 0, 0, term))
+                    emit(VacancySearchState.Success(
+                        emptyList(),
+                        0,
+                        0,
+                        options[QueryParams.TEXT.query])
+                    )
                 } else {
                     val vacancies = dtoConverter.toVacancyList(result.items)
-                    emit(VacancySearchState.Success(vacancies, result.pages, result.found, term))
+                    emit(VacancySearchState.Success(
+                        vacancies,
+                        result.pages,
+                        result.found,
+                        options[QueryParams.TEXT.query])
+                    )
                 }
             }
             else -> {
-                emit(VacancySearchState.Error(Constants.NO_CONNECTION, term))
+                emit(VacancySearchState.Error(Constants.NO_CONNECTION, options[QueryParams.TEXT.query]))
             }
         }
+        options.clear()
     }
 }

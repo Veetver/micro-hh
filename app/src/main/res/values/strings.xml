@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">micro hh</string>
+    <string name="prefs_file_name" translatable="false">Main preferences</string>
+
+
     <string name="search_fragment_title">Поиск вакансий</string>
     <string name="workplace_fragment_title">Выбор места работы</string>
     <string name="filters_fragment_title">Настройки фильтрации</string>

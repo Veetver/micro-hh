@@ -42,7 +42,7 @@
         app:hintText="@string/salary_textfield_hint" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/myCheckBox"
+        android:id="@+id/show_no_salary"
         style="@style/TypographyRegular16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

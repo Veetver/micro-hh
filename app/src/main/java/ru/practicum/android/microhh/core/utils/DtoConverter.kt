@@ -2,8 +2,8 @@ package ru.practicum.android.microhh.core.utils
 
 import android.content.Context
 import ru.practicum.android.microhh.R
-import ru.practicum.android.microhh.core.domain.models.Currency
 import ru.practicum.android.microhh.core.domain.models.Salary
+import ru.practicum.android.microhh.core.resources.Currency
 
 object DtoConverter {
 

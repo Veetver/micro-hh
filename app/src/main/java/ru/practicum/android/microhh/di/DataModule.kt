@@ -1,8 +1,11 @@
 package ru.practicum.android.microhh.di
 
+import android.content.Context
 import androidx.room.Room
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.core.data.impl.NetworkCheckImpl
 import ru.practicum.android.microhh.core.data.impl.VacancyDtoConverterImpl
@@ -38,4 +41,11 @@ val dataModule = module {
             "database.db"
         ).build()
     }
+
+    single {
+        androidContext().getSharedPreferences(androidContext()
+            .getString(R.string.prefs_file_name), Context.MODE_PRIVATE)
+    }
+
+    factory { Gson() }
 }
