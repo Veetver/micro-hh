@@ -3,7 +3,7 @@ package ru.practicum.android.microhh.core.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.practicum.android.microhh.core.domain.models.Area
+import ru.practicum.android.microhh.country.data.dto.response.AreasResponse
 import ru.practicum.android.microhh.search.data.dto.VacancyResponse
 import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsResponse
 
@@ -21,13 +21,13 @@ interface HhService {
     ): VacancyDetailsResponse
 
     @GET("/areas/countries")
-    suspend fun getCountries(): List<Area>
+    suspend fun getCountries(): AreasResponse
 
     @GET("/areas")
-    suspend fun getAreas(): List<Area>
+    suspend fun getAreas(): AreasResponse
 
     @GET("/areas/{area_id}")
     suspend fun getAreaById(
         @Path("area_id") id: String
-    ): List<Area>
+    ): AreasResponse
 }
