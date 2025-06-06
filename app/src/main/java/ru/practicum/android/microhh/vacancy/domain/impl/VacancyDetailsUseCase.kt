@@ -17,18 +17,17 @@ class VacancyDetailsUseCase(
         val id = term.toLongOrNull()
         if (id == null) {
             emit(VacancyDetailsState.Error(R.string.invalid_vacancy_id, term))
-            return@flow
-        }
+        } else {
+            try {
+                val state = repository.getVacancyDetails(term).first()
 
-        try {
-            val state = repository.getVacancyDetails(term).first()
-
-            when (state) {
-                is VacancyDetailsState.Success -> emit(state)
-                is VacancyDetailsState.Error -> checkAndEmitCachedIfFavorite(id, term)
+                when (state) {
+                    is VacancyDetailsState.Success -> emit(state)
+                    is VacancyDetailsState.Error -> checkAndEmitCachedIfFavorite(id, term)
+                }
+            } catch (e: Exception) {
+                checkAndEmitCachedIfFavorite(id, term)
             }
-        } catch (e: Exception) {
-            checkAndEmitCachedIfFavorite(id, term)
         }
     }
 
