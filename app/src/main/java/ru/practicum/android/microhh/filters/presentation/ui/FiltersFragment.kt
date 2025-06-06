@@ -60,7 +60,7 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
             clear.setOnClickListener {
                 viewModel.clearSettings()
             }
-            industry.setOnClickListener{
+            industry.setOnClickListener {
                 findNavController().navigate(
                     SearchFragmentDirections.openIndustry()
                 )
