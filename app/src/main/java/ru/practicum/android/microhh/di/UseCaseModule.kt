@@ -12,7 +12,7 @@ val useCaseModule = module {
     }
 
     single<VacancyDetailsUseCase> {
-        VacancyDetailsUseCase(get())
+        VacancyDetailsUseCase(get(), get())
     }
 
     single<IndustryListUseCase> {

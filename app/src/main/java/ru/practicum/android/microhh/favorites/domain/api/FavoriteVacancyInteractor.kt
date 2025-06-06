@@ -6,7 +6,7 @@ import ru.practicum.android.microhh.core.domain.models.VacancyDetails
 
 interface FavoriteVacancyInteractor {
     fun findAll(): Flow<List<Vacancy>>
-    fun findById(id: Long): Flow<Vacancy>
+    fun findById(id: Long): Flow<VacancyDetails?>
     suspend fun isVacancyFavorite(id: Long): Flow<Boolean>
     suspend fun add(vacancy: VacancyDetails)
     suspend fun remove(vacancy: VacancyDetails)
