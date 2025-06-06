@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.resources.VacancyDetailsState
+import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyRepository
 import ru.practicum.android.microhh.vacancy.domain.api.VacancyDetailsRepository
 import java.io.IOException
@@ -31,8 +32,10 @@ class VacancyDetailsUseCase(
                     is VacancyDetailsState.Error -> checkAndEmitCachedIfFavorite(id, term)
                 }
             } catch (e: IOException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
                 checkAndEmitCachedIfFavorite(id, term)
             } catch (e: HttpException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
                 checkAndEmitCachedIfFavorite(id, term)
             }
         }
