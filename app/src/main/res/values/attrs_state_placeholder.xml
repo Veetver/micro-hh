@@ -5,6 +5,7 @@
 
         <attr name="connection_error_text" format="string|reference" />
         <attr name="nothing_found_text" format="string|reference" />
+        <attr name="region_not_found_text" format="string|reference" />
 
         <attr name="default_image" format="reference" />
         <attr name="loading_image" format="reference" />

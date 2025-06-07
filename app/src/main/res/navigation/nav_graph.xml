@@ -56,13 +56,20 @@
         <action
             android:id="@+id/action_workplace_fragment_to_region_fragment"
             app:destination="@id/region_fragment" />
+        <argument
+            android:name="countryName"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/country_fragment"
         android:name="ru.practicum.android.microhh.country.presentation.ui.CountryFragment"
         android:label="@string/country_fragment_title"
-        tools:layout="@layout/fragment_country" />
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_country_fragment_to_workplace_fragment"
+            app:destination="@id/workplace_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/region_fragment"

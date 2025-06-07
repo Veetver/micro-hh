@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.di
 
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import ru.practicum.android.microhh.country.presentation.CountryViewModel
 import ru.practicum.android.microhh.favorites.presentation.FavoritesViewModel
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
 import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
@@ -31,7 +32,10 @@ val viewModelModule = module {
     }
 
     viewModel {
-        IndustryViewModel(get())
+        CountryViewModel(get())
     }
 
+    viewModel {
+        IndustryViewModel(get())
+    }
 }
