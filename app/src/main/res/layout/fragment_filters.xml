@@ -51,7 +51,7 @@
         android:layout_marginHorizontal="@dimen/side_padding_16"
         android:layoutDirection="rtl"
         android:text="@string/show_no_salary"
-        android:button="@drawable/checkbox_selector" />
+        android:button="@drawable/checkbox_selector_square" />
 
     <View
         android:layout_width="match_parent"

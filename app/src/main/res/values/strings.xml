@@ -59,6 +59,8 @@
     <string name="apply">Применить</string>
     <string name="clear">Сбросить</string>
 
+    <string name="industry_screen_search_hint">Введите отрасль</string>
+
     <plurals name="vacancy">
         <item quantity="one">Найдено %d вакансия</item>
         <item quantity="few">Найдено %d вакансии</item>

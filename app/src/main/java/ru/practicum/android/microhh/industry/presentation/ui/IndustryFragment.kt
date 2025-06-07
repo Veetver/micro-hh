@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.industry.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,11 +17,20 @@ import ru.practicum.android.microhh.databinding.FragmentIndustryBinding
 import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
 
 class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryBinding::inflate) {
+
     private val viewModel by viewModel<IndustryViewModel>()
+      private var vacancyAdapter: VacancyAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        setupUI()
         setupListeners()
+    }
+    
+      private fun setupUI() {
+        vacancyAdapter = VacancyAdapter()
+        binding.recycler.adapter = vacancyAdapter
     }
 
     private fun setupListeners() {
@@ -34,15 +44,7 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
             }
         }
     }
-
-    private fun renderState(state: IndustryState) {
-        when (state) {
-            is IndustryState.Loading -> showLoading()
-            is IndustryState.Error -> showError()
-            is IndustryState.Success -> showIndustries(state.industries)
-        }
-    }
-
+    
     private fun showIndustries(industries: List<Industry>?) {
         binding.progressBar.isVisible = false
         binding.serverErrorImage.isVisible = false
@@ -57,4 +59,11 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
         binding.progressBar.isVisible = true
     }
 
+    private fun renderState(state: IndustryState) {
+        when (state) {
+            is IndustryState.Loading -> showLoading()
+            is IndustryState.Error -> showError()
+            is IndustryState.Success -> showIndustries(state.industries)
+        }
+    }
 }
