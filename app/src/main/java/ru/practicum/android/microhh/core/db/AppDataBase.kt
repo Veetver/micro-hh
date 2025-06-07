@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     version = 1,
-    entities = [JobInfoEntity::class]
+    entities = [VacancyDetailsEntity::class]
 )
 abstract class AppDataBase : RoomDatabase() {
-    abstract fun shoplistDao(): JobInfoDao
+    abstract fun favoriteVacanciesDao(): VacancyDetailsDao
 }

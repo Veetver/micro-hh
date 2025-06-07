@@ -1,26 +1,41 @@
 package ru.practicum.android.microhh.di
 
+import androidx.room.Room
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
+import ru.practicum.android.microhh.core.data.impl.NetworkCheckImpl
+import ru.practicum.android.microhh.core.data.impl.VacancyDtoConverterImpl
+import ru.practicum.android.microhh.core.data.network.NetworkCheck
+import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
+import ru.practicum.android.microhh.core.db.AppDataBase
+import ru.practicum.android.microhh.core.db.api.VacancyDetailsDBConvertor
+import ru.practicum.android.microhh.core.db.impl.VacancyDetailsDBConvertorImpl
+import ru.practicum.android.microhh.search.data.impl.RetrofitNetworkClientImpl
 
 val dataModule = module {
 
-    /*single {
-        Room.databaseBuilder(
-            androidContext(),
-            AppDataBase::class.java,
-            androidContext().getString(R.string.database_file_name)
-        ).build()
+    single<NetworkCheck> {
+        NetworkCheckImpl(get())
     }
 
     single<RetrofitNetworkClient> {
-        RetrofitNetworkClientImpl(get())
+        RetrofitNetworkClientImpl(get(), get())
+    }
+
+    single<VacancyDtoConverter> {
+        VacancyDtoConverterImpl(get())
+    }
+
+    single<VacancyDetailsDBConvertor> {
+        VacancyDetailsDBConvertorImpl()
     }
 
     single {
-        androidContext().getSharedPreferences(androidContext()
-            .getString(R.string.prefs_file_name), Context.MODE_PRIVATE)
+        Room.databaseBuilder(
+            androidContext(),
+            AppDataBase::class.java,
+            "database.db"
+        ).build()
     }
-
-    factory { Gson() }*/
-
 }

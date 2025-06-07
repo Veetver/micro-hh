@@ -6,6 +6,10 @@
     android:id="@+id/nav_graph">
 
     <action
+        android:id="@+id/open_vacancy_details"
+        app:destination="@id/vacancy_fragment" />
+
+    <action
         android:id="@+id/open_filters"
         app:destination="@id/filters_fragment" />
 
@@ -35,13 +39,24 @@
         android:id="@+id/filters_fragment"
         android:name="ru.practicum.android.microhh.filters.presentation.ui.FiltersFragment"
         android:label="@string/filters_fragment_title"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_filters_fragment_to_workplace_fragment"
+            app:destination="@id/workplace_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/workplace_fragment"
         android:name="ru.practicum.android.microhh.workplace.presentation.ui.WorkplaceFragment"
         android:label="@string/workplace_fragment_title"
-        tools:layout="@layout/fragment_workplace" />
+        tools:layout="@layout/fragment_workplace" >
+        <action
+            android:id="@+id/action_workplace_fragment_to_country_fragment"
+            app:destination="@id/country_fragment" />
+        <action
+            android:id="@+id/action_workplace_fragment_to_region_fragment"
+            app:destination="@id/region_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/country_fragment"
@@ -71,7 +86,11 @@
         android:id="@+id/vacancy_fragment"
         android:name="ru.practicum.android.microhh.vacancy.presentation.ui.VacancyFragment"
         android:label="@string/vacancy_fragment_title"
-        tools:layout="@layout/fragment_vacancy" />
+        tools:layout="@layout/fragment_vacancy" >
+        <argument
+            android:name="vacancyId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/team_fragment"

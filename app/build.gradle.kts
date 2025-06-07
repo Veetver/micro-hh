@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+        buildConfigField(type = "String", name = "HH_EMAIL", value = "\"${developProperties.hhEmail}\"")
     }
 
     buildTypes {
@@ -59,7 +60,10 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation(libs.adapterdelegates4.kotlin.dsl)
+    implementation(libs.hannesdorfmann.adapterdelegates4.kotlin.dsl.viewbinding)
     implementation(libs.glide)
+    ksp(libs.glideCompiler)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

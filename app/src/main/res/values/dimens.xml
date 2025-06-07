@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="side_padding_8">8dp</dimen>
+    <dimen name="side_padding_12">12dp</dimen>
     <dimen name="side_padding_16">16dp</dimen>
+    <dimen name="side_padding_24">24dp</dimen>
     <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="inside_padding_4">4dp</dimen>
+    <dimen name="inside_padding_8">8dp</dimen>
+    <dimen name="inside_padding_12">12dp</dimen>
+    <dimen name="inside_padding_24">24dp</dimen>
+    <dimen name="inside_padding_32">32dp</dimen>
     <dimen name="inside_padding_16">16dp</dimen>
     <dimen name="corner_radius_12">12dp</dimen>
-    <dimen name="padding_16dp">16dp</dimen>
-    <dimen name="bottom_muenu_height">56dp</dimen>
+    <dimen name="company_logo_size">48dp</dimen>
+    <dimen name="bottom_menu_height">56dp</dimen>
     <dimen name="default_text_field_height">56dp</dimen>
+    <dimen name="panel_height">60dp</dimen>
     <dimen name="default_text_field_box_stroke">0dp</dimen>
+    <dimen name="default_title_margin_top">12dp</dimen>
+    <dimen name="default_recycle_margin_top">48dp</dimen>
+    <dimen name="not_found_image_width">328dp</dimen>
+    <dimen name="not_found_image_height">223dp</dimen>
+    <dimen name="auto_height">0dp</dimen>
 </resources>

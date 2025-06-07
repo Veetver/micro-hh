@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.MicroHH.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">@style/TypographyMedium22</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+</resources>

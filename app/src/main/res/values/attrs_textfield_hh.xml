@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextFieldHH">
+        <attr name="placeholderTextColor" format="color" />
+        <attr name="hintTextColor" />
+        <attr name="hintTextColorFocused" format="color" />
+        <attr name="hintTextColorFilled" format="color" />
+        <attr name="textColor" />
+        <attr name="iconColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="hhTextFieldStyle" format="reference" />
+        <attr name="placeholderText" format="string|reference" />
+        <attr name="hintText" />
+        <attr name="text" />
+
+        <attr name="mode" format="enum">
+            <enum name="textField" value="0" />
+            <enum name="searchField" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
