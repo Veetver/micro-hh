@@ -13,11 +13,16 @@
       app:navigationIcon="@drawable/ic_arrow_back"
       app:title="@string/industry_fragment_title" />
 
-  <ru.practicum.android.microhh.core.presentation.ui.component.TextFieldHH
-      android:id="@+id/search"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:hhTextFieldStyle="@style/TextFieldHHStyle"
+    <ru.practicum.android.microhh.core.presentation.ui.component.TextFieldHH
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hhTextFieldStyle="@style/TextFieldHHStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:mode="searchField"
+        app:placeholderText="@string/industry_screen_search_hint" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
