@@ -37,14 +37,14 @@ class StatePlaceholder @JvmOverloads constructor(
     private val connectionErrorText: String?
     private val nothingFoundText: String?
     private val serverErrorText: String?
-    private val noDataText: String?
+    private val noListText: String?
 
     private val defaultImage: Drawable?
     private val loadingImage: Drawable?
     private val connectionErrorImage: Drawable?
     private val nothingFoundImage: Drawable?
     private val serverErrorImage: Drawable?
-    private val noDataImage: Drawable?
+    private val noListImage: Drawable?
 
     private val rotate = RotateAnimation(
         ANIM_FROM_DEGREES,
@@ -73,14 +73,14 @@ class StatePlaceholder @JvmOverloads constructor(
                 connectionErrorText = getString(R.styleable.StatePlaceholder_connection_error_text)
                 nothingFoundText = getString(R.styleable.StatePlaceholder_nothing_found_text)
                 serverErrorText = getString(R.styleable.StatePlaceholder_server_error_text)
-                noDataText = getString(R.styleable.StatePlaceholder_no_data_text)
+                noListText = getString(R.styleable.StatePlaceholder_no_data_text)
 
                 defaultImage = getDrawable(R.styleable.StatePlaceholder_default_image)
                 loadingImage = getDrawable(R.styleable.StatePlaceholder_loading_image)
                 connectionErrorImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
                 nothingFoundImage = getDrawable(R.styleable.StatePlaceholder_nothing_found_image)
                 serverErrorImage = getDrawable(R.styleable.StatePlaceholder_server_error_image)
-                noDataImage = getDrawable(R.styleable.StatePlaceholder_no_data_image)
+                noListImage = getDrawable(R.styleable.StatePlaceholder_no_data_image)
 
                 binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_textColor, 0))
             } finally {
@@ -127,8 +127,8 @@ class StatePlaceholder @JvmOverloads constructor(
                     textPlaceholder.isVisible = true
                 }
                 StatePlaceholderMode.NoData -> {
-                    imagePlaceholder.setImageDrawable(noDataImage)
-                    textPlaceholder.text = noDataText
+                    imagePlaceholder.setImageDrawable(noListImage)
+                    textPlaceholder.text = noListText
                     textPlaceholder.isVisible = true
                 }
             }

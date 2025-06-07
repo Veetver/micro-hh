@@ -6,14 +6,15 @@
         <attr name="connection_error_text" format="string|reference" />
         <attr name="nothing_found_text" format="string|reference" />
         <attr name="server_error_text" format="string|reference" />
-        <attr name="no_data_text" format="string|reference" />
+        <attr name="no_list_text" format="string|reference" />
+        <attr name="region_not_found_text" format="string|reference" />
 
         <attr name="default_image" format="reference" />
         <attr name="loading_image" format="reference" />
         <attr name="connection_error_image" format="reference" />
         <attr name="nothing_found_image" format="reference" />
         <attr name="server_error_image" format="reference" />
-        <attr name="no_data_image" format="reference" />
+        <attr name="no_list_image" format="reference" />
 
         <attr name="state" format="enum">
             <enum name="default_state" value="0" />
