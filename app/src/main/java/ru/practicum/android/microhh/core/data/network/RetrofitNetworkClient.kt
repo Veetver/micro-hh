@@ -7,4 +7,5 @@ import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsReque
 interface RetrofitNetworkClient {
     suspend fun doRequest(dto: RetrofitSearchRequest): Response
     suspend fun getVacancy(dto: RetrofitVacancyDetailsRequest): Response
+    suspend fun getIndustries(): Response
 }

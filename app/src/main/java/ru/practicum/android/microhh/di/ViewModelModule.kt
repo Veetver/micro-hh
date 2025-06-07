@@ -4,6 +4,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.microhh.favorites.presentation.FavoritesViewModel
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
+import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
 import ru.practicum.android.microhh.search.presentation.SearchViewModel
 import ru.practicum.android.microhh.vacancy.presentation.VacancyViewModel
 
@@ -28,4 +29,9 @@ val viewModelModule = module {
             get()
         )
     }
+
+    viewModel {
+        IndustryViewModel(get())
+    }
+
 }
