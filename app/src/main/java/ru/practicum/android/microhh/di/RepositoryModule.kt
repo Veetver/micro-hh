@@ -6,6 +6,8 @@ import ru.practicum.android.microhh.favorites.data.impl.FavoriteVacancyRepositor
 import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyRepository
 import ru.practicum.android.microhh.filters.data.impl.SettingsRepositoryImpl
 import ru.practicum.android.microhh.filters.domain.api.SettingsRepository
+import ru.practicum.android.microhh.industry.data.impl.IndustryRepositoryImpl
+import ru.practicum.android.microhh.industry.domain.api.IndustryRepository
 import ru.practicum.android.microhh.search.data.impl.VacancySearchRepositoryImpl
 import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
 import ru.practicum.android.microhh.vacancy.data.impl.VacancyDetailsRepositoryImpl
@@ -30,5 +32,9 @@ val repositoryModule = module {
 
     single<SettingsRepository> {
         SettingsRepositoryImpl(get(), get())
+    }
+
+    single<IndustryRepository> {
+        IndustryRepositoryImpl(get(), get())
     }
 }
