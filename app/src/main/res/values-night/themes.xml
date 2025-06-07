@@ -4,4 +4,8 @@
         <item name="colorPrimary">@color/dark_primary</item>
         <item name="colorOnPrimary">@color/dark_on_primary</item>
     </style>
+
+    <style name="BackgroundStyle">
+        <item name="background">@color/fragment_background</item>
+    </style>
 </resources>

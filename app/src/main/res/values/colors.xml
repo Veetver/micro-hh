@@ -13,4 +13,5 @@
     <color name="gray">#FFAEAFB4</color>
     <color name="light_gray">#FFE6E8EB</color>
     <color name="background">#1A1B2280</color>
+    <color name="fragment_background">#1A1B22</color>
 </resources>
