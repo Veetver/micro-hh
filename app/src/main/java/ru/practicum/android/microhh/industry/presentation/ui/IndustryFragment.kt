@@ -35,13 +35,13 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
         setupListeners()
     }
     
-      private fun setupUI() {
-          visibility = ViewsList(
-              listOf(
-                  VisibilityItem(binding.statePlaceholder, Placeholder),
-                  VisibilityItem(binding.recycler, Results),
-              )
+    private fun setupUI() {
+        visibility = ViewsList(
+          listOf(
+              VisibilityItem(binding.statePlaceholder, Placeholder),
+              VisibilityItem(binding.recycler, Results),
           )
+        )
 
         vacancyAdapter = CatalogAdapter { catalog ->
             if (!binding.choose.isVisible) {

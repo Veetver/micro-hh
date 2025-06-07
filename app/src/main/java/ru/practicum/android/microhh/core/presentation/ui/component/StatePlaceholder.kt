@@ -166,7 +166,7 @@ class StatePlaceholder @JvmOverloads constructor(
                     STATE_CONNECTION_ERROR -> ConnectionError
                     STATE_NOTHING_FOUND -> NothingFound
                     STATE_SERVER_ERROR -> ServerError
-                    STATE_NO_DATA-> NoData
+                    STATE_NO_DATA -> NoData
                     else -> throw IllegalArgumentException("Unsupported mode value: $value")
                 }
             }
