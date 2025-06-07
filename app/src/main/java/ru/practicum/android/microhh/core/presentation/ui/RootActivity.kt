@@ -35,6 +35,7 @@ class RootActivity : AppCompatActivity() {
             binding.bottomNav.setupWithNavController(it)
             it.addOnDestinationChangedListener { _, destination, _ ->
                 // val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
+
                 when (destination.id) {
                     R.id.vacancy_fragment,
                     R.id.filters_fragment,

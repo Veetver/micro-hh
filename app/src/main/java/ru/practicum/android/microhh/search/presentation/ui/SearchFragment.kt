@@ -63,7 +63,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.recycler.adapter = vacancyAdapter
     }
 
-    @Suppress("DEPRECATION")
     private fun setListeners() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -79,7 +78,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
                 searchRequest = text
 
-                if (hasFocus) viewModel.search(searchRequest)
+                if (hasFocus) {
+                    viewModel.search(text)
+                }
+
+                if (text.isEmpty()) {
+                    showPlaceholder(StatePlaceholderMode.Default)
+                }
             }
         }
 

@@ -61,12 +61,17 @@ class SearchViewModel(
     }
 
     private fun doSearch(term: String?) {
+        if (term.isNullOrEmpty()) {
+            return
+        }
+
         if (!isNextPage) {
             updateState(SearchState.Loading)
             vacanciesList.clear()
             currentPage = 1
         }
-        if (term.isNullOrEmpty() || isNextPageLoading || !canLoadMore) return
+
+        if (isNextPageLoading || !canLoadMore) return
 
         isNextPageLoading = true
         viewModelScope.launch {
