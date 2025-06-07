@@ -32,12 +32,10 @@ val viewModelModule = module {
     }
 
     viewModel {
-
         CountryViewModel(get())
     }
-    
-   viewModel {
 
+    viewModel {
         IndustryViewModel(get())
     }
 }
