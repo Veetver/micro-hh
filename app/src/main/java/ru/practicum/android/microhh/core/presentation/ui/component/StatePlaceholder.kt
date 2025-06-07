@@ -73,14 +73,14 @@ class StatePlaceholder @JvmOverloads constructor(
                 connectionErrorText = getString(R.styleable.StatePlaceholder_connection_error_text)
                 nothingFoundText = getString(R.styleable.StatePlaceholder_nothing_found_text)
                 serverErrorText = getString(R.styleable.StatePlaceholder_server_error_text)
-                noListText = getString(R.styleable.StatePlaceholder_no_data_text)
+                noListText = getString(R.styleable.StatePlaceholder_no_list_text)
 
                 defaultImage = getDrawable(R.styleable.StatePlaceholder_default_image)
                 loadingImage = getDrawable(R.styleable.StatePlaceholder_loading_image)
                 connectionErrorImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
                 nothingFoundImage = getDrawable(R.styleable.StatePlaceholder_nothing_found_image)
                 serverErrorImage = getDrawable(R.styleable.StatePlaceholder_server_error_image)
-                noListImage = getDrawable(R.styleable.StatePlaceholder_no_data_image)
+                noListImage = getDrawable(R.styleable.StatePlaceholder_no_list_image)
 
                 binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_textColor, 0))
             } finally {
@@ -126,7 +126,7 @@ class StatePlaceholder @JvmOverloads constructor(
                     textPlaceholder.text = serverErrorText
                     textPlaceholder.isVisible = true
                 }
-                StatePlaceholderMode.NoData -> {
+                StatePlaceholderMode.NoList -> {
                     imagePlaceholder.setImageDrawable(noListImage)
                     textPlaceholder.text = noListText
                     textPlaceholder.isVisible = true
@@ -156,7 +156,7 @@ class StatePlaceholder @JvmOverloads constructor(
         object ConnectionError : StatePlaceholderMode
         object NothingFound : StatePlaceholderMode
         object ServerError : StatePlaceholderMode
-        object NoData : StatePlaceholderMode
+        object NoList : StatePlaceholderMode
 
         companion object {
             fun fromInt(value: Int): StatePlaceholderMode {
@@ -166,7 +166,7 @@ class StatePlaceholder @JvmOverloads constructor(
                     STATE_CONNECTION_ERROR -> ConnectionError
                     STATE_NOTHING_FOUND -> NothingFound
                     STATE_SERVER_ERROR -> ServerError
-                    STATE_NO_DATA -> NoData
+                    STATE_NO_DATA -> NoList
                     else -> throw IllegalArgumentException("Unsupported mode value: $value")
                 }
             }
