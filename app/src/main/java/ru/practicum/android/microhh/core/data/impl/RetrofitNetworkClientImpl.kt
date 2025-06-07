@@ -1,4 +1,4 @@
-package ru.practicum.android.microhh.search.data.impl
+package ru.practicum.android.microhh.core.data.impl
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -8,7 +8,7 @@ import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.Constants
-import ru.practicum.android.microhh.industry.data.dto.IndustryItemResponse
+import ru.practicum.android.microhh.industry.data.dto.IndustryResponse
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
 import java.io.IOException
@@ -66,8 +66,10 @@ class RetrofitNetworkClientImpl(
         return withContext(Dispatchers.IO) {
             if (networkCheck.isNetworkAvailable()) {
                 try {
-                    val response = hhService.getIndustries()
-                    IndustryItemResponse(items = response).apply {
+                    val catalog = hhService.getIndustries()
+                    val response = IndustryResponse(catalog)
+
+                    response.apply {
                         resultCode = Constants.HTTP_OK
                     }
                 } catch (e: IOException) {

@@ -36,11 +36,14 @@ class StatePlaceholder @JvmOverloads constructor(
 
     private val connectionErrorText: String?
     private val nothingFoundText: String?
+    private val serverErrorText: String?
     private val noListText: String?
+
     private val defaultImage: Drawable?
     private val loadingImage: Drawable?
     private val connectionErrorImage: Drawable?
     private val nothingFoundImage: Drawable?
+    private val serverErrorImage: Drawable?
     private val noListImage: Drawable?
 
     private val rotate = RotateAnimation(
@@ -69,13 +72,15 @@ class StatePlaceholder @JvmOverloads constructor(
 
                 connectionErrorText = getString(R.styleable.StatePlaceholder_connection_error_text)
                 nothingFoundText = getString(R.styleable.StatePlaceholder_nothing_found_text)
-                noListText = getString(R.styleable.StatePlaceholder_region_not_found_text)
+                serverErrorText = getString(R.styleable.StatePlaceholder_server_error_text)
+                noListText = getString(R.styleable.StatePlaceholder_no_list_text)
 
                 defaultImage = getDrawable(R.styleable.StatePlaceholder_default_image)
                 loadingImage = getDrawable(R.styleable.StatePlaceholder_loading_image)
                 connectionErrorImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
                 nothingFoundImage = getDrawable(R.styleable.StatePlaceholder_nothing_found_image)
-                noListImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
+                serverErrorImage = getDrawable(R.styleable.StatePlaceholder_server_error_image)
+                noListImage = getDrawable(R.styleable.StatePlaceholder_no_list_image)
 
                 binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_textColor, 0))
             } finally {
@@ -111,7 +116,16 @@ class StatePlaceholder @JvmOverloads constructor(
                     textPlaceholder.text = nothingFoundText
                     textPlaceholder.isVisible = true
                 }
-
+                StatePlaceholderMode.NothingFound -> {
+                    imagePlaceholder.setImageDrawable(nothingFoundImage)
+                    textPlaceholder.text = nothingFoundText
+                    textPlaceholder.isVisible = true
+                }
+                StatePlaceholderMode.ServerError -> {
+                    imagePlaceholder.setImageDrawable(serverErrorImage)
+                    textPlaceholder.text = serverErrorText
+                    textPlaceholder.isVisible = true
+                }
                 StatePlaceholderMode.NoList -> {
                     imagePlaceholder.setImageDrawable(noListImage)
                     textPlaceholder.text = noListText
@@ -126,7 +140,9 @@ class StatePlaceholder @JvmOverloads constructor(
         private const val STATE_LOADING = 1
         private const val STATE_CONNECTION_ERROR = 2
         private const val STATE_NOTHING_FOUND = 3
-        private const val STATE_NO_LIST = 4
+        private const val STATE_SERVER_ERROR = 4
+        private const val STATE_NO_DATA = 5
+
         private const val ANIM_DURATION = 900L
         private const val ANIM_FROM_DEGREES = 0F
         private const val ANIM_TO_DEGREES = 360F
@@ -135,11 +151,12 @@ class StatePlaceholder @JvmOverloads constructor(
     }
 
     sealed interface StatePlaceholderMode {
-        data object Default : StatePlaceholderMode
-        data object Loading : StatePlaceholderMode
-        data object ConnectionError : StatePlaceholderMode
-        data object NothingFound : StatePlaceholderMode
-        data object NoList : StatePlaceholderMode
+        object Default : StatePlaceholderMode
+        object Loading : StatePlaceholderMode
+        object ConnectionError : StatePlaceholderMode
+        object NothingFound : StatePlaceholderMode
+        object ServerError : StatePlaceholderMode
+        object NoList : StatePlaceholderMode
 
         companion object {
             fun fromInt(value: Int): StatePlaceholderMode {
@@ -148,7 +165,8 @@ class StatePlaceholder @JvmOverloads constructor(
                     STATE_LOADING -> Loading
                     STATE_CONNECTION_ERROR -> ConnectionError
                     STATE_NOTHING_FOUND -> NothingFound
-                    STATE_NO_LIST -> NoList
+                    STATE_SERVER_ERROR -> ServerError
+                    STATE_NO_DATA -> NoList
                     else -> throw IllegalArgumentException("Unsupported mode value: $value")
                 }
             }
