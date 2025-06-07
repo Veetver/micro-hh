@@ -15,6 +15,7 @@ import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.VisibilityState.Placeholder
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
+import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.country.presentation.CountryViewModel
@@ -36,6 +37,13 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
     }
 
     private fun setupUI() {
+        visibility = ViewsList(
+            listOf(
+                VisibilityItem(binding.statePlaceholder, Placeholder),
+                VisibilityItem(binding.countryRv, Results)
+            )
+        )
+
         countryAdapter = CountryAdapter { country ->
             if (isClickEnabled) {
                 isClickEnabled = false
