@@ -6,7 +6,9 @@ import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.core.data.dto.IndustryDtoConverter
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
+import ru.practicum.android.microhh.core.data.impl.IndustryDtoConverterImpl
 import ru.practicum.android.microhh.core.data.impl.NetworkCheckImpl
 import ru.practicum.android.microhh.core.data.impl.VacancyDtoConverterImpl
 import ru.practicum.android.microhh.core.data.network.NetworkCheck
@@ -32,6 +34,10 @@ val dataModule = module {
 
     single<VacancyDetailsDBConvertor> {
         VacancyDetailsDBConvertorImpl()
+    }
+
+    single<IndustryDtoConverter> {
+        IndustryDtoConverterImpl()
     }
 
     single {
