@@ -23,10 +23,10 @@ class FavoriteVacancyRepositoryImpl(
         }
     }
 
-    override fun findById(id: Long): Flow<Vacancy> {
+    override fun findById(id: Long): Flow<VacancyDetails?> {
         return flow {
             val vacancy = appDatabase.favoriteVacanciesDao().getVacancyById(id)
-            vacancy?.let { emit(dtoConverter.toVacancy(it)) }
+            vacancy?.let { emit(dtoConverter.toVacancyDetails(it)) }
         }
     }
 
@@ -44,6 +44,12 @@ class FavoriteVacancyRepositoryImpl(
     override suspend fun remove(vacancy: VacancyDetails) {
         appDatabase.favoriteVacanciesDao().deleteVacancy(
             vacancy.id
+        )
+    }
+
+    override suspend fun update(vacancy: VacancyDetails) {
+        appDatabase.favoriteVacanciesDao().updateVacancy(
+            dtoConverter.toVacancyDetailsEntity(vacancy)
         )
     }
 }

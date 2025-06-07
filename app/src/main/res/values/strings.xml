@@ -59,6 +59,8 @@
     <string name="apply">Применить</string>
     <string name="clear">Сбросить</string>
 
+    <string name="industry_screen_search_hint">Введите отрасль</string>
+
     <plurals name="vacancy">
         <item quantity="one">Найдено %d вакансия</item>
         <item quantity="few">Найдено %d вакансии</item>
@@ -73,4 +75,8 @@
     <string name="job_favorites_unexpected_issue">Не удалось получить список вакансий</string>
     <string name="country_title">Страна</string>
     <string name="region_title">Регион</string>
+
+    <string name="invalid_vacancy_id">Невалидный id вакансии</string>
+    <string name="no_internet_and_not_favorite">Невалидная вакансия</string>
+    <string name="no_internet">Нет интернета</string>
 </resources>

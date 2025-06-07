@@ -16,6 +16,7 @@ import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.databinding.FragmentFiltersBinding
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
+import ru.practicum.android.microhh.search.presentation.ui.SearchFragmentDirections
 
 class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBinding::inflate) {
 
@@ -58,6 +59,11 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
             }
             clear.setOnClickListener {
                 viewModel.clearSettings()
+            }
+            industry.setOnClickListener {
+                findNavController().navigate(
+                    SearchFragmentDirections.openIndustry()
+                )
             }
         }
     }

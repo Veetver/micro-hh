@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.core.db
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 
 @Dao
@@ -12,6 +13,9 @@ interface VacancyDetailsDao {
 
     @Query("DELETE FROM job_info_table WHERE id = :id")
     fun deleteVacancy(id: Long)
+
+    @Update
+    fun updateVacancy(vacancy: VacancyDetailsEntity)
 
     @Query(
         "SELECT id, name, area_name, employer_name, " +
