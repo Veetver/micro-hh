@@ -6,23 +6,30 @@
     android:orientation="vertical">
   
     <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/toolbar"
-      style="@style/Base.Theme.MicroHH.Toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:navigationIcon="@drawable/ic_arrow_back"
-      app:title="@string/industry_fragment_title" />
+        android:id="@+id/toolbar"
+        style="@style/Base.Theme.MicroHH.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/industry_fragment_title" />
 
     <ru.practicum.android.microhh.core.presentation.ui.component.TextFieldHH
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hhTextFieldStyle="@style/TextFieldHHStyle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:mode="searchField"
         app:placeholderText="@string/industry_screen_search_hint" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/side_padding_8"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:background="?attr/android:colorBackground"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -44,4 +51,5 @@
         android:src="@drawable/server_error_image"
         android:visibility="gone"
         app:placeholderText="@string/industry_screen_search_hint" />
+
 </LinearLayout>
