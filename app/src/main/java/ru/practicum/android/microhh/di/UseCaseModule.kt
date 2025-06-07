@@ -18,5 +18,4 @@ val useCaseModule = module {
     single<IndustryListUseCase> {
         IndustryListUseCase(get())
     }
-
 }

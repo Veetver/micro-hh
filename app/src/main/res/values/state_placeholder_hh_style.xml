@@ -5,10 +5,12 @@
 
         <item name="connection_error_text">@string/no_connection_placeholder</item>
         <item name="nothing_found_text">@string/nothing_found_placeholder</item>
+        <item name="server_error_text">@string/sever_error_placeholder</item>
 
         <item name="default_image">@drawable/default_search_placeholder</item>
         <item name="loading_image">@drawable/loader</item>
         <item name="connection_error_image">@drawable/no_connection_placeholder</item>
         <item name="nothing_found_image">@drawable/empty_search_placeholder</item>
+        <item name="server_error_image">@drawable/server_error</item>
     </style>
 </resources>

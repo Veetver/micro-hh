@@ -8,16 +8,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.domain.models.Industry
-import ru.practicum.android.microhh.core.resources.IndustryState
+import ru.practicum.android.microhh.core.domain.models.Catalog
+import ru.practicum.android.microhh.core.resources.CatalogSearchState
 import ru.practicum.android.microhh.industry.domain.impl.IndustryListUseCase
 
 class IndustryViewModel(
-    private val industryList: IndustryListUseCase,
+    private val industryListUseCase: IndustryListUseCase,
 ) : ViewModel() {
 
-    private val _stateFlow = MutableStateFlow<IndustryState>(IndustryState.Loading)
-    val stateFlow: StateFlow<IndustryState> = _stateFlow.asStateFlow()
+    private val _stateFlow = MutableStateFlow<CatalogSearchState>(CatalogSearchState.Loading)
+    val stateFlow: StateFlow<CatalogSearchState> = _stateFlow.asStateFlow()
+
+    private val list = mutableListOf<Catalog>()
+    private val originalList = mutableListOf<Catalog>()
+    private val filteredList = mutableListOf<Catalog>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -25,28 +29,52 @@ class IndustryViewModel(
         }
     }
 
-    private fun updateState(state: IndustryState) {
-        _stateFlow.update {
-            state
+    fun filter(searchQuery: String?) {
+        filteredList.clear()
+        if (searchQuery.isNullOrEmpty()) {
+            updateDisplayList(originalList)
+        } else {
+            originalList.forEach {
+                if (it.name.contains(searchQuery, true)) {
+                    filteredList.add(it)
+                }
+            }
+            updateDisplayList(filteredList)
         }
     }
 
-    private suspend fun doRequest() {
-        updateState(IndustryState.Loading)
+    private fun updateDisplayList(updatedList: List<Catalog>) {
+        list.clear()
+        list.addAll(updatedList)
+        updateState(CatalogSearchState.Results(list))
+    }
 
-        industryList()
+    private suspend fun doRequest() {
+        updateState(CatalogSearchState.Loading)
+
+        industryListUseCase()
             .collect { result ->
-                result.industries?.let { processResult(it, result.error) }
+                processResult(result.catalog, result.error)
             }
     }
 
-    private fun processResult(industries: List<Industry>, error: Int?) {
+    private fun processResult(catalog: List<Catalog>, error: Int?) {
         updateState(
-            if (industries.isNotEmpty()) {
-                IndustryState.Success(industries)
-            } else {
-                IndustryState.Error(error)
+            when {
+                catalog.isNotEmpty() -> {
+                    originalList.clear()
+                    originalList.addAll(catalog)
+                    CatalogSearchState.Results(catalog)
+                }
+                error != null -> CatalogSearchState.NoData(error)
+                else -> CatalogSearchState.Default
             }
         )
+    }
+
+    private fun updateState(state: CatalogSearchState) {
+        _stateFlow.update {
+            state
+        }
     }
 }

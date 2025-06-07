@@ -36,10 +36,15 @@ class StatePlaceholder @JvmOverloads constructor(
 
     private val connectionErrorText: String?
     private val nothingFoundText: String?
+    private val serverErrorText: String?
+    private val noDataText: String?
+
     private val defaultImage: Drawable?
     private val loadingImage: Drawable?
     private val connectionErrorImage: Drawable?
     private val nothingFoundImage: Drawable?
+    private val serverErrorImage: Drawable?
+    private val noDataImage: Drawable?
 
     private val rotate = RotateAnimation(
         ANIM_FROM_DEGREES,
@@ -67,11 +72,15 @@ class StatePlaceholder @JvmOverloads constructor(
 
                 connectionErrorText = getString(R.styleable.StatePlaceholder_connection_error_text)
                 nothingFoundText = getString(R.styleable.StatePlaceholder_nothing_found_text)
+                serverErrorText = getString(R.styleable.StatePlaceholder_server_error_text)
+                noDataText = getString(R.styleable.StatePlaceholder_no_data_text)
 
                 defaultImage = getDrawable(R.styleable.StatePlaceholder_default_image)
                 loadingImage = getDrawable(R.styleable.StatePlaceholder_loading_image)
                 connectionErrorImage = getDrawable(R.styleable.StatePlaceholder_connection_error_image)
                 nothingFoundImage = getDrawable(R.styleable.StatePlaceholder_nothing_found_image)
+                serverErrorImage = getDrawable(R.styleable.StatePlaceholder_server_error_image)
+                noDataImage = getDrawable(R.styleable.StatePlaceholder_no_data_image)
 
                 binding.textPlaceholder.setTextColor(getColor(R.styleable.StatePlaceholder_textColor, 0))
             } finally {
@@ -107,6 +116,21 @@ class StatePlaceholder @JvmOverloads constructor(
                     textPlaceholder.text = nothingFoundText
                     textPlaceholder.isVisible = true
                 }
+                StatePlaceholderMode.NothingFound -> {
+                    imagePlaceholder.setImageDrawable(nothingFoundImage)
+                    textPlaceholder.text = nothingFoundText
+                    textPlaceholder.isVisible = true
+                }
+                StatePlaceholderMode.ServerError -> {
+                    imagePlaceholder.setImageDrawable(serverErrorImage)
+                    textPlaceholder.text = serverErrorText
+                    textPlaceholder.isVisible = true
+                }
+                StatePlaceholderMode.NoData -> {
+                    imagePlaceholder.setImageDrawable(noDataImage)
+                    textPlaceholder.text = noDataText
+                    textPlaceholder.isVisible = true
+                }
             }
         }
     }
@@ -116,6 +140,9 @@ class StatePlaceholder @JvmOverloads constructor(
         private const val STATE_LOADING = 1
         private const val STATE_CONNECTION_ERROR = 2
         private const val STATE_NOTHING_FOUND = 3
+        private const val STATE_SERVER_ERROR = 4
+        private const val STATE_NO_DATA = 5
+
         private const val ANIM_DURATION = 900L
         private const val ANIM_FROM_DEGREES = 0F
         private const val ANIM_TO_DEGREES = 360F
@@ -128,6 +155,8 @@ class StatePlaceholder @JvmOverloads constructor(
         object Loading : StatePlaceholderMode
         object ConnectionError : StatePlaceholderMode
         object NothingFound : StatePlaceholderMode
+        object ServerError : StatePlaceholderMode
+        object NoData : StatePlaceholderMode
 
         companion object {
             fun fromInt(value: Int): StatePlaceholderMode {
@@ -136,6 +165,8 @@ class StatePlaceholder @JvmOverloads constructor(
                     STATE_LOADING -> Loading
                     STATE_CONNECTION_ERROR -> ConnectionError
                     STATE_NOTHING_FOUND -> NothingFound
+                    STATE_SERVER_ERROR -> ServerError
+                    STATE_NO_DATA-> NoData
                     else -> throw IllegalArgumentException("Unsupported mode value: $value")
                 }
             }

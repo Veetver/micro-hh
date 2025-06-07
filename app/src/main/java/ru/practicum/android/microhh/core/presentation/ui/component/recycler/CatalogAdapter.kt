@@ -1,22 +1,39 @@
 package ru.practicum.android.microhh.core.presentation.ui.component.recycler
 
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.resources.CatalogListItem
+import ru.practicum.android.microhh.core.resources.CatalogListItemType
 
 class CatalogAdapter(
-    onClick: (Catalog) -> Unit = {},
+    onClick: (Catalog) -> Unit,
 ) : AsyncListDifferDelegationAdapter<CatalogListItem>(CatalogDiffCallback()) {
+
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     init {
         delegatesManager
-            .addDelegate(checkboxItemDelegate(onClick))
-            .addDelegate(arrowItemDelegate(onClick))
+            .addDelegate(
+                checkboxItemDelegate(
+                    onClick,
+                    getSelectedPosition = { selectedPosition },
+                    onItemSelected = { newPosition ->
+                        val oldPosition = selectedPosition
+
+                        selectedPosition = newPosition
+                        if (oldPosition != RecyclerView.NO_POSITION) {
+                            notifyItemChanged(oldPosition)
+                        }
+                        notifyItemChanged(newPosition)
+                    }
+                )
+            )
     }
 
     fun submitCatalogList(
         list: List<Catalog>,
-        type: CatalogListItem,
+        type: String,
         doOnEnd: (() -> Unit) = {},
     ) {
         val items = convertToCatalogListItem(list, type)
@@ -28,12 +45,12 @@ class CatalogAdapter(
 
     private fun convertToCatalogListItem(
         list: List<Catalog>,
-        type: CatalogListItem,
+        type: String,
     ): List<CatalogListItem> {
         return buildList {
             when (type) {
-                is CatalogListItem.CheckboxItem -> this += list.map { CatalogListItem.CheckboxItem(it) }
-                is CatalogListItem.ArrowItem -> this += list.map { CatalogListItem.ArrowItem(it) }
+                CatalogListItemType.CHECK_BOX_ITEM.name -> this += list.map { CatalogListItem.CheckboxItem(it) }
+                CatalogListItemType.ARROW_ITEM.name -> this += list.map { CatalogListItem.ArrowItem(it) }
             }
         }
     }

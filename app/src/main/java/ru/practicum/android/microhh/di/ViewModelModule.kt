@@ -33,5 +33,4 @@ val viewModelModule = module {
     viewModel {
         IndustryViewModel(get())
     }
-
 }
