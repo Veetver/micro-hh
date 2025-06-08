@@ -49,7 +49,9 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
 
         with(binding) {
             toolbar.setOnClickListener { findNavController().popBackStack() }
-            parentFragmentManager.setFragmentResultListener(Constants.KEY_FILTER_INDUSTRY, viewLifecycleOwner) { _, bundle ->
+            parentFragmentManager.setFragmentResultListener(
+                Constants.KEY_FILTER_INDUSTRY, viewLifecycleOwner
+            ) { _, bundle ->
                 val catalog = getParcelable(bundle, Constants.KEY_FILTERS)
 
                 industry.tag = catalog?.id ?: ""
@@ -116,13 +118,13 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
 
     @Suppress("DEPRECATION")
     private fun getParcelable(bundle: Bundle, key: String): Catalog? {
-       return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             bundle.getParcelable(key, Catalog::class.java)
         } else {
             bundle.getParcelable(key)
         }
     }
-    
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         updatesUiWithSettings(viewModel.getSettings())
