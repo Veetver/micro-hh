@@ -13,7 +13,7 @@ object Extensions {
     ).toInt()
 
     fun FilterSettings.isEmpty(): Boolean {
-        return this.workplace.isEmpty() &&
+        return this.workplace.country == null && this.workplace.region == null &&
             this.industry.isEmpty() &&
             this.salary.isEmpty() &&
             this.showWithoutSalary.not()

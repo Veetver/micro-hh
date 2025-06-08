@@ -24,8 +24,8 @@ class VacancySearchRepositoryImpl(
         options[QueryParams.PAGE.query] = page.toString()
         options[QueryParams.PER_PAGE.query] = "20"
 
-        if (filters.workplace.isNotEmpty()) {
-            options[QueryParams.AREA.query] = "true"
+        if (filters.workplace.isNotNull) {
+            options[QueryParams.AREA.query] = filters.workplace.ids
         }
 
         if (filters.industry.isNotEmpty()) {

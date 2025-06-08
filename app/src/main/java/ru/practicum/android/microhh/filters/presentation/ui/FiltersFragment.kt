@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.FiltersButtonState
 import ru.practicum.android.microhh.core.resources.FiltersState
@@ -20,7 +20,7 @@ import ru.practicum.android.microhh.search.presentation.ui.SearchFragmentDirecti
 
 class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBinding::inflate) {
 
-    private val viewModel by viewModel<FiltersViewModel>()
+    private val viewModel: FiltersViewModel by activityViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,6 +77,9 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
     private fun updatesUiWithSettings(state: FiltersState) {
         if (state.updateState) {
             with(binding) {
+                if (state.filters.workplace.title.isNotEmpty()) {
+                    area.setText(state.filters.workplace.title)
+                }
                 salary.text = state.filters.salary
                 showNoSalary.isChecked = state.filters.showWithoutSalary
             }
