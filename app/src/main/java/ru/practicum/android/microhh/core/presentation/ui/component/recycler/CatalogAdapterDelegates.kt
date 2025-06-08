@@ -21,8 +21,8 @@ fun checkboxItemDelegate(
             isChecked = bindingAdapterPosition == getSelectedPosition()
             isClickable = bindingAdapterPosition != getSelectedPosition()
             setOnCheckedChangeListener { _, isChecked ->
-                onClick(catalog)
                 if (isChecked && bindingAdapterPosition != getSelectedPosition()) {
+                    onClick(catalog)
                     onItemSelected(bindingAdapterPosition)
                 }
             }

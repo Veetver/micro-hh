@@ -1,10 +1,14 @@
 package ru.practicum.android.microhh.filters.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.resources.FiltersButtonState
 import ru.practicum.android.microhh.core.resources.FiltersState
 import ru.practicum.android.microhh.core.utils.Extensions.isEmpty
@@ -16,21 +20,14 @@ class FiltersViewModel(
 ) : ViewModel() {
 
     private var _filterSettings = settingsInteractor.filterSettings
-    val filterSettings = _filterSettings
-
-    private val _filtersStateFlow = MutableStateFlow(FiltersState(_filterSettings, true))
-    val filtersStateFlow: StateFlow<FiltersState> = _filtersStateFlow.asStateFlow()
+    private val _filtersStateFlow = MutableSharedFlow<FiltersState>()
+    val filtersStateFlow: SharedFlow<FiltersState> = _filtersStateFlow
 
     private val _buttonsStateFlow = MutableStateFlow<FiltersButtonState>(FiltersButtonState.Default)
     val buttonsStateFlow: StateFlow<FiltersButtonState> = _buttonsStateFlow.asStateFlow()
 
-    init {
-        updateButtons(_filterSettings)
-    }
-
-    fun updateButtons(newSettings: FilterSettings) {
-        setButtonsState(FiltersButtonState.Apply(_filterSettings != newSettings))
-        setButtonsState(FiltersButtonState.Clear(newSettings.isEmpty().not()))
+    fun getSettings(): FilterSettings {
+        return settingsInteractor.filterSettings
     }
 
     fun updateSettings(
@@ -40,6 +37,7 @@ class FiltersViewModel(
     ) {
         if (updateSettings) settingsInteractor.updateSettings(newSettings)
         setSettingsState(FiltersState(newSettings, updateFiltersState))
+        updateButtons(newSettings)
     }
 
     fun clearSettings() {
@@ -49,9 +47,14 @@ class FiltersViewModel(
         setSettingsState(FiltersState(_filterSettings, true))
     }
 
+    private fun updateButtons(newSettings: FilterSettings) {
+        setButtonsState(FiltersButtonState.Apply(_filterSettings != newSettings))
+        setButtonsState(FiltersButtonState.Clear(newSettings.isEmpty().not()))
+    }
+
     private fun setSettingsState(state: FiltersState) {
-        _filtersStateFlow.update {
-            state
+        viewModelScope.launch {
+            _filtersStateFlow.emit(state)
         }
     }
 

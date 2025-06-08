@@ -19,7 +19,7 @@
             style="@style/TypographyRegular12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Label"/>
+            tools:text="Label" />
 
         <TextView
             android:id="@+id/text"

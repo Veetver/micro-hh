@@ -19,6 +19,7 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.Placeholder
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
 import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
+import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.databinding.FragmentIndustryBinding
 import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
 
@@ -44,6 +45,8 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
         )
 
         vacancyAdapter = CatalogAdapter { catalog ->
+            viewModel.onIndustrySelected(catalog)
+
             if (!binding.choose.isVisible) {
                 binding.choose.isVisible = true
             }
@@ -64,6 +67,14 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
 
         binding.search.setOnTextChanged { text ->
             viewModel.filter(text)
+        }
+        binding.choose.setOnClickListener {
+            val industry = Bundle().apply {
+                putParcelable(Constants.KEY_FILTERS, viewModel.catalog)
+            }
+
+            parentFragmentManager.setFragmentResult(Constants.KEY_FILTER_INDUSTRY, industry)
+            findNavController().popBackStack()
         }
     }
 
