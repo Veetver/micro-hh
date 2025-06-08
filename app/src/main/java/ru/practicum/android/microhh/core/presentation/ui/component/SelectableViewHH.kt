@@ -69,17 +69,18 @@ class SelectableViewHH @JvmOverloads constructor(
     }
 
     fun setText(text: String) {
-        binding.label.text = binding.text.text
         binding.text.text = text
         state = FiltersDataState.FILLED.code
         updateFiltersDataState()
     }
 
     fun setOnClearText(action: () -> Unit) {
-        onTextCleared = action
-        binding.text.text = binding.label.text
-        state = FiltersDataState.EMPTY.code
-        updateFiltersDataState()
+        onTextCleared = {
+            action()
+            binding.text.text = binding.label.text
+            state = FiltersDataState.EMPTY.code
+            updateFiltersDataState()
+        }
     }
 
     private fun updateFiltersDataState() {
