@@ -56,9 +56,6 @@
         <action
             android:id="@+id/action_workplace_fragment_to_region_fragment"
             app:destination="@id/region_fragment" />
-        <argument
-            android:name="countryName"
-            app:argType="string" />
     </fragment>
 
     <fragment

@@ -65,6 +65,12 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
                     SearchFragmentDirections.openIndustry()
                 )
             }
+
+            area.setOnClickListener {
+                findNavController().navigate(
+                    FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment()
+                )
+            }
         }
     }
 
