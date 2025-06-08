@@ -81,6 +81,12 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
             clear.setOnClickListener {
                 viewModel.clearSettings()
             }
+
+            area.setOnClickListener {
+                findNavController().navigate(
+                    FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment()
+                )
+            }
         }
     }
 
