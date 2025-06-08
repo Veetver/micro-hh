@@ -8,6 +8,10 @@ import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.Constants
+import ru.practicum.android.microhh.country.data.dto.response.CountriesResponse
+import ru.practicum.android.microhh.region.data.dto.request.AreaByIdRequest
+import ru.practicum.android.microhh.region.data.dto.response.AreaExtendedResponse
+import ru.practicum.android.microhh.region.data.dto.response.AreasResponse
 import ru.practicum.android.microhh.industry.data.dto.IndustryResponse
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
@@ -82,6 +86,72 @@ class RetrofitNetworkClientImpl(
                 Response().apply {
                     resultCode = Constants.NO_CONNECTION
                 }
+            }
+        }
+    }
+
+    override suspend fun getCountries(): Response = withContext(Dispatchers.IO) {
+        if (networkCheck.isNetworkAvailable()) {
+            try {
+                val response = CountriesResponse(areas = hhService.getCountries())
+                response.apply {
+                    resultCode = Constants.HTTP_OK
+                }
+            } catch (e: IOException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
+                Response().apply {
+                    resultCode = Constants.INTERNAL_SERVER_ERROR
+                }
+            }
+        } else {
+            Response().apply {
+                resultCode = Constants.NO_CONNECTION
+            }
+        }
+    }
+
+    override suspend fun getAreas(): Response = withContext(Dispatchers.IO) {
+        if (networkCheck.isNetworkAvailable()) {
+            try {
+                val response = AreasResponse(areas = hhService.getAreas())
+                response.apply {
+                    resultCode = Constants.HTTP_OK
+                }
+            } catch (e: IOException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
+                Response().apply {
+                    resultCode = Constants.INTERNAL_SERVER_ERROR
+                }
+            }
+        } else {
+            Response().apply {
+                resultCode = Constants.NO_CONNECTION
+            }
+        }
+    }
+
+    override suspend fun getAreaById(dto: AreaByIdRequest): Response = withContext(Dispatchers.IO) {
+        if (networkCheck.isNetworkAvailable()) {
+            try {
+                val response = hhService.getAreaById(dto.id)
+                val result = AreaExtendedResponse(
+                    areas = response.areas,
+                    id = response.id,
+                    name = response.name,
+                    parentId = response.parentId,
+                )
+                result.apply {
+                    resultCode = Constants.HTTP_OK
+                }
+            } catch (e: IOException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
+                Response().apply {
+                    resultCode = Constants.INTERNAL_SERVER_ERROR
+                }
+            }
+        } else {
+            Response().apply {
+                resultCode = Constants.NO_CONNECTION
             }
         }
     }
