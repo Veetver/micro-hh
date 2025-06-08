@@ -1,20 +1,16 @@
 package ru.practicum.android.microhh.country.presentation.ui
 
-import ru.practicum.android.microhh.core.domain.models.Country
+import ru.practicum.android.microhh.core.domain.models.Area
 
-sealed class CountryState(
-    val term: String?,
-) {
-    data object NoCountries : CountryState(null)
-    data object Loading : CountryState(null)
+sealed interface CountryState {
+    data object NoCountries : CountryState
+    data object Loading : CountryState
 
     class ConnectionError(
         val error: Int,
-        term: String,
-    ) : CountryState(term)
+    ) : CountryState
 
     class ShowCountries(
-        var result: List<Country>,
-        term: String?,
-    ) : CountryState(term)
+        var result: List<Area>,
+    ) : CountryState
 }
