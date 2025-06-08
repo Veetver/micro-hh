@@ -50,7 +50,8 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
         with(binding) {
             toolbar.setOnClickListener { findNavController().popBackStack() }
             parentFragmentManager.setFragmentResultListener(
-                Constants.KEY_FILTER_INDUSTRY, viewLifecycleOwner
+                Constants.KEY_FILTER_INDUSTRY,
+                viewLifecycleOwner
             ) { _, bundle ->
                 val catalog = getParcelable(bundle, Constants.KEY_FILTERS)
 
