@@ -86,7 +86,7 @@ class SelectableViewHH @JvmOverloads constructor(
     }
 
     fun setOnTextChange(action: (String) -> Unit) {
-        onTextChanged= action
+        onTextChanged = action
     }
 
     private fun onTextCleared() {

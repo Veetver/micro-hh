@@ -24,7 +24,7 @@ class IndustryViewModel(
     private val filteredList = mutableListOf<Catalog>()
     private var _catalog: Catalog = Catalog()
     val catalog
-        get() =_catalog
+        get() = _catalog
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
