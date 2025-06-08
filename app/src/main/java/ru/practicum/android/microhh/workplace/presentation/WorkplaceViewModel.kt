@@ -8,9 +8,7 @@ import kotlinx.coroutines.flow.update
 import ru.practicum.android.microhh.core.domain.models.Area
 import ru.practicum.android.microhh.workplace.presentation.state.WorkplaceState
 
-class WorkplaceViewModel(
-
-) : ViewModel() {
+class WorkplaceViewModel : ViewModel() {
     private val _state: MutableStateFlow<WorkplaceState> = MutableStateFlow(WorkplaceState())
     val state: StateFlow<WorkplaceState>
         get() = _state.asStateFlow()
@@ -20,6 +18,7 @@ class WorkplaceViewModel(
             _state.update { it.copy(workplaceFilter = it.workplaceFilter.copy(country = country), showApply = true) }
         }
     }
+
     fun updateRegion(region: Area?) {
         if (_state.value.workplaceFilter.region != region) {
             _state.update { it.copy(workplaceFilter = it.workplaceFilter.copy(region = region), showApply = true) }

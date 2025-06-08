@@ -70,7 +70,9 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
         binding.apply.setOnClickListener {
             lifecycleScope.launch {
                 filtersViewModel.updateSettings(
-                    newSettings = filtersViewModel.filterSettings.copy(workplace = viewModel.state.value.workplaceFilter),
+                    newSettings = filtersViewModel.filterSettings.copy(
+                        workplace = viewModel.state.value.workplaceFilter,
+                    ),
                     updateSettings = false,
                     updateFiltersState = true,
                 )
