@@ -24,12 +24,12 @@ class VacancySearchRepositoryImpl(
         options[QueryParams.PAGE.query] = page.toString()
         options[QueryParams.PER_PAGE.query] = "20"
 
-        if (filters.workplace.isNotEmpty()) {
-            options[QueryParams.AREA.query] = "true"
+        if (filters.areaId.isNotEmpty()) {
+            options[QueryParams.AREA.query] = filters.areaId
         }
 
-        if (filters.industry.isNotEmpty()) {
-            options[QueryParams.INDUSTRY.query] = filters.industry
+        if (filters.industryId.isNotEmpty()) {
+            options[QueryParams.INDUSTRY.query] = filters.industryId
         }
 
         if (filters.salary.isNotEmpty()) {
@@ -43,7 +43,7 @@ class VacancySearchRepositoryImpl(
 
     override fun searchVacancy(term: String, page: Int, filters: FilterSettings): Flow<VacancySearchState> = flow {
         val options = buildQuery(term, page, filters)
-        val response = networkClient.doRequest(RetrofitSearchRequest(options))
+        val response = networkClient.getVacancies(RetrofitSearchRequest(options))
 
         when (response.resultCode) {
             Constants.HTTP_OK -> {
