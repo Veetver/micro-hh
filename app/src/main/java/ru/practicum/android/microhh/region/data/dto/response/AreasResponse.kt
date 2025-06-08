@@ -5,4 +5,4 @@ import ru.practicum.android.microhh.core.domain.models.AreaExtended
 
 class AreasResponse(
     val areas: List<AreaExtended>,
-): Response()
+) : Response()

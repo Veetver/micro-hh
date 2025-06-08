@@ -3,10 +3,10 @@ package ru.practicum.android.microhh.country.data.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
+import ru.practicum.android.microhh.core.resources.AreaSearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.country.data.dto.response.CountriesResponse
 import ru.practicum.android.microhh.country.domain.api.CountryRepository
-import ru.practicum.android.microhh.core.resources.AreaSearchState
 
 class CountryRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,

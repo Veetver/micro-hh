@@ -8,4 +8,4 @@ class AreaExtendedResponse(
     val id: String,
     val name: String,
     val parentId: String?,
-): Response()
+) : Response()
