@@ -96,6 +96,7 @@ class VacancyDtoConverterImpl(
     }
 
     private fun editHtml(description: String): String {
+        val baseWhiteColorCode = 0xFDFDFD
         return "<html>\n" +
             "        <head>\n" +
             "            <style type='text/css'>\n" +
@@ -103,7 +104,7 @@ class VacancyDtoConverterImpl(
                 String.format(
                     Locale.getDefault(),
                     "#%06X",
-                    0xFDFDFD and ContextCompat.getColor(context, R.color.black)
+                    baseWhiteColorCode and ContextCompat.getColor(context, R.color.black)
                 )
             }}; }\n" +
             "            </style>\n" +
