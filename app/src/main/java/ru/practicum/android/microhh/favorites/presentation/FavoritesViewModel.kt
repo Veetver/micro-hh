@@ -9,28 +9,29 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.domain.interactors.favorites.FavoriteJobInteractor
-import ru.practicum.android.microhh.core.resources.FavoriteJobScreenState
+import ru.practicum.android.microhh.core.resources.FavoriteVacancyScreenState
+import ru.practicum.android.microhh.favorites.domain.api.FavoriteVacancyInteractor
 
 class FavoritesViewModel(
-    private val favoriteJobInteractor: FavoriteJobInteractor,
+    private val favoriteJobInteractor: FavoriteVacancyInteractor,
 ) : ViewModel() {
-    private val _loadingJobState = MutableStateFlow<FavoriteJobScreenState>(FavoriteJobScreenState.Initial)
-    fun getLoadingJobState(): StateFlow<FavoriteJobScreenState> = _loadingJobState
+
+    private val _loadingJobState = MutableStateFlow<FavoriteVacancyScreenState>(FavoriteVacancyScreenState.Initial)
+    fun getLoadingJobState(): StateFlow<FavoriteVacancyScreenState> = _loadingJobState
 
     fun showFavorites() {
         viewModelScope.launch {
             favoriteJobInteractor.findAll()
                 .onEach { data ->
                     if (data.isEmpty()) {
-                        _loadingJobState.value = FavoriteJobScreenState.Empty
+                        _loadingJobState.value = FavoriteVacancyScreenState.Empty
                     } else {
-                        _loadingJobState.value = FavoriteJobScreenState.FavoriteContent(data)
+                        _loadingJobState.value = FavoriteVacancyScreenState.FavoriteContent(data)
                     }
                 }
-                .onStart { _loadingJobState.value = FavoriteJobScreenState.Loading }
+                .onStart { _loadingJobState.value = FavoriteVacancyScreenState.Loading }
                 .catch { error ->
-                    _loadingJobState.value = FavoriteJobScreenState.Error(error.message)
+                    _loadingJobState.value = FavoriteVacancyScreenState.Error(error.message)
                 }
                 .launchIn(this)
         }

@@ -11,10 +11,13 @@ import ru.practicum.android.microhh.core.domain.models.Vacancy
 import ru.practicum.android.microhh.core.resources.SearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
+import ru.practicum.android.microhh.filters.domain.api.SettingsRepository
+import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.search.domain.impl.VacancySearchUseCase
 
 class SearchViewModel(
-    private val vacancySearchUseCase: VacancySearchUseCase
+    private val vacancySearchUseCase: VacancySearchUseCase,
+    private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<SearchState>(SearchState.NoData)
@@ -25,6 +28,8 @@ class SearchViewModel(
     private var maxPages = 2
     private var isNextPageLoading = false
     private var isNextPage = false
+    private val filters: FilterSettings
+        get() = settingsRepository.filterSettings
     private val canLoadMore
         get() = currentPage != maxPages
 
@@ -56,16 +61,21 @@ class SearchViewModel(
     }
 
     private fun doSearch(term: String?) {
+        if (term.isNullOrEmpty()) {
+            return
+        }
+
         if (!isNextPage) {
             updateState(SearchState.Loading)
             vacanciesList.clear()
             currentPage = 1
         }
-        if (term.isNullOrEmpty() || isNextPageLoading || !canLoadMore) return
+
+        if (isNextPageLoading || !canLoadMore) return
 
         isNextPageLoading = true
         viewModelScope.launch {
-            vacancySearchUseCase(term, currentPage)
+            vacancySearchUseCase(term, currentPage, filters)
                 .collect { result ->
                     currentPage++
                     maxPages = result.pagesCount
@@ -74,7 +84,7 @@ class SearchViewModel(
         }
     }
 
-    private fun processResult(vacancies: List<Vacancy>, error: Int?, count: Int, term: String) {
+    private fun processResult(vacancies: List<Vacancy>, error: Int?, count: Int, term: String?) {
         updateState(
             when {
                 vacancies.isNotEmpty() -> {

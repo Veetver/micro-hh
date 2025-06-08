@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">micro hh</string>
+    <string name="prefs_file_name" translatable="false">Main preferences</string>
+
+
     <string name="search_fragment_title">Поиск вакансий</string>
     <string name="workplace_fragment_title">Выбор места работы</string>
     <string name="filters_fragment_title">Настройки фильтрации</string>
@@ -54,7 +57,10 @@
     <string name="salary_textfield_hint">Введите сумму</string>
     <string name="show_no_salary">Не показывать без зарплаты</string>
     <string name="apply">Применить</string>
+    <string name="choose">Выбрать</string>
     <string name="clear">Сбросить</string>
+
+    <string name="industry_screen_search_hint">Введите отрасль</string>
 
     <plurals name="vacancy">
         <item quantity="one">Найдено %d вакансия</item>
@@ -65,7 +71,15 @@
 
     <string name="no_connection_placeholder">Нет интернета</string>
     <string name="nothing_found_placeholder">Не удалось получить список вакансий</string>
+    <string name="sever_error_placeholder">Ошибка сервера</string>
+    <string name="no_data_placeholder">Не удалось получить список</string>
     <string name="image_placeholder_content_desc">Image Placeholder</string>
     <string name="job_favorites_empty">Список пуст</string>
     <string name="job_favorites_unexpected_issue">Не удалось получить список вакансий</string>
+    <string name="country_title">Страна</string>
+    <string name="region_title">Регион</string>
+
+    <string name="invalid_vacancy_id">Невалидный id вакансии</string>
+    <string name="no_internet_and_not_favorite">Невалидная вакансия</string>
+    <string name="no_internet">Нет интернета</string>
 </resources>

@@ -1,15 +1,16 @@
 package ru.practicum.android.microhh.core.domain.models
 
 data class VacancyDetails(
-    val id: String,
-    val title: String,
-    val salary: Salary?,
-    val companyLogo: LogoUrls?,
-    val companyName: String,
-    val area: Area,
-    val experience: String?,
-    val workFormats: List<WorkFormat>?,
-    val description: String?,
-    val keySkills: List<KeySkills>?,
-    val url: String,
+    val id: Long,
+    val name: String,
+    val areaName: String,
+    val employerName: String,
+    val salaryDisplayText: String,
+    val experience: String,
+    val employment: String?,
+    val workFormat: String?,
+    val description: String,
+    val keySkills: String?,
+    val employerLogo: String?,
+    val url: String
 )

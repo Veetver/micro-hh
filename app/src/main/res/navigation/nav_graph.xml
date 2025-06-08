@@ -6,6 +6,10 @@
     android:id="@+id/nav_graph">
 
     <action
+        android:id="@+id/open_vacancy_details"
+        app:destination="@id/vacancy_fragment" />
+
+    <action
         android:id="@+id/open_filters"
         app:destination="@id/filters_fragment" />
 
@@ -29,29 +33,43 @@
         android:id="@+id/search_fragment"
         android:name="ru.practicum.android.microhh.search.presentation.ui.SearchFragment"
         android:label="@string/search_fragment_title"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_search_fragment_to_vacancy_fragment"
-            app:destination="@id/vacancy_fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/filters_fragment"
         android:name="ru.practicum.android.microhh.filters.presentation.ui.FiltersFragment"
         android:label="@string/filters_fragment_title"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_filters_fragment_to_workplace_fragment"
+            app:destination="@id/workplace_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/workplace_fragment"
         android:name="ru.practicum.android.microhh.workplace.presentation.ui.WorkplaceFragment"
         android:label="@string/workplace_fragment_title"
-        tools:layout="@layout/fragment_workplace" />
+        tools:layout="@layout/fragment_workplace" >
+        <action
+            android:id="@+id/action_workplace_fragment_to_country_fragment"
+            app:destination="@id/country_fragment" />
+        <action
+            android:id="@+id/action_workplace_fragment_to_region_fragment"
+            app:destination="@id/region_fragment" />
+        <argument
+            android:name="countryName"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/country_fragment"
         android:name="ru.practicum.android.microhh.country.presentation.ui.CountryFragment"
         android:label="@string/country_fragment_title"
-        tools:layout="@layout/fragment_country" />
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_country_fragment_to_workplace_fragment"
+            app:destination="@id/workplace_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/region_fragment"

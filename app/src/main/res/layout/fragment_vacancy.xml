@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/inside_padding_16"
         android:contentDescription="@string/vacancy_cover"
-        android:src="@drawable/server_error_image"
+        android:src="@drawable/server_error"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

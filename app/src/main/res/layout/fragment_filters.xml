@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,7 +15,7 @@
         app:title="@string/filters_fragment_title" />
 
     <ru.practicum.android.microhh.core.presentation.ui.component.SelectableViewHH
-        android:id="@+id/workplace"
+        android:id="@+id/area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_height"
         app:hhSelectableViewStyle="@style/SelectableViewHHStyle"
@@ -42,7 +43,7 @@
         app:hintText="@string/salary_textfield_hint" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/myCheckBox"
+        android:id="@+id/show_no_salary"
         style="@style/TypographyRegular16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
         android:layout_marginHorizontal="@dimen/side_padding_16"
         android:layoutDirection="rtl"
         android:text="@string/show_no_salary"
-        android:button="@drawable/checkbox_selector" />
+        android:button="@drawable/checkbox_selector_square" />
 
     <View
         android:layout_width="match_parent"
@@ -61,6 +62,7 @@
         android:id="@+id/buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/side_padding_24"
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
@@ -70,16 +72,19 @@
             android:layout_marginHorizontal="@dimen/side_padding_16"
             android:text="@string/apply"
             android:textColor="@color/white"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:backgroundTint="@color/blue"
             app:cornerRadius="@dimen/corner_radius_12" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clear"
             style="@style/ButtonStyle"
-            android:layout_marginBottom="@dimen/side_padding_24"
             android:layout_marginHorizontal="@dimen/side_padding_16"
             android:text="@string/clear"
-            android:textColor="@color/red" />
+            android:textColor="@color/red"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
     </LinearLayout>
 

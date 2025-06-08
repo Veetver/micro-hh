@@ -32,6 +32,12 @@ class SalaryViewHH @JvmOverloads constructor(
     private var textColor: Int = 0
     private var hintColor: Int = 0
 
+    var text: String
+        get() = binding.text.text.toString()
+        set(value) {
+            binding.text.setText(value)
+        }
+
     init {
         context.theme.obtainStyledAttributes(
             attrs,
@@ -79,5 +85,11 @@ class SalaryViewHH @JvmOverloads constructor(
         this.orientation = HORIZONTAL
         this.gravity = Gravity.CENTER_VERTICAL
         background = AppCompatResources.getDrawable(context, R.drawable.rounded_shape_12)
+    }
+
+    fun setOnTextChanged(action: (String) -> Unit) {
+        binding.text.doOnTextChanged { text, _, _, _ ->
+            action(text.toString())
+        }
     }
 }

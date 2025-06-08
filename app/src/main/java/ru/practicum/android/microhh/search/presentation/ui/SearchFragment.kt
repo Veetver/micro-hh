@@ -14,7 +14,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.domain.models.Vacancy
 import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
-import ru.practicum.android.microhh.core.presentation.ui.component.recycler.ItemAnimator
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.VacancyAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.SearchState
@@ -57,12 +56,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
             findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
+                SearchFragmentDirections.openVacancyDetails(vacancy.id)
             )
         }
 
         binding.recycler.adapter = vacancyAdapter
-        binding.recycler.itemAnimator = ItemAnimator()
     }
 
     private fun setListeners() {
@@ -80,7 +78,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
                 searchRequest = text
 
-                if (hasFocus) viewModel.search(searchRequest)
+                if (hasFocus) {
+                    viewModel.search(text)
+                }
+
+                if (text.isEmpty()) {
+                    showPlaceholder(StatePlaceholderMode.Default)
+                }
             }
         }
 
@@ -110,6 +114,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 }
                 else -> false
             }
+        }
+
+        parentFragmentManager.setFragmentResultListener(Constants.KEY_FILTERS, viewLifecycleOwner) { _, _ ->
+            viewModel.search(searchRequest)
         }
     }
 
