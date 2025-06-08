@@ -1,6 +1,5 @@
 package ru.practicum.android.microhh.filters.presentation.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,10 +9,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.FiltersButtonState
 import ru.practicum.android.microhh.core.utils.Constants
+import ru.practicum.android.microhh.core.utils.Util
 import ru.practicum.android.microhh.databinding.FragmentFiltersBinding
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
@@ -53,7 +52,7 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
                 Constants.KEY_FILTER_INDUSTRY,
                 viewLifecycleOwner
             ) { _, bundle ->
-                val catalog = getParcelable(bundle, Constants.KEY_FILTERS)
+                val catalog = Util.getParcelable(bundle, Constants.KEY_FILTERS)
 
                 industry.tag = catalog?.id ?: ""
                 industry.setText(catalog?.name ?: "")
@@ -114,15 +113,6 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
             is FiltersButtonState.Apply -> binding.apply.isVisible = state.isVisible
             is FiltersButtonState.Clear -> binding.clear.isVisible = state.isVisible
             else -> {}
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun getParcelable(bundle: Bundle, key: String): Catalog? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            bundle.getParcelable(key, Catalog::class.java)
-        } else {
-            bundle.getParcelable(key)
         }
     }
 
