@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import ru.practicum.android.microhh.core.domain.models.Area
-import ru.practicum.android.microhh.workplace.domain.models.WorkplaceFilter
+import ru.practicum.android.microhh.workplace.presentation.state.WorkplaceState
 
 class WorkplaceViewModel(
 
@@ -30,8 +30,3 @@ class WorkplaceViewModel(
         _state.update { WorkplaceState() }
     }
 }
-
-data class WorkplaceState(
-    val workplaceFilter: WorkplaceFilter = WorkplaceFilter(),
-    val showApply: Boolean = false,
-)

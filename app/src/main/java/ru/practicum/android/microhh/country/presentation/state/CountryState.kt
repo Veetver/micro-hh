@@ -1,4 +1,4 @@
-package ru.practicum.android.microhh.country.presentation.ui
+package ru.practicum.android.microhh.country.presentation.state
 
 import ru.practicum.android.microhh.core.domain.models.Area
 

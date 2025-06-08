@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.models.Area
 import ru.practicum.android.microhh.country.domain.impl.GetCountriesUseCase
-import ru.practicum.android.microhh.country.presentation.ui.CountryState
+import ru.practicum.android.microhh.country.presentation.state.CountryState
 
 class CountryViewModel(
     private val getCountriesUseCase: GetCountriesUseCase,

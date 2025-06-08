@@ -20,6 +20,7 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityIte
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.country.presentation.CountryViewModel
+import ru.practicum.android.microhh.country.presentation.state.CountryState
 import ru.practicum.android.microhh.databinding.FragmentCountryBinding
 import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
 

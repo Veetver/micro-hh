@@ -29,7 +29,7 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
 
     private fun setupUI() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect {
                     if (it.workplaceFilter.country != null) {
                         binding.country.setText(it.workplaceFilter.country.name)
