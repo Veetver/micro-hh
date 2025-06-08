@@ -49,9 +49,8 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
                 isClickEnabled = false
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
-            findNavController().navigate(
-                SearchFragmentDirections.openWorkplace(country.name)
-            )
+            // TODO: Save params to sharedPrefs
+            findNavController().popBackStack()
         }
         binding.countryRv.adapter = countryAdapter
     }
