@@ -1,6 +1,7 @@
 package ru.practicum.android.microhh.core.data.impl
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
 import ru.practicum.android.microhh.core.domain.models.Vacancy
@@ -9,6 +10,7 @@ import ru.practicum.android.microhh.core.utils.DtoConverter.toSalaryDisplayText
 import ru.practicum.android.microhh.search.data.dto.VacancyDto
 import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsDto
 import ru.practicum.android.microhh.vacancy.data.dto.VacancyDetailsResponse
+import java.util.Locale
 
 class VacancyDtoConverterImpl(
     private val context: Context,
@@ -97,7 +99,13 @@ class VacancyDtoConverterImpl(
         return "<html>\n" +
             "        <head>\n" +
             "            <style type='text/css'>\n" +
-            "                body {}; }\n" +
+            "                body {color: ${
+                String.format(
+                    Locale.getDefault(),
+                    "#%06X",
+                    0xFDFDFD and ContextCompat.getColor(context, R.color.black)
+                )
+            }}; }\n" +
             "            </style>\n" +
             "        </head>\n" +
             "        <body>\n" +
