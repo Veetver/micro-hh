@@ -18,7 +18,7 @@ class RetrofitNetworkClientImpl(
     private val networkCheck: NetworkCheck,
 ) : RetrofitNetworkClient {
 
-    override suspend fun doRequest(dto: RetrofitSearchRequest): Response {
+    override suspend fun getVacancies(dto: RetrofitSearchRequest): Response {
         return withContext(Dispatchers.IO) {
             if (networkCheck.isNetworkAvailable()) {
                 try {

@@ -22,11 +22,18 @@ class IndustryViewModel(
     private val list = mutableListOf<Catalog>()
     private val originalList = mutableListOf<Catalog>()
     private val filteredList = mutableListOf<Catalog>()
+    private var _catalog: Catalog = Catalog()
+    val catalog
+        get() =_catalog
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             doRequest()
         }
+    }
+
+    fun onIndustrySelected(catalog: Catalog) {
+        _catalog = catalog
     }
 
     fun filter(searchQuery: String?) {

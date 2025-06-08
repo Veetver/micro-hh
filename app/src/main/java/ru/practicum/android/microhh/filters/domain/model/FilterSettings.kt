@@ -1,8 +1,10 @@
 package ru.practicum.android.microhh.filters.domain.model
 
 data class FilterSettings(
-    val workplace: String = "",
-    val industry: String = "",
+    val areaId: String = "",
+    val areaName: String = "",
+    val industryId: String = "",
+    val industryName: String = "",
     val salary: String = "",
     val showWithoutSalary: Boolean = false,
 )

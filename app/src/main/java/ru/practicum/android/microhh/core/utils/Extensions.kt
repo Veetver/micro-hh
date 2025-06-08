@@ -13,8 +13,10 @@ object Extensions {
     ).toInt()
 
     fun FilterSettings.isEmpty(): Boolean {
-        return this.workplace.isEmpty() &&
-            this.industry.isEmpty() &&
+        return this.areaId.isEmpty() &&
+            this.areaName.isEmpty() &&
+            this.industryId.isEmpty() &&
+            this.industryName.isEmpty() &&
             this.salary.isEmpty() &&
             this.showWithoutSalary.not()
     }
