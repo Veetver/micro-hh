@@ -44,7 +44,13 @@ class WorkplaceViewModel(
     }
 
     fun onClearedCountry() {
-        _state.update { WorkplaceState(showApply = settings.workplace != null && settings.workplace != _state.value.workplaceFilter) }
+        _state.update {
+            val isNotNull = settings.workplace != null
+            val notEquals = settings.workplace != _state.value.workplaceFilter
+            WorkplaceState(
+                showApply = isNotNull && notEquals
+            )
+        }
     }
 
     fun applied() {
@@ -52,7 +58,11 @@ class WorkplaceViewModel(
     }
 
     fun onClearedRegion() {
-        _state.update { WorkplaceState(workplaceFilter = it.workplaceFilter.copy(region = null), showApply = true) }
+        _state.update {
+            WorkplaceState(
+                workplaceFilter = it.workplaceFilter.copy(region = null), showApply = true
+            )
+        }
     }
 
     fun cancelChanges() {
