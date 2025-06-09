@@ -1,6 +1,7 @@
 package ru.practicum.android.microhh.vacancy.presentation.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -129,6 +130,7 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         vacancy.description.let {
             binding.vacancyDescriptionTitle.isVisible = true
             binding.vacancyDescription.isVisible = true
+            binding.vacancyDescription.setBackgroundColor(Color.TRANSPARENT)
             binding.vacancyDescription.loadDataWithBaseURL(
                 null,
                 vacancy.description,
