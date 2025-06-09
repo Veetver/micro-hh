@@ -13,11 +13,9 @@ object Extensions {
     ).toInt()
 
     fun FilterSettings.isEmpty(): Boolean {
-        return this.areaId.isEmpty() &&
-            this.areaName.isEmpty() &&
-            this.industryId.isEmpty() &&
-            this.industryName.isEmpty() &&
-            this.salary.isEmpty() &&
+        return this.workplace == null &&
+            this.industry == null &&
+            this.salary == null &&
             this.showWithoutSalary.not()
     }
 }

@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.microhh.core.domain.models.Area
+import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.CountryAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
@@ -27,7 +27,6 @@ import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
 class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBinding::inflate) {
 
     private val viewModel by viewModel<CountryViewModel>()
-
     private val workplaceViewModel: WorkplaceViewModel by activityViewModel()
     private var countryAdapter: CountryAdapter? = null
     private var visibility: ViewsList? = null
@@ -85,7 +84,7 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
         visibility?.show(Placeholder)
     }
 
-    private fun showCountries(countries: List<Area>) {
+    private fun showCountries(countries: List<Catalog>) {
         countryAdapter?.countriesList = countries.toMutableList()
         countryAdapter?.notifyDataSetChanged()
         visibility?.show(Results)

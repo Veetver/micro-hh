@@ -29,7 +29,7 @@ class SearchViewModel(
     private var isNextPageLoading = false
     private var isNextPage = false
     private val filters: FilterSettings
-        get() = settingsRepository.filterSettings
+        get() = settingsRepository.filterSettings()
     private val canLoadMore
         get() = currentPage != maxPages
 
@@ -94,6 +94,7 @@ class SearchViewModel(
                         SearchState.NextPage(vacancies, count, canLoadMore)
                     }
                 }
+
                 error != null -> SearchState.ConnectionError(error, isNextPage, term)
                 else -> SearchState.NothingFound(term)
             }

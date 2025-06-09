@@ -13,8 +13,7 @@ class SettingsRepositoryImpl(
 ) : SettingsRepository {
 
     private var _filterSettings = loadFilterSettings()
-    override val filterSettings: FilterSettings
-        get() = _filterSettings
+    override fun filterSettings() = _filterSettings
 
     private fun loadFilterSettings(): FilterSettings {
         val prefsSettings = prefs.getString(Constants.KEY_FILTERS, null)

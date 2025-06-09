@@ -8,6 +8,8 @@ import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
 import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
 import ru.practicum.android.microhh.search.presentation.SearchViewModel
 import ru.practicum.android.microhh.vacancy.presentation.VacancyViewModel
+import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
+
 val viewModelModule = module {
 
     viewModel {
@@ -41,6 +43,8 @@ val viewModelModule = module {
     }
 
     viewModel {
-        WorkplaceViewModel()
+        WorkplaceViewModel(
+            settingsRepository = get(),
+        )
     }
 }

@@ -8,16 +8,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.databinding.FragmentWorkplaceBinding
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
+import ru.practicum.android.microhh.workplace.domain.models.WorkplaceFilter
 import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
+import ru.practicum.android.microhh.workplace.presentation.state.WorkplaceState
 
 class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkplaceBinding::inflate) {
     private val viewModel: WorkplaceViewModel by activityViewModel()
-    private val filtersViewModel: FiltersViewModel by activityViewModel()
+    private val filterViewModel: FiltersViewModel by activityViewModel()
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,17 +33,29 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
     private fun setupUI() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect {
-                    if (it.workplaceFilter.country != null) {
-                        binding.country.setText(it.workplaceFilter.country.name)
+                viewModel
+                    .state
+                    .combine(filterViewModel.filtersStateFlow) { workplaceState, filterState ->
+                        if (filterState.workplace != workplaceState.workplaceFilter && !workplaceState.showApply) {
+                            WorkplaceState(
+                                workplaceFilter = WorkplaceFilter(),
+                                showApply = false
+                            )
+                        } else {
+                            workplaceState
+                        }
                     }
+                    .collect {
+                        if (it.workplaceFilter.country != null) {
+                            binding.country.setText(it.workplaceFilter.country.name)
+                        }
 
-                    if (it.workplaceFilter.region != null) {
-                        binding.region.setText(it.workplaceFilter.region.name)
+                        if (it.workplaceFilter.region != null) {
+                            binding.region.setText(it.workplaceFilter.region.name)
+                        }
+
+                        binding.apply.isVisible = it.showApply
                     }
-
-                    binding.apply.isVisible = it.showApply
-                }
             }
         }
     }
@@ -61,22 +76,17 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
             )
         }
 
-        binding.country.setOnClearText {
-            lifecycleScope.launch {
-                viewModel.updateCounty(null)
-            }
+        binding.country.setOnCleared {
+            viewModel.onClearedCountry()
+        }
+
+        binding.region.setOnCleared {
+            viewModel.onClearedRegion()
         }
 
         binding.apply.setOnClickListener {
-            lifecycleScope.launch {
-                filtersViewModel.updateSettings(
-                    newSettings = filtersViewModel.filterSettings.copy(
-                        workplace = viewModel.state.value.workplaceFilter,
-                    ),
-                    updateSettings = false,
-                    updateFiltersState = true,
-                )
-            }
+            viewModel.applied()
+            filterViewModel.setWorkplaceFilter(viewModel.state.value.workplaceFilter)
             findNavController().popBackStack()
         }
     }

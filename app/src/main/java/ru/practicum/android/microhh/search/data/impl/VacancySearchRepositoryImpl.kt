@@ -24,16 +24,16 @@ class VacancySearchRepositoryImpl(
         options[QueryParams.PAGE.query] = page.toString()
         options[QueryParams.PER_PAGE.query] = "20"
 
-        if (filters.areaId.isNotEmpty()) {
-            options[QueryParams.AREA.query] = filters.areaId
+        filters.workplace?.let {
+            options[QueryParams.AREA.query] = it.ids
         }
 
-        if (filters.industryId.isNotEmpty()) {
-            options[QueryParams.INDUSTRY.query] = filters.industryId
+        filters.industry?.let {
+            options[QueryParams.INDUSTRY.query] = filters.industry.id
         }
 
-        if (filters.salary.isNotEmpty()) {
-            options[QueryParams.SALARY.query] = filters.salary
+        filters.salary?.let {
+            options[QueryParams.SALARY.query] = it
         }
 
         options[QueryParams.ONLY_WITH_SALARY.query] = filters.showWithoutSalary.toString()
@@ -70,6 +70,7 @@ class VacancySearchRepositoryImpl(
                     )
                 }
             }
+
             else -> {
                 emit(VacancySearchState.Error(Constants.NO_CONNECTION, options[QueryParams.TEXT.query]))
             }

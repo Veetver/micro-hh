@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
@@ -19,23 +20,24 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.Placeholder
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
 import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
-import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.databinding.FragmentIndustryBinding
+import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
 import ru.practicum.android.microhh.industry.presentation.IndustryViewModel
 
 class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryBinding::inflate) {
 
     private val viewModel by viewModel<IndustryViewModel>()
+    private val filterViewModel by activityViewModel<FiltersViewModel>()
     private var vacancyAdapter: CatalogAdapter? = null
     private var visibility: ViewsList? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         setupUI()
         setupListeners()
     }
-    
+
     private fun setupUI() {
         visibility = ViewsList(
             listOf(
@@ -69,11 +71,7 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
             viewModel.filter(text)
         }
         binding.choose.setOnClickListener {
-            val industry = Bundle().apply {
-                putParcelable(Constants.KEY_FILTERS, viewModel.catalog)
-            }
-
-            parentFragmentManager.setFragmentResult(Constants.KEY_FILTER_INDUSTRY, industry)
+            filterViewModel.setIndustryFilter(viewModel.catalog)
             findNavController().popBackStack()
         }
     }

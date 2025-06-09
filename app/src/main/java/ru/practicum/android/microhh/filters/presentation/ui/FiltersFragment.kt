@@ -8,11 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.FiltersButtonState
 import ru.practicum.android.microhh.core.utils.Constants
-import ru.practicum.android.microhh.core.utils.Util
 import ru.practicum.android.microhh.databinding.FragmentFiltersBinding
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
@@ -20,7 +19,7 @@ import ru.practicum.android.microhh.search.presentation.ui.SearchFragmentDirecti
 
 class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBinding::inflate) {
 
-    private val viewModel by viewModel<FiltersViewModel>()
+    private val viewModel by activityViewModel<FiltersViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,9 +30,7 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.filtersStateFlow.collect { state ->
-                    if (state.updateState) {
-                        updatesUiWithSettings(state.filters)
-                    }
+                    updatesUiWithSettings(state)
                 }
             }
         }
@@ -47,37 +44,35 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
         }
 
         with(binding) {
-            toolbar.setOnClickListener { findNavController().popBackStack() }
-            parentFragmentManager.setFragmentResultListener(
-                Constants.KEY_FILTER_INDUSTRY,
-                viewLifecycleOwner
-            ) { _, bundle ->
-                val catalog = Util.getParcelable(bundle, Constants.KEY_FILTERS)
+            toolbar.setOnClickListener {
+                findNavController().popBackStack()
+                viewModel.cancelChanges()
+            }
 
-                industry.tag = catalog?.id ?: ""
-                industry.setText(catalog?.name ?: "")
-            }
-            area.setOnTextChange { _ ->
-                saveSettings()
-            }
-            industry.setOnTextChange { _ ->
-                saveSettings()
-            }
             industry.setOnClickListener {
                 findNavController().navigate(
                     SearchFragmentDirections.openIndustry()
                 )
             }
-            salary.setOnTextChanged { _ ->
-                saveSettings()
+
+            showNoSalary.setOnCheckedChangeListener { _, checked ->
+                viewModel.setShowNoSalary(checked)
             }
-            showNoSalary.setOnCheckedChangeListener { _, _ ->
-                saveSettings()
+
+            salary.setOnTextChanged {
+                if (it.isNotBlank()) {
+                    viewModel.setSalaryFilter(it)
+                } else {
+                    viewModel.setSalaryFilter(null)
+                }
             }
+
             apply.setOnClickListener {
                 parentFragmentManager.setFragmentResult(Constants.KEY_FILTERS, Bundle())
+                viewModel.updateSettings()
                 findNavController().popBackStack()
             }
+
             clear.setOnClickListener {
                 viewModel.clearSettings()
             }
@@ -87,43 +82,35 @@ class FiltersFragment : BaseFragment<FragmentFiltersBinding>(FragmentFiltersBind
                     FiltersFragmentDirections.actionFiltersFragmentToWorkplaceFragment()
                 )
             }
+
+            area.setOnCleared {
+                viewModel.setWorkplaceFilter(null)
+            }
+
+            industry.setOnCleared {
+                viewModel.setIndustryFilter(null)
+            }
         }
     }
 
     private fun updatesUiWithSettings(filters: FilterSettings) {
         with(binding) {
-            area.setText(filters.areaName)
-            industry.setText(filters.industryName)
-            salary.text = filters.salary
+            area.setText(filters.workplace?.title)
+            industry.setText(filters.industry?.name)
+            if (filters.salary != binding.salary.text) {
+                binding.salary.text = filters.salary ?: ""
+            }
             showNoSalary.isChecked = filters.showWithoutSalary
         }
     }
 
-    private fun saveSettings() {
-        viewModel.updateSettings(
-            FilterSettings(
-                areaId = binding.area.tag?.toString() ?: "",
-                areaName = binding.area.text,
-                industryId = binding.industry.tag?.toString() ?: "",
-                industryName = binding.industry.text,
-                salary = binding.salary.text,
-                showWithoutSalary = binding.showNoSalary.isChecked,
-            ),
-            updateSettings = true,
-            updateFiltersState = false,
-        )
-    }
-
     private fun renderState(state: FiltersButtonState) {
-        when (state) {
-            is FiltersButtonState.Apply -> binding.apply.isVisible = state.isVisible
-            is FiltersButtonState.Clear -> binding.clear.isVisible = state.isVisible
-            else -> {}
-        }
+        binding.apply.isVisible = state.isApplyVisible
+        binding.clear.isVisible = state.isClearVisible
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        updatesUiWithSettings(viewModel.getSettings())
+        updatesUiWithSettings(viewModel.filterSettings())
     }
 }

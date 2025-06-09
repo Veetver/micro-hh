@@ -1,12 +1,12 @@
 package ru.practicum.android.microhh.workplace.domain.models
 
 import kotlinx.serialization.Serializable
-import ru.practicum.android.microhh.core.domain.models.Area
+import ru.practicum.android.microhh.core.domain.models.Catalog
 
 @Serializable
 data class WorkplaceFilter(
-    val country: Area? = null,
-    val region: Area? = null,
+    val country: Catalog? = null,
+    val region: Catalog? = null,
 ) {
     val title: String
         get() {
@@ -24,7 +24,10 @@ data class WorkplaceFilter(
             return sb.toString()
         }
 
+    @Transient
     val isNull = country == null && region == null
+
+    @Transient
     val isNotNull = !isNull
     val ids: String
         get() {
