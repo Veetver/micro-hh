@@ -72,7 +72,9 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
         }
         binding.region.setOnClickListener {
             findNavController().navigate(
-                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment(
+                    country = viewModel.state.value.workplaceFilter.country
+                )
             )
         }
 
