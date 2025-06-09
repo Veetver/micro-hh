@@ -1,10 +1,8 @@
 package ru.practicum.android.microhh.di
 
 import org.koin.dsl.module
-
-import ru.practicum.android.microhh.country.domain.impl.CountrySearchUseCase
-import ru.practicum.android.microhh.industry.domain.impl.IndustryListUseCase
 import ru.practicum.android.microhh.country.domain.impl.GetCountriesUseCase
+import ru.practicum.android.microhh.industry.domain.impl.IndustryListUseCase
 import ru.practicum.android.microhh.region.domain.impl.GetRegionByIdUseCase
 import ru.practicum.android.microhh.region.domain.impl.GetRegionsWOCountriesUseCase
 import ru.practicum.android.microhh.search.domain.impl.VacancySearchUseCase
@@ -18,10 +16,6 @@ val useCaseModule = module {
 
     single<VacancyDetailsUseCase> {
         VacancyDetailsUseCase(get(), get())
-    }
-
-    single<CountrySearchUseCase> {
-        CountrySearchUseCase(get())
     }
 
     single<IndustryListUseCase> {

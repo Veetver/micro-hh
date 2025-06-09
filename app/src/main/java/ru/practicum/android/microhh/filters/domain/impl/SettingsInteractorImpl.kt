@@ -8,7 +8,7 @@ class SettingsInteractorImpl(
     private val settingsRepository: SettingsRepository
 ) : SettingsInteractor {
 
-    override val filterSettings = settingsRepository.filterSettings
+    override fun filterSettings() = settingsRepository.filterSettings()
 
     override fun updateSettings(newSettings: FilterSettings) {
         settingsRepository.updateSettings(newSettings)

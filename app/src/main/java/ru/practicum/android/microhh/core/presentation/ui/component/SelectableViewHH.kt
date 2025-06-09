@@ -37,6 +37,7 @@ class SelectableViewHH @JvmOverloads constructor(
     private var labelText: String = ""
     private var state: Int = 0
     private var onTextChanged: (String) -> Unit = {}
+    private var onCleared: () -> Unit = {}
     val text: String
         get() {
             val currentText = binding.text.text.toString()
@@ -70,11 +71,12 @@ class SelectableViewHH @JvmOverloads constructor(
         updateFiltersDataState()
         binding.trailingIcon.setOnClickListener {
             onTextCleared()
+            onCleared()
         }
     }
 
-    fun setText(text: String) {
-        if (text.isEmpty()) {
+    fun setText(text: String?) {
+        if (text.isNullOrEmpty()) {
             onTextCleared()
             return
         }
@@ -85,8 +87,8 @@ class SelectableViewHH @JvmOverloads constructor(
         updateFiltersDataState()
     }
 
-    fun setOnTextChange(action: (String) -> Unit) {
-        onTextChanged = action
+    fun setOnCleared(action: () -> Unit) {
+        onCleared = action
     }
 
     private fun onTextCleared() {
@@ -109,6 +111,7 @@ class SelectableViewHH @JvmOverloads constructor(
                 textColorVar = textColor
                 trailingIconVar = arrowIcon
             }
+
             FiltersDataState.FILLED.code -> {
                 labelTextColorVar = labelTextColorFilled
                 textColorVar = textColorFilled

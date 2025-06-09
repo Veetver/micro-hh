@@ -7,8 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.microhh.core.domain.models.Country
+import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.CountryAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
@@ -19,12 +20,14 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityIte
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.country.presentation.CountryViewModel
+import ru.practicum.android.microhh.country.presentation.state.CountryState
 import ru.practicum.android.microhh.databinding.FragmentCountryBinding
-import ru.practicum.android.microhh.search.presentation.ui.SearchFragmentDirections
+import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
 
 class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBinding::inflate) {
 
     private val viewModel by viewModel<CountryViewModel>()
+    private val workplaceViewModel: WorkplaceViewModel by activityViewModel()
     private var countryAdapter: CountryAdapter? = null
     private var visibility: ViewsList? = null
     private var isClickEnabled = true
@@ -49,9 +52,8 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
                 isClickEnabled = false
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
-            findNavController().navigate(
-                SearchFragmentDirections.openWorkplace(country.name)
-            )
+            workplaceViewModel.updateCounty(country)
+            findNavController().popBackStack()
         }
         binding.countryRv.adapter = countryAdapter
     }
@@ -82,7 +84,7 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
         visibility?.show(Placeholder)
     }
 
-    private fun showCountries(countries: List<Country>) {
+    private fun showCountries(countries: List<Catalog>) {
         countryAdapter?.countriesList = countries.toMutableList()
         countryAdapter?.notifyDataSetChanged()
         visibility?.show(Results)

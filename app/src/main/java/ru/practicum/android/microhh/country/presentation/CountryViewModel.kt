@@ -8,12 +8,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.microhh.core.domain.models.Country
-import ru.practicum.android.microhh.country.domain.impl.CountrySearchUseCase
-import ru.practicum.android.microhh.country.presentation.ui.CountryState
+import ru.practicum.android.microhh.core.domain.models.Catalog
+import ru.practicum.android.microhh.country.domain.impl.GetCountriesUseCase
+import ru.practicum.android.microhh.country.presentation.mapper.toCatalog
+import ru.practicum.android.microhh.country.presentation.state.CountryState
 
 class CountryViewModel(
-    private val countrySearchUseCase: CountrySearchUseCase
+    private val getCountriesUseCase: GetCountriesUseCase,
 ) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<CountryState>(CountryState.Loading)
@@ -29,21 +30,21 @@ class CountryViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             updateState(CountryState.Loading)
 
-            countrySearchUseCase()
+            getCountriesUseCase()
                 .collect { result ->
-                    processResult(result.countries, result.error, result.term)
+                    processResult(result.areas.map { it.toCatalog() }, result.error)
                 }
         }
     }
 
-    private fun processResult(countries: List<Country>, error: Int?, term: String) {
+    private fun processResult(countries: List<Catalog>, error: Int?) {
         updateState(
             when {
                 countries.isNotEmpty() -> {
-                    CountryState.ShowCountries(countries, term)
+                    CountryState.ShowCountries(countries)
                 }
 
-                error != null -> CountryState.ConnectionError(error, term)
+                error != null -> CountryState.ConnectionError(error)
                 else -> CountryState.NoCountries
             }
         )
