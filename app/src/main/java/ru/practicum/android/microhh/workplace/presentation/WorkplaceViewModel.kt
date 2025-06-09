@@ -60,7 +60,8 @@ class WorkplaceViewModel(
     fun onClearedRegion() {
         _state.update {
             WorkplaceState(
-                workplaceFilter = it.workplaceFilter.copy(region = null), showApply = true
+                workplaceFilter = it.workplaceFilter.copy(region = null),
+                showApply = true,
             )
         }
     }
