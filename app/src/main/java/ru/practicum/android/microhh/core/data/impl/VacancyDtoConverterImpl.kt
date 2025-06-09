@@ -89,7 +89,7 @@ class VacancyDtoConverterImpl(
                 null
             },
             vacancy.employer.logoUrls?.size90,
-            url = vacancy.url ?: ""
+            url = vacancy.alternateUrl
         )
     }
 
