@@ -65,8 +65,7 @@ class FiltersViewModel(
     }
 
     fun clearSettings() {
-        settingsInteractor.clearSettings()
-        _filtersStateFlow.update { filterSettings() }
+        _filtersStateFlow.update { FilterSettings() }
     }
 
     fun cancelChanges() {
