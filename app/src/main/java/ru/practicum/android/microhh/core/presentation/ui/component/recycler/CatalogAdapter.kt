@@ -29,6 +29,11 @@ class CatalogAdapter(
                     }
                 )
             )
+        delegatesManager.addDelegate(
+            arrowItemDelegate(
+                onClick
+            )
+        )
     }
 
     fun submitCatalogList(

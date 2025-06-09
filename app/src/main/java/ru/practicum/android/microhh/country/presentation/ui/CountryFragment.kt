@@ -52,7 +52,7 @@ class CountryFragment : BaseFragment<FragmentCountryBinding>(FragmentCountryBind
                 isClickEnabled = false
                 Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
             }
-            workplaceViewModel.updateCounty(country)
+            workplaceViewModel.updateCountry(country)
             findNavController().popBackStack()
         }
         binding.countryRv.adapter = countryAdapter

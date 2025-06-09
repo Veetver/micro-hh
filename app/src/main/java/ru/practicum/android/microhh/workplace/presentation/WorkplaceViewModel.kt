@@ -21,7 +21,7 @@ class WorkplaceViewModel(
     val state: StateFlow<WorkplaceState>
         get() = _state.asStateFlow()
 
-    fun updateCounty(country: Catalog?) {
+    fun updateCountry(country: Catalog?) {
         if (country != _state.value.workplaceFilter.country) {
             _state.update {
                 it.copy(

@@ -10,16 +10,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.models.Catalog
-import ru.practicum.android.microhh.core.resources.CatalogSearchState
 import ru.practicum.android.microhh.country.presentation.mapper.toCatalog
-import ru.practicum.android.microhh.country.presentation.state.CountryState
-import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
 import ru.practicum.android.microhh.region.domain.impl.GetRegionByIdUseCase
 import ru.practicum.android.microhh.region.domain.impl.GetRegionsWOCountriesUseCase
+import ru.practicum.android.microhh.region.domain.mapper.toArea
 import ru.practicum.android.microhh.region.presentation.state.RegionState
 
 class RegionViewModel(
-    private val currentCountry: Catalog? = null,
+    currentCountry: Catalog? = null,
     private val getRegionByIdUseCase: GetRegionByIdUseCase,
     private val getRegionsWOCountriesUseCase: GetRegionsWOCountriesUseCase,
 ) : ViewModel() {
@@ -27,12 +25,11 @@ class RegionViewModel(
     val state: StateFlow<RegionState>
         get() = _state.asStateFlow()
 
-    private val list = mutableListOf<Catalog>()
     private val originalList = mutableListOf<Catalog>()
     private val filteredList = mutableListOf<Catalog>()
 
     init {
-        getRegions()
+        getRegions(currentCountry?.id)
     }
 
     fun filter(searchQuery: String?) {
@@ -50,23 +47,33 @@ class RegionViewModel(
         }
     }
 
-    private fun updateDisplayList(updatedList: List<Catalog>) {
-        list.clear()
-        list.addAll(updatedList)
-        _state.update { it.copy(regions = list) }
-    }
-
-    private fun getRegions() {
+    private fun getRegions(countryId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
 
-            getRegionsWOCountriesUseCase()
-                .collect { result ->
-                    Log.d("TAG", "getRegions: ${result.areas}")
-                    originalList.clear()
-                    originalList.addAll(result.areas.map { it.toCatalog() })
-                    processResult(result.areas.map { it.toCatalog() }, result.error)
+            if (!countryId.isNullOrEmpty()) {
+                viewModelScope.launch {
+                    getRegionByIdUseCase(countryId).collect { result ->
+                        Log.d("TAG", "getRegions: $result")
+                        originalList.clear()
+                        result.area?.areas?.let { it -> originalList.addAll(it.map { it.toArea().toCatalog() }) }
+                        result.area?.areas?.let { it ->
+                            processResult(
+                                it.map { it.toArea().toCatalog() },
+                                result.error
+                            )
+                        }
+                    }
                 }
+            } else {
+                getRegionsWOCountriesUseCase()
+                    .collect { result ->
+                        Log.d("TAG", "getRegions: ${result.areas}")
+                        originalList.clear()
+                        originalList.addAll(result.areas.map { it.toCatalog() })
+                        processResult(result.areas.map { it.toCatalog() }, result.error)
+                    }
+            }
         }
     }
 

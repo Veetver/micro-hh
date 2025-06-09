@@ -24,7 +24,7 @@ import ru.practicum.android.microhh.vacancy.presentation.VacancyViewModel
 
 class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBinding::inflate) {
     private val args: VacancyFragmentArgs by navArgs()
-    private val viewModel by viewModel<VacancyViewModel>() {
+    private val viewModel by viewModel<VacancyViewModel> {
         parametersOf(args.vacancyId)
     }
     private var isFavorite: Boolean? = false
@@ -68,9 +68,11 @@ class VacancyFragment : BaseFragment<FragmentVacancyBinding>(FragmentVacancyBind
         this.isFavorite = isFavorite
         val favoritesItem = binding.toolbar.menu.findItem(R.id.favorites_icon)
         if (this.isFavorite == true) {
-            favoritesItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_on)
+            favoritesItem.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_on)
         } else {
-            favoritesItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_off)
+            favoritesItem.icon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_off)
         }
     }
 

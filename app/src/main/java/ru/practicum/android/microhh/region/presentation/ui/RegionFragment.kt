@@ -16,20 +16,22 @@ import ru.practicum.android.microhh.core.resources.VisibilityState.Placeholder
 import ru.practicum.android.microhh.core.resources.VisibilityState.Results
 import ru.practicum.android.microhh.core.resources.VisibilityState.ViewsList
 import ru.practicum.android.microhh.core.resources.VisibilityState.VisibilityItem
+import ru.practicum.android.microhh.core.utils.Constants
+import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.databinding.FragmentRegionBinding
-import ru.practicum.android.microhh.filters.presentation.FiltersViewModel
 import ru.practicum.android.microhh.region.presentation.RegionViewModel
+import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
 
 class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding::inflate) {
     private val args: RegionFragmentArgs by navArgs()
-
-    private val filterViewModel: FiltersViewModel by activityViewModel()
-    private val viewModel: RegionViewModel by viewModel() {
+    private val workplaceViewModel: WorkplaceViewModel by activityViewModel()
+    private val viewModel: RegionViewModel by viewModel {
         parametersOf(args.country)
     }
 
     private var regionAdapter: CatalogAdapter? = null
     private var visibility: ViewsList? = null
+    private var isClickEnabled = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,25 +43,25 @@ class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding
             viewModel.state.collect {
                 regionAdapter?.submitCatalogList(
                     list = it.regions,
-                    type = CatalogListItemType.CHECK_BOX_ITEM.name,
+                    type = CatalogListItemType.ARROW_ITEM.name,
                 )
             }
         }
 
         binding.search.setOnTextChanged { text ->
             viewModel.filter(text)
-//            if (text.isEmpty()) {
-//                regionAdapter?.submitCatalogList(
-//                    list = viewModel.state.value.regions,
-//                    type = CatalogListItemType.ARROW_ITEM.name,
-//                )
+            if (text.isEmpty()) {
+                regionAdapter?.submitCatalogList(
+                    list = viewModel.state.value.regions,
+                    type = CatalogListItemType.ARROW_ITEM.name,
+                )
 
-//            } else {
-//                regionAdapter?.submitCatalogList(
-//                    list = viewModel.state.value.regions.filter { it.name.contains(text, ignoreCase = true) },
-//                    type = CatalogListItemType.ARROW_ITEM.name,
-//                )
-//            }
+            } else {
+                regionAdapter?.submitCatalogList(
+                    list = viewModel.state.value.regions.filter { it.name.contains(text, ignoreCase = true) },
+                    type = CatalogListItemType.ARROW_ITEM.name,
+                )
+            }
         }
     }
 
@@ -71,8 +73,13 @@ class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding
             )
         )
 
-        regionAdapter = CatalogAdapter { catalog ->
-
+        regionAdapter = CatalogAdapter { region ->
+            if (isClickEnabled) {
+                isClickEnabled = false
+                Debounce<Any>(Constants.BUTTON_ENABLED_DELAY, lifecycleScope) { isClickEnabled = true }.start()
+            }
+            workplaceViewModel.updateRegion(region)
+            findNavController().popBackStack()
         }
         binding.regionRv.adapter = regionAdapter
     }
