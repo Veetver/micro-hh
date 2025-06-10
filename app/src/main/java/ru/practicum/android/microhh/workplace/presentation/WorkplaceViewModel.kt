@@ -51,7 +51,7 @@ class WorkplaceViewModel(
                         parentId = parent?.parentId
                         country = parent?.toArea()?.toCatalog()
                     }
-                }.invokeOnCompletion{
+                }.invokeOnCompletion {
                     _state.update {
                         val newWorkplaceFilter = it.workplaceFilter.copy(country = country)
                         it.copy(

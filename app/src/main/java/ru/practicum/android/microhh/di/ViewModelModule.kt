@@ -51,7 +51,7 @@ val viewModelModule = module {
         )
     }
 
-    viewModel {(catalog: Catalog?) ->
+    viewModel { (catalog: Catalog?) ->
         RegionViewModel(
             currentCountry = catalog,
             getRegionByIdUseCase = get(),
