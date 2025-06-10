@@ -10,8 +10,8 @@ import ru.practicum.android.microhh.region.data.dto.request.AreaByIdRequest
 import ru.practicum.android.microhh.region.data.dto.response.AreaExtendedResponse
 import ru.practicum.android.microhh.region.data.dto.response.AreasResponse
 import ru.practicum.android.microhh.region.data.mapper.toAreaExtended
+import ru.practicum.android.microhh.region.data.mapper.toFlatAreas
 import ru.practicum.android.microhh.region.domain.api.RegionRepository
-import ru.practicum.android.microhh.region.domain.mapper.toArea
 
 class RegionRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
@@ -24,7 +24,7 @@ class RegionRepositoryImpl(
                 when (response) {
                     is AreasResponse -> {
                         emit(
-                            AreaSearchState.Success(areas = response.areas.map { it.toArea() })
+                            AreaSearchState.Success(areas = response.areas.toFlatAreas())
                         )
                     }
                 }
