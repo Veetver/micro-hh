@@ -44,7 +44,8 @@ val dataModule = module {
 
     single {
         androidContext().getSharedPreferences(
-            androidContext().getString(R.string.prefs_file_name), Context.MODE_PRIVATE
+            androidContext().getString(R.string.prefs_file_name),
+            Context.MODE_PRIVATE,
         )
     }
 
