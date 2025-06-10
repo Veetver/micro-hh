@@ -25,23 +25,5 @@ data class WorkplaceFilter(
         }
 
     @Transient
-    val isNull = country == null && region == null
-
-    @Transient
-    val isNotNull = !isNull
-    val ids: String
-        get() {
-            val sb = StringBuilder()
-
-            country?.let {
-                sb.append(country.id)
-            }
-
-            region?.let {
-                sb.append(", ")
-                sb.append(region.id)
-            }
-
-            return sb.toString()
-        }
+    val filterId: String? = region?.id ?: country?.id
 }

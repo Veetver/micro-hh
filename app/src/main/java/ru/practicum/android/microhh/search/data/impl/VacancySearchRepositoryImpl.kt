@@ -24,8 +24,8 @@ class VacancySearchRepositoryImpl(
         options[QueryParams.PAGE.query] = page.toString()
         options[QueryParams.PER_PAGE.query] = "20"
 
-        filters.workplace?.let {
-            options[QueryParams.AREA.query] = it.ids
+        filters.workplace?.filterId?.let {
+            options[QueryParams.AREA.query] = it
         }
 
         filters.industry?.let {
