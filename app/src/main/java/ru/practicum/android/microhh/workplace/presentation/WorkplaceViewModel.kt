@@ -36,9 +36,10 @@ class WorkplaceViewModel(
     fun updateRegion(region: Catalog?) {
         if (region != _state.value.workplaceFilter.region) {
             _state.update {
+                val newWorkplaceFilter = it.workplaceFilter.copy(region = region)
                 it.copy(
-                    workplaceFilter = it.workplaceFilter.copy(region = region),
-                    showApply = settings.workplace != _state.value.workplaceFilter
+                    workplaceFilter = newWorkplaceFilter,
+                    showApply = settings.workplace != newWorkplaceFilter
                 )
             }
         }
