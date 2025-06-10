@@ -24,9 +24,10 @@ class WorkplaceViewModel(
     fun updateCountry(country: Catalog?) {
         if (country != _state.value.workplaceFilter.country) {
             _state.update {
+                val newWorkplaceFilter = WorkplaceFilter(country = country)
                 it.copy(
-                    workplaceFilter = it.workplaceFilter.copy(country = country),
-                    showApply = settings.workplace != _state.value.workplaceFilter
+                    workplaceFilter = newWorkplaceFilter,
+                    showApply = settings.workplace != newWorkplaceFilter
                 )
             }
         }
