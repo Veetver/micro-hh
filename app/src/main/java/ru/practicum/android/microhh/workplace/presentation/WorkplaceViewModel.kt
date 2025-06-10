@@ -41,25 +41,35 @@ class WorkplaceViewModel(
     }
 
     fun updateRegion(region: Catalog?) {
-        var country: Catalog? = null
         region?.let {
-            viewModelScope.launch {
-                var parentId: String? = getRegionByIdUseCase(region.id).first().area?.parentId
-                while (parentId.isNullOrEmpty().not()) {
-                    val parent = getRegionByIdUseCase(parentId).first().area
-                    parentId = parent?.parentId
-                    country = parent?.toArea()?.toCatalog()
-                }
-            }.invokeOnCompletion {
-                if (region != _state.value.workplaceFilter.region) {
+            var country: Catalog? = null
+            if (_state.value.workplaceFilter.country == null) {
+                viewModelScope.launch {
+                    var parentId: String? = getRegionByIdUseCase(region.id).first().area?.parentId
+                    while (parentId.isNullOrEmpty().not()) {
+                        val parent = getRegionByIdUseCase(parentId).first().area
+                        parentId = parent?.parentId
+                        country = parent?.toArea()?.toCatalog()
+                    }
+                }.invokeOnCompletion{
                     _state.update {
-                        val newWorkplaceFilter = it.workplaceFilter.copy(region = region, country = country)
+                        val newWorkplaceFilter = it.workplaceFilter.copy(country = country)
                         it.copy(
                             workplaceFilter = newWorkplaceFilter,
                             showApply = settings.workplace != newWorkplaceFilter
                         )
                     }
                 }
+            }
+        }
+
+        if (region != _state.value.workplaceFilter.region) {
+            _state.update {
+                val newWorkplaceFilter = it.workplaceFilter.copy(region = region)
+                it.copy(
+                    workplaceFilter = newWorkplaceFilter,
+                    showApply = settings.workplace != newWorkplaceFilter
+                )
             }
         }
     }
