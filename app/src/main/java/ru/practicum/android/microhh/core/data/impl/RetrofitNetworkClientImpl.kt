@@ -9,10 +9,10 @@ import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.utils.AppLog
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.country.data.dto.response.CountriesResponse
+import ru.practicum.android.microhh.industry.data.dto.IndustryResponse
 import ru.practicum.android.microhh.region.data.dto.request.AreaByIdRequest
 import ru.practicum.android.microhh.region.data.dto.response.AreaExtendedResponse
 import ru.practicum.android.microhh.region.data.dto.response.AreasResponse
-import ru.practicum.android.microhh.industry.data.dto.IndustryResponse
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.vacancy.data.dto.RetrofitVacancyDetailsRequest
 import java.io.IOException
