@@ -46,13 +46,8 @@ class WorkplaceFragment : BaseFragment<FragmentWorkplaceBinding>(FragmentWorkpla
                         }
                     }
                     .collect {
-                        if (it.workplaceFilter.country != null) {
-                            binding.country.setText(it.workplaceFilter.country.name)
-                        }
-
-                        if (it.workplaceFilter.region != null) {
-                            binding.region.setText(it.workplaceFilter.region.name)
-                        }
+                        binding.country.setText(it.workplaceFilter.country?.name)
+                        binding.region.setText(it.workplaceFilter.region?.name)
 
                         binding.apply.isVisible = it.showApply
                     }

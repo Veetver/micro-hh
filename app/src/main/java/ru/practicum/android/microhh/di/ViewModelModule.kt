@@ -47,6 +47,7 @@ val viewModelModule = module {
     viewModel {
         WorkplaceViewModel(
             settingsRepository = get(),
+            getRegionByIdUseCase = get(),
         )
     }
 

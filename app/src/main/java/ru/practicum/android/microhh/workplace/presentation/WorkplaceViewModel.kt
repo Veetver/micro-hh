@@ -1,17 +1,24 @@
 package ru.practicum.android.microhh.workplace.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.models.Catalog
+import ru.practicum.android.microhh.country.presentation.mapper.toCatalog
 import ru.practicum.android.microhh.filters.domain.api.SettingsRepository
+import ru.practicum.android.microhh.region.domain.impl.GetRegionByIdUseCase
+import ru.practicum.android.microhh.region.domain.mapper.toArea
 import ru.practicum.android.microhh.workplace.domain.models.WorkplaceFilter
 import ru.practicum.android.microhh.workplace.presentation.state.WorkplaceState
 
 class WorkplaceViewModel(
     settingsRepository: SettingsRepository,
+    private val getRegionByIdUseCase: GetRegionByIdUseCase
 ) : ViewModel() {
     private var settings = settingsRepository.filterSettings()
 
@@ -34,13 +41,25 @@ class WorkplaceViewModel(
     }
 
     fun updateRegion(region: Catalog?) {
-        if (region != _state.value.workplaceFilter.region) {
-            _state.update {
-                val newWorkplaceFilter = it.workplaceFilter.copy(region = region)
-                it.copy(
-                    workplaceFilter = newWorkplaceFilter,
-                    showApply = settings.workplace != newWorkplaceFilter
-                )
+        var country: Catalog? = null
+        region?.let {
+            viewModelScope.launch {
+                var parentId: String? = getRegionByIdUseCase(region.id).first().area?.parentId
+                while (parentId.isNullOrEmpty().not()) {
+                    val parent = getRegionByIdUseCase(parentId).first().area
+                    parentId = parent?.parentId
+                    country = parent?.toArea()?.toCatalog()
+                }
+            }.invokeOnCompletion {
+                if (region != _state.value.workplaceFilter.region) {
+                    _state.update {
+                        val newWorkplaceFilter = it.workplaceFilter.copy(region = region, country = country)
+                        it.copy(
+                            workplaceFilter = newWorkplaceFilter,
+                            showApply = settings.workplace != newWorkplaceFilter
+                        )
+                    }
+                }
             }
         }
     }

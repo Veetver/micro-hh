@@ -1,6 +1,5 @@
 package ru.practicum.android.microhh.region.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -54,13 +53,13 @@ class RegionViewModel(
             if (!countryId.isNullOrEmpty()) {
                 viewModelScope.launch {
                     getRegionByIdUseCase(countryId).collect { result ->
-                        Log.d("TAG", "getRegions: $result")
                         originalList.clear()
-                        result.area?.areas?.let { it -> originalList.addAll(it.map { it.toArea().toCatalog() }) }
-                        result.area?.areas?.let { it ->
+                        result.area?.areas?.let { areaExtended ->
+                            val catalogList = areaExtended.map { it.toArea().toCatalog() }
+                            originalList.addAll(catalogList)
                             processResult(
-                                it.map { it.toArea().toCatalog() },
-                                result.error
+                                regions = catalogList,
+                                error = result.error
                             )
                         }
                     }
@@ -68,7 +67,6 @@ class RegionViewModel(
             } else {
                 getRegionsWOCountriesUseCase()
                     .collect { result ->
-                        Log.d("TAG", "getRegions: ${result.areas}")
                         originalList.clear()
                         originalList.addAll(result.areas.map { it.toCatalog() })
                         processResult(result.areas.map { it.toCatalog() }, result.error)
