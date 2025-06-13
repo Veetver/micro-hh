@@ -30,6 +30,10 @@ class RegionRepositoryImpl(
                 }
             }
 
+            Constants.INTERNAL_SERVER_ERROR -> {
+                emit(AreaSearchState.Error(error = Constants.INTERNAL_SERVER_ERROR))
+            }
+
             else -> {
                 emit(AreaSearchState.Error(error = Constants.NO_CONNECTION))
             }
@@ -48,6 +52,10 @@ class RegionRepositoryImpl(
                         )
                     }
                 }
+            }
+
+            Constants.INTERNAL_SERVER_ERROR -> {
+                emit(AreaExtendedSearchState.Error(error = Constants.INTERNAL_SERVER_ERROR))
             }
 
             else -> {
