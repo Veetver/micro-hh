@@ -24,6 +24,11 @@ class IndustryRepositoryImpl(
                     }
                 }
             }
+
+            Constants.INTERNAL_SERVER_ERROR -> {
+                emit(CatalogState.Error(Constants.INTERNAL_SERVER_ERROR))
+            }
+
             else -> {
                 emit(CatalogState.Error(Constants.NO_CONNECTION))
             }
