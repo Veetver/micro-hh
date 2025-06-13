@@ -72,12 +72,11 @@ class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding
             }
             state.error != null -> {
                 when (state.error) {
-                    -1 -> {
-                        binding.statePlaceholder.mode = StatePlaceholderMode.ConnectionError
-                    }
-
-                    500 -> {
+                    Constants.INTERNAL_SERVER_ERROR -> {
                         binding.statePlaceholder.mode = StatePlaceholderMode.ServerError
+                    }
+                    else -> {
+                        binding.statePlaceholder.mode = StatePlaceholderMode.ConnectionError
                     }
                 }
             }
