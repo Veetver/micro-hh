@@ -13,17 +13,15 @@ class Network(
         return if (networkCheck.isNetworkAvailable()) {
             try {
                 action()
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
-
-                if (e is IOException || e is HttpException) {
-                    Response().apply {
-                        resultCode = Constants.INTERNAL_SERVER_ERROR
-                    }
-                } else {
-                    Response().apply {
-                        resultCode = Constants.UNKNOWN_ERROR
-                    }
+                Response().apply {
+                    resultCode = Constants.INTERNAL_CLIENT_ERROR
+                }
+            } catch (e: HttpException) {
+                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
+                Response().apply {
+                    resultCode = Constants.INTERNAL_SERVER_ERROR
                 }
             }
         } else {
