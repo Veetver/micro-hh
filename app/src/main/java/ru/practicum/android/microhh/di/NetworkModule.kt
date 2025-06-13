@@ -4,11 +4,17 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.microhh.BuildConfig
-import ru.practicum.android.microhh.core.data.network.HhService
+import ru.practicum.android.microhh.R
+import ru.practicum.android.microhh.country.data.network.HhCountryService
+import ru.practicum.android.microhh.industry.data.network.HhIndustryService
+import ru.practicum.android.microhh.region.data.network.HhRegionService
+import ru.practicum.android.microhh.search.data.network.HhVacanciesService
+import ru.practicum.android.microhh.vacancy.data.network.HhVacancyService
 
 val networkModule = module {
 
@@ -31,12 +37,44 @@ val networkModule = module {
             }).build()
     }
 
-    single<HhService> {
+    single<HhVacanciesService> {
         Retrofit.Builder()
-            .baseUrl("https://api.hh.ru")
+            .baseUrl(androidContext().getString(R.string.hh_base_url))
+            .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
+            .build()
+            .create(HhVacanciesService::class.java)
+    }
+
+    single<HhVacancyService> {
+        Retrofit.Builder()
+            .baseUrl(androidContext().getString(R.string.hh_base_url))
             .client(get<OkHttpClient>())
             .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
             .build()
-            .create(HhService::class.java)
+            .create(HhVacancyService::class.java)
+    }
+
+    single<HhCountryService> {
+        Retrofit.Builder()
+            .baseUrl(androidContext().getString(R.string.hh_base_url))
+            .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
+            .build()
+            .create(HhCountryService::class.java)
+    }
+
+    single<HhRegionService> {
+        Retrofit.Builder()
+            .baseUrl(androidContext().getString(R.string.hh_base_url))
+            .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
+            .build()
+            .create(HhRegionService::class.java)
+    }
+
+    single<HhIndustryService> {
+        Retrofit.Builder()
+            .baseUrl(androidContext().getString(R.string.hh_base_url))
+            .addConverterFactory(GsonConverterFactory.create(get<Gson>()))
+            .build()
+            .create(HhIndustryService::class.java)
     }
 }

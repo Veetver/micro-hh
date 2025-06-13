@@ -2,7 +2,6 @@ package ru.practicum.android.microhh.region.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.resources.AreaExtendedSearchState
 import ru.practicum.android.microhh.core.resources.AreaSearchState
 import ru.practicum.android.microhh.core.utils.Constants
@@ -11,10 +10,11 @@ import ru.practicum.android.microhh.region.data.dto.response.AreaExtendedRespons
 import ru.practicum.android.microhh.region.data.dto.response.AreasResponse
 import ru.practicum.android.microhh.region.data.mapper.toAreaExtended
 import ru.practicum.android.microhh.region.data.mapper.toFlatAreas
+import ru.practicum.android.microhh.region.data.network.RegionNetworkClient
 import ru.practicum.android.microhh.region.domain.api.RegionRepository
 
 class RegionRepositoryImpl(
-    private val networkClient: RetrofitNetworkClient,
+    private val networkClient: RegionNetworkClient,
 ) : RegionRepository {
     override fun getRegions(): Flow<AreaSearchState> = flow {
         val response = networkClient.getAreas()
