@@ -3,19 +3,19 @@ package ru.practicum.android.microhh.search.data.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
-import ru.practicum.android.microhh.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.microhh.core.resources.QueryParams
 import ru.practicum.android.microhh.core.resources.VacancySearchState
 import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 import ru.practicum.android.microhh.search.data.dto.RetrofitSearchRequest
 import ru.practicum.android.microhh.search.data.dto.VacancyResponse
-import ru.practicum.android.microhh.search.domain.api.VacancySearchRepository
+import ru.practicum.android.microhh.search.data.network.VacanciesNetworkClient
+import ru.practicum.android.microhh.search.domain.api.VacanciesSearchRepository
 
-class VacancySearchRepositoryImpl(
-    private val networkClient: RetrofitNetworkClient,
+class VacanciesSearchRepositoryImpl(
+    private val networkClient: VacanciesNetworkClient,
     private val dtoConverter: VacancyDtoConverter,
-) : VacancySearchRepository {
+) : VacanciesSearchRepository {
 
     private fun buildQuery(term: String, page: Int, filters: FilterSettings): HashMap<String, String> {
         val options: HashMap<String, String> = HashMap()
@@ -29,7 +29,7 @@ class VacancySearchRepositoryImpl(
         }
 
         filters.industry?.let {
-            options[QueryParams.INDUSTRY.query] = filters.industry.id
+            options[QueryParams.INDUSTRY.query] = it.id
         }
 
         filters.salary?.let {
@@ -41,7 +41,7 @@ class VacancySearchRepositoryImpl(
         return options
     }
 
-    override fun searchVacancy(term: String, page: Int, filters: FilterSettings): Flow<VacancySearchState> = flow {
+    override fun searchVacancies(term: String, page: Int, filters: FilterSettings): Flow<VacancySearchState> = flow {
         val options = buildQuery(term, page, filters)
         val response = networkClient.getVacancies(RetrofitSearchRequest(options))
 
