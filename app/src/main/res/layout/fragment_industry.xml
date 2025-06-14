@@ -32,6 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/side_padding_8"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/rv_bottom_padding"
         android:overScrollMode="never"
         android:background="?attr/android:colorBackground"
         android:visibility="gone"
