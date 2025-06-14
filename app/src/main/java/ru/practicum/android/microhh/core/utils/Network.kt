@@ -14,20 +14,22 @@ class Network(
             try {
                 action()
             } catch (e: IOException) {
-                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
-                Response().apply {
-                    resultCode = Constants.INTERNAL_CLIENT_ERROR
-                }
+                handleError(Constants.INTERNAL_CLIENT_ERROR, e)
             } catch (e: HttpException) {
-                AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(e))
-                Response().apply {
-                    resultCode = Constants.INTERNAL_SERVER_ERROR
-                }
+                handleError(Constants.INTERNAL_SERVER_ERROR, e)
             }
         } else {
-            Response().apply {
-                resultCode = Constants.NO_CONNECTION
-            }
+            handleError(Constants.NO_CONNECTION)
+        }
+    }
+
+    fun handleError(code: Int, error: Exception? = null): Response {
+        error?.let {
+            AppLog.d(AppLog.RETROFIT_API_RESPONSE, AppLog.getStackTraceString(it))
+        }
+
+        return Response().apply {
+            resultCode = code
         }
     }
 }
