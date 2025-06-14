@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">micro hh</string>
     <string name="prefs_file_name" translatable="false">Main preferences</string>
+    <string name="hh_base_url" translatable="false">https://api.hh.ru</string>
 
 
     <string name="search_fragment_title">Поиск вакансий</string>
