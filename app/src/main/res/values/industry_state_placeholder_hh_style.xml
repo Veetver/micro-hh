@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StatePlaceholderHHStyle.Industry" parent="StatePlaceholderHHStyle">
+        <item name="nothing_found_text">@string/no_industry_title</item>
+    </style>
+</resources>

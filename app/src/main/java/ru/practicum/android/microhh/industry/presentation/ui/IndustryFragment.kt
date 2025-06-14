@@ -89,10 +89,17 @@ class IndustryFragment : BaseFragment<FragmentIndustryBinding>(FragmentIndustryB
 
     private fun renderState(state: CatalogSearchState) {
         when (state) {
+            CatalogSearchState.Default -> {}
             is CatalogSearchState.Loading -> showPlaceholder(StatePlaceholderMode.Loading)
             is CatalogSearchState.NoData -> showPlaceholder(StatePlaceholderMode.ServerError)
-            is CatalogSearchState.Results -> showSearchResults(state.catalog)
-            else -> {}
+            is CatalogSearchState.NoConnection -> showPlaceholder(StatePlaceholderMode.ConnectionError)
+            is CatalogSearchState.Results -> {
+                if (state.catalog.isEmpty()) {
+                    showPlaceholder(StatePlaceholderMode.NothingFound)
+                } else {
+                    showSearchResults(state.catalog)
+                }
+            }
         }
     }
 }

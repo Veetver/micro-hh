@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.region.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -9,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.practicum.android.microhh.core.presentation.ui.component.StatePlaceholder.StatePlaceholderMode
 import ru.practicum.android.microhh.core.presentation.ui.component.recycler.CatalogAdapter
 import ru.practicum.android.microhh.core.presentation.ui.fragment.BaseFragment
 import ru.practicum.android.microhh.core.resources.CatalogListItemType
@@ -20,6 +22,7 @@ import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.core.utils.Debounce
 import ru.practicum.android.microhh.databinding.FragmentRegionBinding
 import ru.practicum.android.microhh.region.presentation.RegionViewModel
+import ru.practicum.android.microhh.region.presentation.state.RegionState
 import ru.practicum.android.microhh.workplace.presentation.WorkplaceViewModel
 
 class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding::inflate) {
@@ -41,10 +44,7 @@ class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding
 
         lifecycleScope.launch {
             viewModel.state.collect {
-                regionAdapter?.submitCatalogList(
-                    list = it.regions,
-                    type = CatalogListItemType.ARROW_ITEM.name,
-                )
+                renderState(it)
             }
         }
 
@@ -59,6 +59,35 @@ class RegionFragment : BaseFragment<FragmentRegionBinding>(FragmentRegionBinding
             } else {
                 regionAdapter?.submitCatalogList(
                     list = viewModel.state.value.regions.filter { it.name.contains(text, ignoreCase = true) },
+                    type = CatalogListItemType.ARROW_ITEM.name,
+                )
+            }
+        }
+    }
+
+    private fun renderState(state: RegionState) {
+        when {
+            state.isLoading -> {
+                binding.statePlaceholder.mode = StatePlaceholderMode.Loading
+            }
+            state.error != null -> {
+                when (state.error) {
+                    Constants.INTERNAL_SERVER_ERROR -> {
+                        binding.statePlaceholder.mode = StatePlaceholderMode.ServerError
+                    }
+                    else -> {
+                        binding.statePlaceholder.mode = StatePlaceholderMode.ConnectionError
+                    }
+                }
+            }
+            state.regions.isEmpty() -> {
+                binding.statePlaceholder.mode = StatePlaceholderMode.NothingFound
+            }
+            else -> {
+                binding.statePlaceholder.isVisible = false
+
+                regionAdapter?.submitCatalogList(
+                    list = state.regions,
                     type = CatalogListItemType.ARROW_ITEM.name,
                 )
             }

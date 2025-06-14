@@ -54,14 +54,13 @@ class RegionViewModel(
                 viewModelScope.launch {
                     getRegionByIdUseCase(countryId).collect { result ->
                         originalList.clear()
-                        result.area?.areas?.let { areaExtended ->
-                            val catalogList = areaExtended.map { it.toArea().toCatalog() }
-                            originalList.addAll(catalogList)
-                            processResult(
-                                regions = catalogList,
-                                error = result.error
-                            )
-                        }
+                        val catalogList = result.area?.areas?.map { it.toArea().toCatalog() } ?: emptyList()
+                        originalList.addAll(catalogList)
+
+                        processResult(
+                            regions = catalogList,
+                            error = result.error,
+                        )
                     }
                 }
             } else {

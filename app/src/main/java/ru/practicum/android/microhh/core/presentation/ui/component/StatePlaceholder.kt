@@ -116,11 +116,7 @@ class StatePlaceholder @JvmOverloads constructor(
                     textPlaceholder.text = nothingFoundText
                     textPlaceholder.isVisible = true
                 }
-                StatePlaceholderMode.NothingFound -> {
-                    imagePlaceholder.setImageDrawable(nothingFoundImage)
-                    textPlaceholder.text = nothingFoundText
-                    textPlaceholder.isVisible = true
-                }
+
                 StatePlaceholderMode.ServerError -> {
                     imagePlaceholder.setImageDrawable(serverErrorImage)
                     textPlaceholder.text = serverErrorText

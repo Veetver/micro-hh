@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.microhh.core.domain.models.Catalog
 import ru.practicum.android.microhh.core.resources.CatalogSearchState
+import ru.practicum.android.microhh.core.utils.Constants
 import ru.practicum.android.microhh.industry.domain.impl.IndustryListUseCase
+import kotlin.collections.isNotEmpty
 
 class IndustryViewModel(
     private val industryListUseCase: IndustryListUseCase,
@@ -68,12 +70,19 @@ class IndustryViewModel(
     private fun processResult(catalog: List<Catalog>, error: Int?) {
         updateState(
             when {
+                error != null -> {
+                    when (error) {
+                        Constants.INTERNAL_SERVER_ERROR -> CatalogSearchState.NoData(error)
+                        else -> CatalogSearchState.NoConnection
+                    }
+                }
+
                 catalog.isNotEmpty() -> {
                     originalList.clear()
                     originalList.addAll(catalog)
                     CatalogSearchState.Results(catalog)
                 }
-                error != null -> CatalogSearchState.NoData(error)
+
                 else -> CatalogSearchState.Default
             }
         )
