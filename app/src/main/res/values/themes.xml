@@ -52,4 +52,8 @@
     </style>
 
     <style name="Theme.MicroHH" parent="Base.Theme.MicroHH" />
+
+    <style name="FragmentStyle">
+        <item name="background">@color/dark_on_primary</item>
+    </style>
 </resources>

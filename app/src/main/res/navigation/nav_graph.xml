@@ -62,13 +62,22 @@
         android:id="@+id/country_fragment"
         android:name="ru.practicum.android.microhh.country.presentation.ui.CountryFragment"
         android:label="@string/country_fragment_title"
-        tools:layout="@layout/fragment_country" />
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_country_fragment_to_workplace_fragment"
+            app:destination="@id/workplace_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/region_fragment"
         android:name="ru.practicum.android.microhh.region.presentation.ui.RegionFragment"
         android:label="@string/region_fragment_title"
-        tools:layout="@layout/fragment_region" />
+        tools:layout="@layout/fragment_region" >
+        <argument
+            android:name="country"
+            app:argType="ru.practicum.android.microhh.core.domain.models.Catalog"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/industry_fragment"

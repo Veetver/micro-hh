@@ -2,6 +2,7 @@ package ru.practicum.android.microhh.core.utils
 
 import android.content.Context
 import android.util.TypedValue
+import ru.practicum.android.microhh.filters.domain.model.FilterSettings
 
 object Extensions {
 
@@ -10,4 +11,11 @@ object Extensions {
         this.toFloat(),
         context.resources.displayMetrics
     ).toInt()
+
+    fun FilterSettings.isEmpty(): Boolean {
+        return this.workplace == null &&
+            this.industry == null &&
+            this.salary == null &&
+            this.showWithoutSalary.not()
+    }
 }

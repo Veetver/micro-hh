@@ -10,6 +10,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.databinding.SalaryViewHhBinding
@@ -31,6 +32,12 @@ class SalaryViewHH @JvmOverloads constructor(
     private var labelTextColorFocused: Int = 0
     private var textColor: Int = 0
     private var hintColor: Int = 0
+
+    var text: String
+        get() = binding.text.text.toString()
+        set(value) {
+            binding.text.setText(value)
+        }
 
     init {
         context.theme.obtainStyledAttributes(
@@ -79,5 +86,11 @@ class SalaryViewHH @JvmOverloads constructor(
         this.orientation = HORIZONTAL
         this.gravity = Gravity.CENTER_VERTICAL
         background = AppCompatResources.getDrawable(context, R.drawable.rounded_shape_12)
+    }
+
+    fun setOnTextChanged(action: (String) -> Unit) {
+        binding.text.doAfterTextChanged {
+            action(text)
+        }
     }
 }

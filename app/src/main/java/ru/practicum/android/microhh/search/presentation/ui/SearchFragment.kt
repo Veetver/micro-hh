@@ -78,7 +78,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
                 searchRequest = text
 
-                if (hasFocus) viewModel.search(searchRequest)
+                if (hasFocus) {
+                    viewModel.search(text)
+                }
+
+                if (text.isEmpty()) {
+                    showPlaceholder(StatePlaceholderMode.Default)
+                }
             }
         }
 
@@ -108,6 +114,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 }
                 else -> false
             }
+        }
+
+        parentFragmentManager.setFragmentResultListener(Constants.KEY_FILTERS, viewLifecycleOwner) { _, _ ->
+            viewModel.search(searchRequest)
         }
     }
 

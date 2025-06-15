@@ -19,7 +19,7 @@
             style="@style/TypographyRegular12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Label"/>
+            tools:text="Label" />
 
         <TextView
             android:id="@+id/text"
@@ -37,6 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/side_padding_16"
         android:src="@drawable/ic_arrow_forward"
-        app:tint="@color/black" />
+        app:tint="?attr/colorOnPrimary" />
 
 </merge>

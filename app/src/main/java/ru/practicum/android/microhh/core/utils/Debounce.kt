@@ -14,10 +14,15 @@ class Debounce<T>(
     private var job: Job? = null
 
     fun start(parameter: T? = null) {
-        job?.cancel()
+        cancel()
         job = scope.launch {
             delay(delay)
             action(parameter)
         }
+    }
+
+    private fun cancel() {
+        job?.cancel()
+        job = null
     }
 }

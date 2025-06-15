@@ -5,17 +5,24 @@
 
         <attr name="connection_error_text" format="string|reference" />
         <attr name="nothing_found_text" format="string|reference" />
+        <attr name="server_error_text" format="string|reference" />
+        <attr name="no_list_text" format="string|reference" />
+        <attr name="region_not_found_text" format="string|reference" />
 
         <attr name="default_image" format="reference" />
         <attr name="loading_image" format="reference" />
         <attr name="connection_error_image" format="reference" />
         <attr name="nothing_found_image" format="reference" />
+        <attr name="server_error_image" format="reference" />
+        <attr name="no_list_image" format="reference" />
 
         <attr name="state" format="enum">
             <enum name="default_state" value="0" />
             <enum name="loading_state" value="1" />
             <enum name="connection_error_state" value="2" />
             <enum name="nothing_found_state" value="3" />
+            <enum name="server_error_state" value="4" />
+            <enum name="no_data_state" value="5" />
         </attr>
     </declare-styleable>
 </resources>

@@ -35,12 +35,14 @@ class RootActivity : AppCompatActivity() {
             binding.bottomNav.setupWithNavController(it)
             it.addOnDestinationChangedListener { _, destination, _ ->
                 // val currentFragment = navHostFragment?.childFragmentManager?.fragments?.lastOrNull()
+
                 when (destination.id) {
                     R.id.vacancy_fragment,
                     R.id.filters_fragment,
                     R.id.workplace_fragment,
                     R.id.country_fragment,
-                    R.id.region_fragment -> {
+                    R.id.region_fragment,
+                    R.id.industry_fragment -> {
                         binding.bottomNavDivider.isVisible = false
                         binding.bottomNav.isVisible = false
                     }

@@ -34,8 +34,15 @@ class SelectableViewHH @JvmOverloads constructor(
     private var textColorFilled: Int = 0
     private val arrowIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_arrow_forward)
     private val clearIcon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_close)
+    private var labelText: String = ""
     private var state: Int = 0
-    private var onTextCleared: () -> Unit = {}
+    private var onTextChanged: (String) -> Unit = {}
+    private var onCleared: () -> Unit = {}
+    val text: String
+        get() {
+            val currentText = binding.text.text.toString()
+            return if (currentText != labelText) currentText else ""
+        }
 
     init {
         this.orientation = HORIZONTAL
@@ -54,8 +61,8 @@ class SelectableViewHH @JvmOverloads constructor(
                 textColorFilled = getColor(R.styleable.SelectableViewHH_textColorFilled, 0)
                 state = getInt(R.styleable.SelectableViewHH_dataState, 0)
 
-                binding.label.text = getText(R.styleable.SelectableViewHH_label)
-                binding.text.text = getText(R.styleable.SelectableViewHH_text)
+                labelText = getText(R.styleable.SelectableViewHH_text).toString()
+                binding.text.text = labelText
             } finally {
                 recycle()
             }
@@ -63,21 +70,30 @@ class SelectableViewHH @JvmOverloads constructor(
 
         updateFiltersDataState()
         binding.trailingIcon.setOnClickListener {
-            state = FiltersDataState.EMPTY.code
             onTextCleared()
+            onCleared()
         }
     }
 
-    fun setText(text: String) {
-        binding.label.text = binding.text.text
+    fun setText(text: String?) {
+        if (text.isNullOrEmpty()) {
+            onTextCleared()
+            return
+        }
+
+        binding.label.text = labelText
         binding.text.text = text
         state = FiltersDataState.FILLED.code
         updateFiltersDataState()
     }
 
-    fun setOnClearText(action: () -> Unit) {
-        onTextCleared = action
-        binding.text.text = binding.label.text
+    fun setOnCleared(action: () -> Unit) {
+        onCleared = action
+    }
+
+    private fun onTextCleared() {
+        binding.text.text = labelText
+        binding.label.text = ""
         state = FiltersDataState.EMPTY.code
         updateFiltersDataState()
     }
@@ -87,12 +103,15 @@ class SelectableViewHH @JvmOverloads constructor(
         var textColorVar = 0
         var trailingIconVar: Drawable? = null
 
+        onTextChanged(text)
+
         when (state) {
             FiltersDataState.EMPTY.code -> {
                 labelTextColorVar = labelTextColor
                 textColorVar = textColor
                 trailingIconVar = arrowIcon
             }
+
             FiltersDataState.FILLED.code -> {
                 labelTextColorVar = labelTextColorFilled
                 textColorVar = textColorFilled
