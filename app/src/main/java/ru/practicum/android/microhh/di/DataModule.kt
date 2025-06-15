@@ -7,13 +7,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.microhh.R
 import ru.practicum.android.microhh.core.data.dto.VacancyDtoConverter
-import ru.practicum.android.microhh.core.data.impl.NetworkCheckImpl
 import ru.practicum.android.microhh.core.data.impl.VacancyDtoConverterImpl
-import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import ru.practicum.android.microhh.core.db.AppDataBase
 import ru.practicum.android.microhh.core.db.api.VacancyDetailsDBConvertor
 import ru.practicum.android.microhh.core.db.impl.VacancyDetailsDBConvertorImpl
-import ru.practicum.android.microhh.core.utils.Network
+import ru.practicum.android.microhh.core.utils.NetworkCheck
+import ru.practicum.android.microhh.core.utils.NetworkErrorHandler
 import ru.practicum.android.microhh.country.data.impl.CountryNetworkClientImpl
 import ru.practicum.android.microhh.country.data.network.CountryNetworkClient
 import ru.practicum.android.microhh.industry.data.impl.IndustryNetworkClientImpl
@@ -27,13 +26,9 @@ import ru.practicum.android.microhh.vacancy.data.network.VacancyNetworkClient
 
 val dataModule = module {
 
-    single<NetworkCheck> {
-        NetworkCheckImpl(get())
-    }
+    single { NetworkCheck(get()) }
 
-    single<Network> {
-        Network(get())
-    }
+    single { NetworkErrorHandler(get()) }
 
     single<VacanciesNetworkClient> {
         VacanciesNetworkClientImpl(get(), get())
