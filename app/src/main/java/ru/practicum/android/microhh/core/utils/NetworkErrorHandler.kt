@@ -2,17 +2,18 @@ package ru.practicum.android.microhh.core.utils
 
 import retrofit2.HttpException
 import ru.practicum.android.microhh.core.data.dto.Response
-import ru.practicum.android.microhh.core.data.network.NetworkCheck
 import java.io.IOException
 
-class Network(
-    val networkCheck: NetworkCheck,
+class NetworkErrorHandler(
+    val networkCheck: NetworkCheck
 ) {
 
     inline fun doRequest(action: () -> Response): Response {
         return if (networkCheck.isNetworkAvailable()) {
             try {
-                action()
+                action().apply {
+                    resultCode = Constants.HTTP_OK
+                }
             } catch (e: IOException) {
                 handleError(Constants.INTERNAL_CLIENT_ERROR, e)
             } catch (e: HttpException) {
